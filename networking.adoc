@@ -1,0 +1,26 @@
+---
+layout: landing-page 
+sidebar: sidebar 
+keywords: Technical Reports, TR, NetApp TR, ONTAP TR, ONTAP, ONTAP 9, best practices, best-practices 
+permalink: networking.html 
+summary: Questi report tecnici forniscono una panoramica del networking in NetApp ONTAP e delle procedure consigliate. 
+---
+= Report tecnici di rete
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+ONTAP offre diverse funzionalità e configurazioni di rete per soddisfare le applicazioni scale-out più esigenti. Utilizzando le funzionalità e le funzionalità di rete, le aziende possono creare un accesso affidabile e sicuro ai propri dati.
+
+[NOTE]
+====
+Questi report tecnici si espandono su link:https://docs.netapp.com/us-en/ontap/network-management/index.html["Gestione della rete ONTAP"] documentazione del prodotto.
+
+====
+link:https://www.netapp.com/pdf.html?item=/media/79703-TR-4949.pdf["TR-4949: BGP/VIP con ONTAP nel data center"^]
+Scopri come implementare rapidamente una configurazione BGP di base in ONTAP.

@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blocks>
+  <block id="f1574d51fcf9f775687f0113052df518" category="summary">Questi report tecnici forniscono una panoramica di ONTAP e delle procedure consigliate</block>
+  <block id="4434424bd2c1011098a508e85df56b94" category="doc">Report tecnici ONTAP</block>
+  <block id="f282b1ca0090a5b43997888b90926fdd" category="summary">Questi report tecnici forniscono una panoramica delle soluzioni di settore con NetApp ONTAP e delle procedure consigliate</block>
+  <block id="0fa7990fb9bf5e1fa283be0a561304a6" category="doc">Report tecnici sulle soluzioni di settore</block>
+  <block id="26ae15834646723cf4e06c663b022301" category="paragraph">Le nostre soluzioni di storage dei dati specifiche del settore, potenziate da partnership strategiche, affrontano le sfide aziendali critiche.</block>
+  <block id="81f1b99be9951f3725aa3dd62766099e" category="section-title">EDA</block>
+  <block id="9f6aab3394fa8b4a4f3eb0e262dd21db" category="inline-link-macro">Best practice per l'automazione della progettazione elettronica in ONTAP</block>
+  <block id="3a1fdccffa19c5f75d7d0b2a93f15be5" category="paragraph"><block ref="2e8967ffa6047b33da404da465d1bcb8" category="inline-link-macro-rx"></block>
+Scopri le procedure consigliate e i suggerimenti per l'implementazione con NetApp ONTAP per i carichi di lavoro EDA (Electronic Design Automation). Inoltre, i volumi FlexGroup, ideali per la gestione dell'overhead elevato dei metadati negli ambienti EDA.</block>
+  <block id="4ee2a6c7bb7c40af94c5a15dbf7eb673" category="section-title">Settore sanitario</block>
+  <block id="d2c6faba375945c91d8cf73d6f6ca162" category="inline-link-macro">Best practice NetApp per Epic</block>
+  <block id="763c6d557424cd5410b097e2ef5ad14f" category="paragraph"><block ref="062fe4e0bf537e79be483776e016a832" category="inline-link-macro-rx"></block>
+EPIC crea software per il settore sanitario. Scopri le procedure consigliate per l'integrazione dello storage NetApp con gli ambienti software Epic.</block>
+  <block id="9b1eab3e2899aca826b58a36a874e5b0" category="inline-link-macro">FlexPod - Epic per grandi ospedali</block>
+  <block id="18f58e71750388907b31229ac6ebd222" category="paragraph"><block ref="e78b211429277e404b3d491603512f3a" category="inline-link-macro-rx"></block>
+Scopri le funzionalità di performance end-to-end di FlexPod che dimostrano la necessità di un'applicazione di registrazione elettronica della salute (EHR) con database intersistema, con particolare attenzione al layout dello storage e alle Best practice per la configurazione di EHR su una soluzione FlexPod per ospedali di grandi dimensioni.</block>
+  <block id="6d263f04aad3f85fa2e7faaee5ac4e9d" category="summary">Questi report tecnici forniscono una panoramica dei volumi FlexCache e FlexGroup in NetApp ONTAP, oltre a consigli sulle Best practice</block>
+  <block id="fdf48fe142acd462c4ab95bcf98e4fbb" category="doc">Report tecnici sui volumi FlexCache e FlexGroup</block>
+  <block id="3b4e058a74be4665fcca8ff48d6dc163" category="paragraph">Le soluzioni NAS di NetApp semplificano la gestione dei dati e ti aiutano a tenere il passo con la crescita, ottimizzando al contempo i costi. Le soluzioni NAS di ONTAP offrono operazioni senza interruzioni, efficienza comprovata e scalabilità perfetta all'interno di un'architettura unificata. Basato su ONTAP, il NAS scale-out sfrutta l'enorme ecosistema ONTAP, con un significativo vantaggio in termini di innovazione e una visione per un'innovazione futura aggressiva.</block>
+  <block id="56674dc1c3b7f21d2e8981a01422e234" category="inline-link-macro">Volume ONTAP FlexCache</block>
+  <block id="18d80ba7c6a59ce977a2c00296df28a2" category="inline-link-macro">Volume ONTAP FlexGroup</block>
+  <block id="7837941a662d78b9d8c119c2745e0f04" category="paragraph">Questi report tecnici si espandono su <block ref="ac44a4894062679db1dbbf1a364248d3" category="inline-link-macro-rx"></block> e. <block ref="75e0ca8e6d4eeabe4dff066082d6af48" category="inline-link-macro-rx"></block> documentazione del prodotto.</block>
+  <block id="f24ce81f056d5acd59788df7f5ab36a1" category="section-title">FlexCache</block>
+  <block id="7d8308267015e1192f8f54543c1cff58" category="inline-link-macro">TR-4743: FlexCache in ONTAP</block>
+  <block id="c961d9be8d19d4a797bcb8379b8d53da" category="paragraph"><block ref="dcccffffe1593858762c9997c1787d46" category="inline-link-macro-rx"></block>
+FlexCache è una tecnologia di caching che crea repliche di volumi sparse e scrivibili sullo stesso cluster ONTAP o su cluster diversi. Consente di avvicinare dati e file all'utente per un throughput più rapido con un ingombro ridotto. Scopri come utilizzare FlexCache, le procedure consigliate, i limiti e le considerazioni per la progettazione e l'implementazione.</block>
+  <block id="ee1ef6cf0f3971b44eb2abcac958fb8d" category="section-title">Volumi FlexGroup</block>
+  <block id="005e8b273d9247c834522a5865fba55a" category="inline-link-macro">TR-4571a: Le dieci Best practice di FlexGroup</block>
+  <block id="88c689e951f21e04438921c1a8f89c53" category="paragraph"><block ref="e57f10ccb2fbbeb4438b60c102c4cbf0" category="inline-link-macro-rx"></block>
+Questo report tecnico è una versione condensata di TR-4571: Best practice e guida all'implementazione di NetApp ONTAP FlexGroup Volumes per un consumo rapido.</block>
+  <block id="af1445adb596e3036441303b3f225364" category="inline-link-macro">TR-4557: NetApp ONTAP FlexGroup Volumes - Panoramica tecnica</block>
+  <block id="3649786d1f84e11756db92f2cd48a240" category="paragraph"><block ref="cc2f82cb4a64554dd07d5530f932405a" category="inline-link-macro-rx"></block>
+Scopri FlexGroup Volumes, un container NAS scale-out di ONTAP, che unisce capacità quasi infinita con performance prevedibili e a bassa latenza in carichi di lavoro con elevati carichi di metadati.</block>
+  <block id="222369aa30ed4d2b01e2ad3c4826e38f" category="inline-link-macro">TR-4571: Best practice e guida all'implementazione di NetApp ONTAP FlexGroup Volumes</block>
+  <block id="b42d52921e30b7b641b9b5fd0146b053" category="paragraph"><block ref="aa86589b7ac63727c91bf2f5e5311f75" category="inline-link-macro-rx"></block>
+Scopri i volumi FlexGroup, le procedure consigliate e i suggerimenti per l'implementazione. I volumi FlexGroup sono un'evoluzione dei container NAS scale-out di ONTAP, che combina capacità quasi infinita con performance prevedibili e a bassa latenza in carichi di lavoro con carichi di lavoro elevati di metadati.</block>
+  <block id="11df1ae4cc30239b7ebc7d18218d82e6" category="inline-link-macro">TR-4678: Protezione dei dati e backup dei volumi FlexGroup</block>
+  <block id="60695b7d01c0b1ec5b9aeea5bf59425a" category="paragraph"><block ref="c583ab426d51a7f6ffbad70f1b57d890" category="inline-link-macro-rx"></block>
+Scopri di più sulla protezione dei dati e sul backup per i volumi FlexGroup, tra cui copie Snapshot, SnapMirror e altre soluzioni di backup e protezione dei dati.</block>
+  <block id="571f90010469258dc9123581bdf16ec3" category="summary">Questi report tecnici forniscono una panoramica del networking in NetApp ONTAP e delle procedure consigliate.</block>
+  <block id="dfe7b9eae127da474304b2b1052a7b0f" category="doc">Report tecnici di rete</block>
+  <block id="e1b09d2161399043758e3e473f4dc1e9" category="paragraph">ONTAP offre diverse funzionalità e configurazioni di rete per soddisfare le applicazioni scale-out più esigenti. Utilizzando le funzionalità e le funzionalità di rete, le aziende possono creare un accesso affidabile e sicuro ai propri dati.</block>
+  <block id="bc3096e2f4208ca95bf08527d9c73da7" category="inline-link-macro">Gestione della rete ONTAP</block>
+  <block id="cae5757656de5f91ff9b4d6f16d9ae5d" category="paragraph">Questi report tecnici si espandono su <block ref="996a4fa021c2f1eaacde86eea2fd5b4f" category="inline-link-macro-rx"></block> documentazione del prodotto.</block>
+  <block id="b4c6053c4413d462a98923fab1f2343d" category="inline-link-macro">TR-4949: BGP/VIP con ONTAP nel data center</block>
+  <block id="d13178c03cfb1660f7474d4a18fb7385" category="paragraph"><block ref="b42253f83b28ed50b4dd2afb0ffd5857" category="inline-link-macro-rx"></block>
+Scopri come implementare rapidamente una configurazione BGP di base in ONTAP.</block>
+  <block id="d41d8cd98f00b204e9800998ecf8427e" category="doc"></block>
+  <block id="5edbe8c55546db896b55871b44a39263" category="cell">*Data*</block>
+  <block id="ae87ca47fc6a4ea8603da91e026c5217" category="cell">*Numero TR*</block>
+  <block id="b4656b8766fb7422ebb96caa6deb93eb" category="cell">*Soggetto*</block>
+  <block id="b96941ac46daa357b1782f017746a57b" category="cell">*Descrizione della modifica*</block>
+  <block id="f0ab89fb7bcc73913d8bf0c4ddd2549c" category="cell">07/12/2023</block>
+  <block id="382b0f5185773fa0f67a8ed8056c7759" category="cell">N/A.</block>
+  <block id="0db377921f4ce762c62526131097968f" category="cell">Generale</block>
+  <block id="94a5eb50257297b554fd3ac8b6dfe79e" category="cell">Release iniziale del repository di report tecnici ONTAP</block>
+  <block id="beceafe114136722547c2e21a52b7725" category="summary">Questi report tecnici forniscono una panoramica dell'efficienza dello storage in NetApp ONTAP e delle procedure consigliate.</block>
+  <block id="f1e9cbc9c76c4f1ca7cfbe583e5ed01c" category="doc">Report tecnici sull'efficienza dello storage</block>
+  <block id="d401056dcf3a145a85c351448d6d841c" category="paragraph">ONTAP offre un portfolio completo di funzionalità per l'efficienza dello storage. Compressione dei dati inline, deduplica e compaction lavorano insieme per ridurre i costi di storage e massimizzare i dati che è possibile memorizzare. Inoltre, puoi moltiplicare i risparmi con le copie Snapshot NetApp efficienti in termini di spazio, il thin provisioning, la replica e le tecnologie di cloning.</block>
+  <block id="bfc5190da5606e58d3f1a2d5713aaba1" category="inline-link-macro">documentazione sulla deduplica</block>
+  <block id="7d2fb3c47804b86865442a67f3070883" category="inline-link-macro">documentazione sulla compressione</block>
+  <block id="ea3625644fab5ac0fcdbae62959fe6f3" category="inline-link-macro">documentazione sull'efficienza dello storage sensibile alla temperatura</block>
+  <block id="f99b2c942072f5eb17ace287e83ae2e8" category="inline-link-macro">documentazione sulla compattazione</block>
+  <block id="2fdba2a70966e6bc2578788130372ab6" category="paragraph">La documentazione procedurale per la deduplica è disponibile all'indirizzo <block ref="7e02c89f92c52a16d49cb22080a2ce2e" category="inline-link-macro-rx"></block>
+La documentazione procedurale per la compressione è disponibile all'indirizzo <block ref="1973f0105a3aeb05f1a78ee4266ba307" category="inline-link-macro-rx"></block>
+La documentazione procedurale per l'efficienza dello storage sensibile alla temperatura è disponibile all'indirizzo <block ref="019f0bdfafc6cc6e89282933ca8f80c0" category="inline-link-macro-rx"></block>
+La documentazione procedurale per la compattazione è disponibile all'indirizzo <block ref="3acd0d263d43c56e4642c32f39a44e7d" category="inline-link-macro-rx"></block></block>
+  <block id="2946aa49d1184bc896de6ca7b37142fe" category="summary">Registro delle recenti modifiche apportate ai report tecnici ONTAP</block>
+  <block id="49b88f18105e07dbad27bd4e62c7f28c" category="doc">Registro delle modifiche dei report tecnici ONTAP</block>
+  <block id="adce6a073b604329f03bda6b7b9ec913" category="paragraph">Recenti modifiche ai report tecnici ONTAP. Vengono elencate per prime le modifiche più recenti.</block>
+  <block id="512deac3022399f47149b53237225707" category="open-title">Tutte le modifiche</block>
+  <block id="7ad7be62d0bdc93deb35e6cb0da16cf6" category="summary">Questi report tecnici forniscono una panoramica delle applicazioni e dei database su ONTAP, oltre alle procedure consigliate</block>
+  <block id="35c42caf14b9f812a74246f401f4a9a9" category="doc">Report tecnici di applicazioni e database</block>
+  <block id="e2063b7bef20a99d1924626bcc9e3aa7" category="paragraph">ONTAP è la base per la gestione dei dati e la protezione dei dati per molte applicazioni aziendali e tecnologie di database. I seguenti report tecnici forniscono indicazioni sulle procedure consigliate e sulle procedure di implementazione di NetApp per Microsoft SQL Server, MySQL, Oracle e PostgreSQL.</block>
+  <block id="78898e52fcbdc5337204a384f2456d4f" category="section-title">Microsoft SQL Server</block>
+  <block id="0502e6755528910223db364699e71622" category="inline-link-macro">TR-4590: Guida alle Best practice per Microsoft SQL Server con ONTAP</block>
+  <block id="463e4a799ee233502c3bbb0b6374c6b0" category="paragraph"><block ref="99de55c4c3e3e73145e414bc6b81b05c" category="inline-link-macro-rx"></block>
+Scopri come gli amministratori dello storage e i database possono implementare correttamente Microsoft SQL Server sullo storage ONTAP.</block>
+  <block id="341a003a31c42c0cef0190e68c763b92" category="inline-link-macro">TR-4714: Best practice per Microsoft SQL Server con SnapCenter</block>
+  <block id="90b44124faaed2f05284342f168bcd69" category="paragraph"><block ref="48bef8095e185c0391e2bfeabbd16700" category="inline-link-macro-rx"></block>
+Scopri ora come implementare con successo Microsoft SQL Server sullo storage ONTAP utilizzando la tecnologia SnapCenter per la protezione dei dati.</block>
+  <block id="62a004b95946bb97541afa471dcca73a" category="section-title">MySQL</block>
+  <block id="e30a807fdb99340178c0bc53b24ac3b2" category="inline-link-macro">Database MySQL su ONTAP</block>
+  <block id="051ec17116a6065c836cc2db0b070841" category="paragraph"><block ref="63cee4c601937a667e7d540ed75c9cbf" category="inline-link-macro-rx"></block>
+MySQL e le sue varianti, tra cui MariaDB e Percona, sono ampiamente utilizzate per molte applicazioni aziendali. Queste applicazioni spaziano dai siti di social networking globali ai sistemi di e-commerce di grandi dimensioni ai sistemi di hosting per PMI contenenti migliaia di istanze di database. Scopri i requisiti di configurazione e le indicazioni per l'ottimizzazione e la configurazione dello storage per l'implementazione di MySQL su ONTAP.</block>
+  <block id="30162ed78b6c10f731411f2fc440c24f" category="section-title">Oracle</block>
+  <block id="a23b0f6840eece1bcfc1a2ce047e740e" category="inline-link-macro">TR-3633: Database Oracle su ONTAP</block>
+  <block id="a41f7d9052bf4182682f619168a52269" category="paragraph"><block ref="5cbc519d39d68c3a34942c12528dc6aa" category="inline-link-macro-rx"></block>
+Scopri le procedure consigliate che consentono agli amministratori dello storage e ai database di implementare con successo Oracle sullo storage ONTAP.</block>
+  <block id="42b90160721ba6196a556c6ad89fdb6d" category="inline-link-macro">TR-4969: Performance dei database Oracle su AFF A-Series e C-Series</block>
+  <block id="9669cfadd2c20a01f05013292717eaf0" category="paragraph"><block ref="6c6ae3741e49f449a73f7df54eba7a62" category="inline-link-macro-rx"></block>
+ONTAP è una potente piattaforma per la gestione dei dati con funzionalità native che includono compressione inline, aggiornamenti hardware senza interruzioni e la possibilità di importare un LUN da uno storage array esterno. È possibile eseguire il clustering di un massimo di 24 nodi, fornendo contemporaneamente i dati attraverso i protocolli NFS (Network file System), SMB (Server message Block), iSCSI, Fibre Channel (FC) e NVMe (Nonvolatile Memory Express). Inoltre, la tecnologia Snapshot è la base per la creazione di decine di migliaia di backup online e cloni di database completamente operativi. Oltre al ricco set di funzionalità di ONTAP, esistono una vasta gamma di requisiti per gli utenti, tra cui dimensioni del database, requisiti di performance e esigenze di protezione dei dati. Scopri le performance dei database bare metal utilizzando i sistemi storage AFF, inclusi I Sistemi A-Series e C-Series, e copre sia i massimi che la differenza pratica tra le due opzioni AFF.</block>
+  <block id="34406693b9151b494d47dcd55a1757d7" category="inline-link-macro">TR-4971: Performance del database Oracle virtualizzato su AFF A-Series e C-Series</block>
+  <block id="41e330e2e21a5a25fdbd3005d3282061" category="paragraph"><block ref="4952dcbaf377c648429390f6f24c3cb5" category="inline-link-macro-rx"></block>
+ONTAP è una potente piattaforma per la gestione dei dati con funzionalità native che includono compressione inline, aggiornamenti hardware senza interruzioni e la possibilità di importare un LUN da uno storage array esterno. È possibile eseguire il clustering di un massimo di 24 nodi, fornendo contemporaneamente i dati tramite protocolli NFS (Network file System), SMB (Server message Block), iSCSI, Fibre Channel FC) e NVMe (Nonvolatile Memory Express). Inoltre, la tecnologia Snapshot è la base per la creazione di decine di migliaia di backup online e cloni di database completamente operativi. Oltre al ricco set di funzionalità di ONTAP, esistono una vasta gamma di requisiti per gli utenti, tra cui dimensioni del database, requisiti di performance e esigenze di protezione dei dati. Scopri le performance dei database virtualizzati che utilizzano i sistemi storage AFF, inclusi I Sistemi A-Series e C-Series, e copre sia i massimi che la differenza pratica tra le due opzioni AFF.</block>
+  <block id="cbdc263e8f614279db88bb4ac39bea33" category="inline-link-macro">TR-4591: Protezione dei dati Oracle: Backup, recovery, replica e disaster recovery</block>
+  <block id="2cfcb3c52aa4da37a5ade8efb2698cb6" category="paragraph"><block ref="a34c6cbdebe7369d30197e0b49695e63" category="inline-link-macro-rx"></block>
+Scopri le procedure consigliate che consentono agli amministratori dello storage e ai database di eseguire correttamente il backup, il ripristino, la replica e il disaster recovery per lo storage Oracle su ONTAP.</block>
+  <block id="591da82cedca4486269083d381f07df7" category="inline-link-macro">TR-4592: Oracle su MetroCluster</block>
+  <block id="7fb0da57ce1a365cd473cb78a5c9874d" category="paragraph"><block ref="244f6bd2e8281768e78200ce9e6ed8d7" category="inline-link-macro-rx"></block>
+Scopri le procedure consigliate, le procedure di test e altre considerazioni per il funzionamento dei database Oracle su una funzionalità di replica sincrona di MetroCluster.</block>
+  <block id="1209bff58f1e24aef718b4733993d134" category="inline-link-macro">TR-4534: Migrazione dei database Oracle ai sistemi storage ONTAP</block>
+  <block id="d2c37ecb83e590a249516b3f411c1123" category="paragraph"><block ref="5144852944118f9b9f0eaa7b6f98706d" category="inline-link-macro-rx"></block>
+Scopri le considerazioni generali per la pianificazione di una strategia di migrazione, i tre diversi livelli in cui avviene lo spostamento dei dati e illustra in dettaglio alcune delle varie procedure disponibili.</block>
+  <block id="e26db0138fc05145ed94ee1f1cd92b64" category="inline-link-macro">TR-4695: Tiering dello storage del database con FabricPool</block>
+  <block id="6ea3c6416acaabdf419275588df7f764" category="paragraph"><block ref="0f6da34639ae3a472dc5fdf06f6c7519" category="inline-link-macro-rx"></block>
+Scopri i vantaggi e le opzioni di configurazione di FabricPool con diversi database, incluso il sistema di gestione dei database relazionali Oracle (RDBMS).</block>
+  <block id="df1217c57234952b108fdf8edeea9c1f" category="inline-link-macro">TR-4899: Failover trasparente delle applicazioni del database Oracle con SnapMirror Business Continuity</block>
+  <block id="b72e09398681a9062ccd0090b9726391" category="paragraph"><block ref="9ac6d7d78a5408ebec6295c5b91049c1" category="inline-link-macro-rx"></block>
+SnapMirror Business Continuity (SM-BC) e Oracle Real Application Cluster (RAC) sono in grado di fornire continuità e failover delle applicazioni trasparenti in caso di interruzioni del sito e disastri reali. Scopri le linee guida per la configurazione e le procedure consigliate per un array di storage AFF con SM-BC come componente storage di Oracle RAC.</block>
+  <block id="20edcec83b5ec5c0064ad8013e36923e" category="inline-link-macro">TR-4876: Best practice per la soluzione e l'implementazione della multitenancy Oracle con ONTAP</block>
+  <block id="37cf945b6fa0182e1288122764b0e5c0" category="paragraph"><block ref="1285e23f10a9e18278d2c6e638032a3f" category="inline-link-macro-rx"></block>
+Scopri le procedure consigliate per il provisioning, la gestione e la protezione dei database multi-tenant Oracle utilizzando lo storage ONTAP per massimizzare i vantaggi dei database multi-tenant Oracle e delle funzionalità del software ONTAP.</block>
+  <block id="399bd1ee587245ecac6f39beaa99886f" category="section-title">PostgreSQL</block>
+  <block id="a35a98b9afc7144da919629a5c06a948" category="inline-link-macro">TR-4770: Database PostgreSQL su ONTAP</block>
+  <block id="06dfbd657fe18ba4c823ec3a750f2fe0" category="paragraph"><block ref="e09245bca75b3cf45cd5016133d826fd" category="inline-link-macro-rx"></block>
+PostgreSQL viene fornito con varianti che includono PostgreSQL, PostgreSQL Plus ed EDB Postgres Advanced Server (ECAS). PostgreSQL viene in genere implementato come database back-end per applicazioni multi-Tier. È supportato da pacchetti middleware comuni (come PHP, Java, Python, Tcl/TK, ODBC, E JDBC) ed è stata storicamente una scelta popolare per i sistemi di gestione di database open-source. Scopri i requisiti di configurazione e le istruzioni per l'ottimizzazione e la configurazione dello storage per l'implementazione di PostgreSQL su ONTAP.</block>
+  <block id="38d8bbc60e04ec3f712089a191e11bc0" category="summary">Questi report tecnici forniscono una panoramica della business continuity in NetApp ONTAP e delle procedure consigliate</block>
+  <block id="96323bdc332765b9211ff3f9ba1e5e21" category="doc">Report tecnici sulla business continuity</block>
+  <block id="af1ff78198ebe07ec4e7f54b33766c19" category="paragraph">NetApp offre un'ampia gamma di soluzioni che razionalizzano la posizione in cui risiedono applicazioni e dati per migliorare le performance in modo conveniente. Protezione dei dati, replica e disponibilità continua: La gestione dei dati di ONTAP può semplificare la protezione dei dati con la gestione delle policy IT "set-it-and-forget-it", garantendo al contempo la business continuity con MetroCluster e SnapMirror.</block>
+  <block id="39b0dc37ea1ddd4007baaf5cc0073251" category="inline-link-macro">Continuità aziendale di ONTAP SnapMirror</block>
+  <block id="18f57d600a92c92b9c8e184c2871790b" category="inline-link-macro">ONTAP MetroCluster</block>
+  <block id="7c6c52011182351a302482a52746b200" category="paragraph">Questi report tecnici si espandono su <block ref="dcfc6b38559c4256190664addc167f09" category="inline-link-macro-rx"></block> e. <block ref="c3546ed1acbc93cc8865ba8cc6d620ce" category="inline-link-macro-rx"></block> documentazione del prodotto.</block>
+  <block id="704de765250161b4c06ce64f26a08d82" category="section-title">Continuità aziendale SnapMirror (SM-BC)</block>
+  <block id="9c24652fa5c48bb02fb4d94e586e451a" category="inline-link-macro">TR-4878: Business continuity SnapMirror (SM-BC)</block>
+  <block id="5786362dce5c9f77bbc57e94b44f3e27" category="paragraph"><block ref="7fe3405091906f7f62069f8d3521e969" category="inline-link-macro-rx"></block>
+SnapMirror Business Continuity (SM-BC) è una soluzione di storage a disponibilità continua con granularità a livello di applicazione, disponibile per ONTAP in esecuzione su sistemi storage AFF o All SAN Array (ASA), per soddisfare le esigenze RPO 0 e RTO 0 delle applicazioni aziendali più critiche.</block>
+  <block id="1749d12df3df2319d3eee218a277ff83" category="section-title">MetroCluster</block>
+  <block id="8cfbc6352d8ced5b800023a1d24ac804" category="inline-link-macro">TR-4705: Architettura e progettazione della soluzione NetApp MetroCluster</block>
+  <block id="4c51a3fcdb358ea77ba4e6480c162f6a" category="paragraph"><block ref="4f2a5ddc71107b4c5210f0d334a301b5" category="inline-link-macro-rx"></block>
+Questo documento descrive l'architettura di alto livello e i concetti di progettazione per le funzionalità di MetroCluster in ONTAP.</block>
+  <block id="577971aa0199b86832dd14a0bc065722" category="inline-link-macro">TR-4689: IP NetApp MetroCluster</block>
+  <block id="f7359ddc38932bd9c6b16b1c7ac6b76e" category="paragraph">*IP MetroCluster*
+<block ref="702aece58417da0f07683c0a2bc2de04" category="inline-link-macro-rx"></block>
+MetroCluster è una soluzione di storage a disponibilità continua per ONTAP in esecuzione su sistemi FAS e AFF. MetroCluster IP è l'ultima evoluzione che utilizza un fabric di storage back-end basato su Ethernet. MetroCluster IP offre una configurazione altamente ridondante per soddisfare le esigenze delle applicazioni aziendali più critiche. MetroCluster IP è incluso in ONTAP e fornisce connettività NAS e SAN per client e server che utilizzano lo storage ONTAP.</block>
+  <block id="fa0e3cb985e828073f466cabcba86492" category="inline-link-macro">TR-4375: FC NetApp MetroCluster</block>
+  <block id="e99f8b0ccb185a35ae5bd9c697f58a81" category="paragraph">*MetroCluster FC*
+<block ref="1bface5a173eefb1d9e7e7b00b6f5d8f" category="inline-link-macro-rx"></block>
+MetroCluster offre una disponibilità continua dei dati in data center geograficamente separati per le applicazioni mission-critical. Scopri le procedure consigliate da MetroCluster FC, le decisioni di progettazione e le configurazioni supportate.</block>
+  <block id="a0ace60e8f2589435d73a5159489ac7d" category="summary">Questi report tecnici forniscono una panoramica dei protocolli a blocchi in ONTAP e delle procedure consigliate.</block>
+  <block id="f561be93a75a6e4c6d439a560d15164f" category="doc">Report tecnici SAN</block>
+  <block id="c79fa2df92442991a55f6be038bb5114" category="paragraph">Lo storage SAN ONTAP offre un'esperienza SAN semplificata che offre alta disponibilità per i database mission-critical della tua organizzazione e per altri carichi di lavoro SAN. Grazie all'integrazione dei servizi dati Best-in-class con database Oracle, SAP e Microsoft SQL Server, oltre a VMware e altri hypervisor leader del settore, ONTAP SAN offre un time-to-value accelerato per le applicazioni di database aziendali.</block>
+  <block id="53406d96a5f4726851003f28cf19b334" category="inline-link-macro">Gestione dello storage SAN ONTAP</block>
+  <block id="6c561e9ad0e5d8beb4da6bc8a25ee4f9" category="paragraph">Questi report tecnici si espandono su <block ref="5a9e569dab2e143552c7ac844d930ecd" category="inline-link-macro-rx"></block> documentazione del prodotto.</block>
+  <block id="d8f8ef9eac52f90ae281cff715a78e2a" category="inline-link-macro">TR-4080: Best practice per LE SAN moderne in ONTAP</block>
+  <block id="5ffd37546dbc0282bffe2fe8fc8ab27e" category="paragraph"><block ref="b80f5820b911f23b33b74abe59254363" category="inline-link-macro-rx"></block>
+Scopri i protocolli a blocchi in ONTAP e le procedure consigliate.</block>
+  <block id="3b87036714b3136acc2aae7890fd7edb" category="inline-link-macro">TR-4684: Implementazione e configurazione di SAN moderne con NVMe over Fabrics (NVMe-of)</block>
+  <block id="34b05cb5d6ec578656c90adeba7715e5" category="paragraph"><block ref="63fc1db08e0f9d5d706220043515ab72" category="inline-link-macro-rx"></block>
+Scopri come implementare e configurare NVMe sui trasporti di fabric (NVMe su Fibre Channel e NVMe su TCP). Gli argomenti trattati includono le linee guida di progettazione, implementazione, configurazione, gestione e le procedure consigliate per creare soluzioni SAN moderne ad alta disponibilità e performance utilizzando i protocolli e i trasporti NVMe.</block>
+  <block id="44f86414cc6f7a3896ef5aa684186663" category="inline-link-macro">TR-4515: Sistemi ONTAP AFF All SAN Array (ASA)</block>
+  <block id="8d04a09f4edabba7e258cb663e9829ed" category="paragraph"><block ref="cc723865ccc14ae6d193059ca8789d74" category="inline-link-macro-rx"></block>
+Scopri i sistemi NetApp AFF All SAN Array (ASA) e come implementarli in base alle procedure consigliate per le configurazioni SAN business-critical sempre disponibili.</block>
+  <block id="84d69011a1a493b2795f8b571a8773b1" category="inline-link-macro">TR-4968: Integrità e disponibilità dei dati dell'array all-SAN NetApp</block>
+  <block id="656b37e505cd401fd574ca1e26892980" category="paragraph"><block ref="7792d8e3bf5a58bae4d6e0bf568b517e" category="inline-link-macro-rx"></block>
+Scopri in che modo le varie funzionalità di protezione dei dati e integrità dei dati di un array all SAN funzionano per ottenere il massimo uptime delle applicazioni e le procedure consigliate per la progettazione, l'implementazione e la gestione di una rete SAN.</block>
+  <block id="fe83fd7d45f7be55d765cb2b115c666d" category="inline-link-macro">Moderna soluzione flash SAN connessa al cloud</block>
+  <block id="3ef9730cf9c17847b70c58d7c55144cc" category="paragraph"><block ref="8d388e2f02e965345906f5a745587ecc" category="inline-link-macro-rx"></block>
+Questa architettura verificata da NetApp è stata progettata e verificata congiuntamente da NetApp, VMware e Broadcom. Utilizza le più recenti soluzioni tecnologiche Brocade, Emulex e VMware vSphere insieme allo storage all-flash NetApp, che definisce un nuovo standard per lo storage SAN aziendale e la protezione dei dati che favorirà un valore di business superiore.</block>
+  <block id="6a173235ab64d5d06707df64873fa354" category="summary">Questi report tecnici forniscono una panoramica dei servizi NFS, SMB/CIFS, S3, name service in NetApp ONTAP e delle procedure consigliate.</block>
+  <block id="0af6d102577c3307d735ff1218d6ee2d" category="doc">Report tecnici NAS</block>
+  <block id="0e53196a230ad7e6cf13fbecfe1dd427" category="paragraph">Le soluzioni NAS di NetApp semplificano la gestione dei dati e ti aiutano a tenere il passo con la crescita, ottimizzando al contempo i costi. Le soluzioni NAS di ONTAP offrono operazioni senza interruzioni, efficienza e scalabilità perfetta all'interno di un'architettura unificata. Basato su NetApp ONTAP, il NAS scale-out sfrutta l'enorme ecosistema ONTAP, con un significativo vantaggio in termini di innovazione e una visione per un'innovazione futura aggressiva.</block>
+  <block id="057b0a61093f8c5a3fd2cb091c2487ed" category="inline-link-macro">Gestione dello storage NAS ONTAP</block>
+  <block id="1dada3966fa9b53bf1d2ec70e7bd1f65" category="inline-link-macro">Gestione dello storage ONTAP S3</block>
+  <block id="5a3ffa46086f85debc0cf0a6e5bbbbfb" category="paragraph">Questi report tecnici si espandono su <block ref="83cae19a650bef8958f6b01f7aed4a21" category="inline-link-macro-rx"></block> e. <block ref="b9b5b9fe9b782e93a435188e6d407d2b" category="inline-link-macro-rx"></block> documentazione del prodotto.</block>
+  <block id="1d1a594959ec615f56516f5d0f5e8ddb" category="section-title">NFS</block>
+  <block id="0898b9840a5d2d5955aad2c775228fd4" category="inline-link-macro">TR-4067: Best practice e guida all'implementazione di NFS in ONTAP</block>
+  <block id="ec478fa590b1d0c14e6b148d56990a21" category="paragraph"><block ref="fe159189c16fecab70e72088e682cdf8" category="inline-link-macro-rx"></block>
+Scopri i concetti di base, le informazioni di supporto, i suggerimenti per la configurazione e le procedure consigliate per NFS in ONTAP.</block>
+  <block id="553c92e7874fa63f8f6f58b7abd50a7d" category="inline-link-macro">TR-4962: Attributi estesi NFSv4.2</block>
+  <block id="0587b623fc4592b3c3112e13d0b0791c" category="paragraph"><block ref="42ab4ac24d9459ab46e3ff1a3e13ce9f" category="inline-link-macro-rx"></block>
+Scopri come abilitare e utilizzare gli attributi estesi NFSv4.2 in ONTAP 9.12.1 e versioni successive.</block>
+  <block id="b4fdd997b1f33e0d4c6964444c2bf399" category="section-title">PMI</block>
+  <block id="161bcf67f10aeddc88947ca8eba37a36" category="inline-link-macro">TR-4740: SMB 3.0 multicanale</block>
+  <block id="3aae488ae0897b3d1cd2f5bf951bc4e2" category="paragraph"><block ref="e69edbb99e7b0a08c0d80cdb9b3c52fe" category="inline-link-macro-rx"></block>
+Microsoft ha introdotto multicannel protocollo SMB 3.0 con l'obiettivo di migliorare il protocollo SMB3 affrontando le limitazioni di performance e affidabilità di SMB1 e SMB2. Scopri la funzionalità multicanale di ONTAP, incluse le funzionalità, le procedure consigliate e i risultati dei test delle performance.</block>
+  <block id="b4d3d77640c4649a696af2753732310f" category="section-title">Multiprotocollo</block>
+  <block id="ae95c4eea6863c98f4e29c1bc8be36cf" category="inline-link-macro">TR-4887: Panoramica e Best practice del NAS multiprotocollo in ONTAP</block>
+  <block id="255795c6dd40ee8f8b4105a7655ea56c" category="paragraph"><block ref="223707e6f9b8bb9fdf879bae05a91603" category="inline-link-macro-rx"></block>
+Scopri come funziona l'accesso NAS multiprotocollo in ONTAP e le procedure consigliate per gli ambienti multiprotocollo.</block>
+  <block id="1716834171e243de0f898a67621b6624" category="section-title">ONTAP S3</block>
+  <block id="12d693aa0c15330c6f5d608b0a1eb6c3" category="inline-link-macro">TR-4814: Best practice S3 in ONTAP</block>
+  <block id="8a9f413c7d192f7ee13320a2b74b4ecc" category="paragraph"><block ref="3f5613d82639ca68ec10bef37723bdeb" category="inline-link-macro-rx"></block>
+Scopri le procedure consigliate per l'utilizzo del servizio di storage semplice Amazon (S3) con il software ONTAP, nonché le funzionalità e le configurazioni per l'utilizzo di ONTAP come archivio di oggetti con applicazioni S3 native o come destinazione di tiering per FabricPool.</block>
+  <block id="a4273e3e312edbc9d5bd7c188aecc370" category="section-title">Servizi di nome</block>
+  <block id="98c6ad5dad288854428df19a0833d709" category="inline-link-macro">TR-4523: Bilanciamento del carico DNS in ONTAP</block>
+  <block id="7a50564c3d71f025f2e39ea6c508a8ab" category="paragraph"><block ref="ea931303ddc872579ef3f1a3e7507b66" category="inline-link-macro-rx"></block>
+Scopri come configurare ONTAP per l'utilizzo con metodologie di bilanciamento del carico DNS, tra cui DNS in ONTAP, vari metodi di configurazione e procedure consigliate.</block>
+  <block id="6696b5e4d08c4c3bfd459461b2ca84b5" category="inline-link-macro">TR-4668: Guida alle Best practice per i name service</block>
+  <block id="5f97342b6fb7811b83dbfb9c49a09b50" category="paragraph"><block ref="0b7d0f0e5c65fbcddfa73f20625a69a6" category="inline-link-macro-rx"></block>
+Scopri le procedure, i limiti e le considerazioni consigliate per l'implementazione di soluzioni NAS (Network-Attached Storage) come CIFS/SMB e NFS in ONTAP.</block>
+  <block id="bb043e71d34b3b9dfd3bad20d9c16b5a" category="inline-link-macro">TR-4835: Come configurare LDAP nella gestione delle identità NAS multiprotocollo di ONTAP</block>
+  <block id="09068a06885fda7046fee2ad16301b78" category="paragraph"><block ref="5a7459e114584b8a20abd6ae45de5bf6" category="inline-link-macro-rx"></block>
+Scopri come configurare la gestione delle identità LDAP (Lightweight Directory Access Protocol) in ONTAP per NAS multiprotocollo.</block>
+  <block id="afe45a61e31b932515e82be3679e3b92" category="section-title">Sicurezza NAS</block>
+  <block id="61eb0e8494826dc8f30af9122fd97664" category="inline-link-macro">TR-4616: NFS Kerberos in ONTAP</block>
+  <block id="3f52878b58a2645e25e183e375dd5448" category="paragraph"><block ref="1e0f751e9df6eb5b34a05b582da4605a" category="inline-link-macro-rx"></block>
+Scopri di più su NFS Kerberos in ONTAP, incluse le fasi di configurazione con Active Directory e i client Red Hat Enterprise Linux (RHEL).</block>
+  <block id="30d965eef5ba25c6b9998ae38270b43e" category="doc">Note legali</block>
+  <block id="e9c44bbfd795a5d63d74c6a77afee70d" category="paragraph">Le note legali forniscono l'accesso a dichiarazioni di copyright, marchi, brevetti e altro ancora.</block>
+  <block id="6016a2b341113bf496b719905398ecd2" category="section-title">Copyright</block>
+  <block id="09e95b77ffe81fe465a83ba99efad5c8" category="paragraph"><block ref="09e95b77ffe81fe465a83ba99efad5c8" category="inline-link-rx"></block></block>
+  <block id="126a02652da6de02962cf1b654fd6376" category="section-title">Marchi</block>
+  <block id="c4ce4761e466527d26b3e3d5ed1006fd" category="paragraph">NETAPP, il logo NETAPP e i marchi elencati nella pagina dei marchi NetApp sono marchi di NetApp, Inc. Altri nomi di società e prodotti potrebbero essere marchi dei rispettivi proprietari.</block>
+  <block id="7aa531e9acfe2b98e34d2c92fe9846ff" category="paragraph"><block ref="7aa531e9acfe2b98e34d2c92fe9846ff" category="inline-link-rx"></block></block>
+  <block id="be89498d2f8a22ce47c02ba9795fe2af" category="section-title">Brevetti</block>
+  <block id="d0b19d36be2c5f16e9aef46c8a452d3d" category="paragraph">Un elenco aggiornato dei brevetti di proprietà di NetApp è disponibile all'indirizzo:</block>
+  <block id="d7f1fbcf9ce4e42f705add574d262b2c" category="paragraph"><block ref="d7f1fbcf9ce4e42f705add574d262b2c" category="inline-link-rx"></block></block>
+  <block id="56c34c6410dd45c5cec44149ad0ce037" category="section-title">Direttiva sulla privacy</block>
+  <block id="fc248f74f5e36542f7f5627b8610e9a3" category="paragraph"><block ref="fc248f74f5e36542f7f5627b8610e9a3" category="inline-link-rx"></block></block>
+  <block id="c0227cef6f07a8cd2ac72f2945b031aa" category="section-title">Open source</block>
+  <block id="9b73989307c1975dfa4d5e1581e4afe8" category="paragraph">I file di avviso forniscono informazioni sul copyright e sulle licenze di terze parti utilizzate nel software NetApp.</block>
+  <block id="aaa93d65d9b66a1eedd61c9e919edb2b" category="summary">Questi report tecnici forniscono indicazioni su come rafforzare NetApp ONTAP e altri prodotti correlati a ONTAP.</block>
+  <block id="ff8c9f0959eb84d21416835c3f9c89d6" category="doc">Guide per la protezione avanzata</block>
+  <block id="2d2a7ff295edf2e9b43944ddd4d5de56" category="paragraph">Questi report tecnici forniscono indicazioni su come rafforzare NetApp ONTAP e altri prodotti NetApp.</block>
+  <block id="b0c4a88dd72cd3fbda5a208cb1a3144d" category="inline-link-macro">Sicurezza ONTAP e crittografia dei dati</block>
+  <block id="e574d7c876885d39755e7d1bc4ae649e" category="paragraph">Questi report tecnici si espandono su <block ref="3e8d3a4b0bb1c244f96701a010228216" category="inline-link-macro-rx"></block> documentazione del prodotto.</block>
+  <block id="d0880bbafb975bde57898f147e117781" category="section-title">Guide per la protezione avanzata</block>
+  <block id="6eca5c80f314351da24d27dbbeb934fa" category="inline-link-macro">TR-4569: Guida alla protezione avanzata per NetApp ONTAP</block>
+  <block id="f4992bf9be0782c19e6fdb45bbc6f038" category="paragraph"><block ref="df6160c2a0bec26bee907d0f07aed808" category="inline-link-macro-rx"></block>
+Scopri come configurare NetApp ONTAP per aiutare le organizzazioni a raggiungere gli obiettivi di sicurezza prescritti per la riservatezza, l'integrità e la disponibilità del sistema informativo.</block>
+  <block id="4b7d52b632284033085bcb2442dcb916" category="inline-link-macro">TR-4957: Guida alla protezione avanzata per NetApp SnapCenter</block>
+  <block id="11de28f8883d2023258fafb8ee5fb4df" category="paragraph"><block ref="32cda38a3dba662f660e5eca3be0043a" category="inline-link-macro-rx"></block>
+Scopri come configurare il software NetApp SnapCenter per aiutare le organizzazioni a raggiungere gli obiettivi di sicurezza prescritti per la riservatezza, l'integrità e la disponibilità del sistema informativo.</block>
+  <block id="9346238909f4f9394991d628232a7547" category="inline-link-macro">TR-4963: Guida alla protezione avanzata: BlueXP Cloud Backup per le applicazioni</block>
+  <block id="dc26de9620ef6e9b8ebe1fb3a333146e" category="paragraph"><block ref="f32c1dcda6d159b978bd858df5e23d46" category="inline-link-macro-rx"></block>
+Scopri come configurare il backup cloud di NetApp per le applicazioni per aiutare le organizzazioni a raggiungere gli obiettivi di sicurezza prescritti per la riservatezza, l'integrità e la disponibilità del sistema informativo.</block>
+  <block id="338edca147b749d2e7e81c74aa391922" category="inline-link-macro">TR-4943: Guida alla protezione avanzata per NetApp Active IQ Unified Manager</block>
+  <block id="8e56a85eceedd9e65ceac8c4efabdc75" category="paragraph"><block ref="60ad041e7e2571bfebeac3e3fdd7c828" category="inline-link-macro-rx"></block>
+Scopri come configurare NetApp Active IQ Unified Manager per aiutare le organizzazioni a raggiungere gli obiettivi di sicurezza prescritti per la riservatezza, l'integrità e la disponibilità del sistema informativo.</block>
+  <block id="bac414868cd7485036c09f5a0308f48d" category="inline-link-macro">TR-4945: Guida al rafforzamento della protezione per l'SDK per la gestibilità NetApp</block>
+  <block id="d80d38301db19a713832e209fae78f8a" category="paragraph"><block ref="c20bd99e94e089451b6683712f330245" category="inline-link-macro-rx"></block>
+Scopri come configurare l'SDK per la gestibilità NetApp (NMSDK) per aiutare le organizzazioni a raggiungere gli obiettivi di sicurezza prescritti per la riservatezza, l'integrità e la disponibilità del sistema informativo.</block>
+  <block id="4cdfcb5df3012db4f5dcd87c2a866d39" category="summary">Questi report tecnici forniscono una panoramica della protezione dei dati e del disaster recovery in ONTAP, oltre alle procedure consigliate</block>
+  <block id="339f0c38a7aefd01263baff2a76136bd" category="doc">Report tecnici sulla protezione dei dati e sul disaster recovery</block>
+  <block id="640a931ad10a56e7b2dad62839580278" category="paragraph">SnapMirror è una soluzione di replica unificata conveniente e facile da utilizzare per tutto il data fabric. Replica i dati ad alta velocità su LAN o WAN. Ottieni un'elevata disponibilità dei dati e una rapida replica dei dati per le tue applicazioni business-critical, come Microsoft Exchange, Microsoft SQL Server e Oracle, in ambienti virtuali e tradizionali. Quando si replicano i dati su uno o più sistemi storage ONTAP e si aggiornano continuamente i dati secondari, i dati vengono mantenuti aggiornati e disponibili ogni volta che ne hai bisogno. Non sono richiesti server di replica esterni.</block>
+  <block id="e929f18d03c9b3408ed199c7a251f892" category="inline-link-macro">ONTAP protezione dei dati e disaster recovery</block>
+  <block id="8563657a010dce40d25506a29a567684" category="paragraph">Questi report tecnici si espandono su <block ref="2089aef874de39b0eb380c0ce9752ab5" category="inline-link-macro-rx"></block> documentazione del prodotto.</block>
+  <block id="794cb725c5631ad99b5b7c000307f0df" category="section-title">SnapMirror</block>
+  <block id="e541c47871b0172db0f7a3347bd9fa3e" category="inline-link-macro">TR-4015: Configurazione asincrona e Best practice di SnapMirror</block>
+  <block id="bada89365ae9d33e741590bb2571b41e" category="paragraph">*SnapMirror asincrono*
+<block ref="41700dcb38c244f95d1971f0a45e2526" category="inline-link-macro-rx"></block>
+Scopri le procedure consigliate per la configurazione della replica asincrona di SnapMirror (SM-A) di volumi, gruppi di coerenza e macchine virtuali di storage (disaster recovery SVM).</block>
+  <block id="d8446ce616f102b3add1ef4349269b73" category="inline-link-macro">TR-4678: Protezione dei dati e backup dei volumi ONTAP FlexGroup</block>
+  <block id="4013fe18538ca0b8b6f3c16d80af7b4e" category="paragraph"><block ref="53731792c038b59cf0605dcb77387367" category="inline-link-macro-rx"></block>
+Scopri la protezione dei dati e il backup consigliati per i volumi FlexGroup. Gli argomenti includono copie Snapshot, SnapMirror e altre soluzioni di backup e protezione dei dati.</block>
+  <block id="a7b1a6225d127a55e37eefd3e4b1d545" category="inline-link-macro">TR-4733: Configurazione sincrona e Best practice di SnapMirror</block>
+  <block id="93646e973d4c5948ecbcf0654e3e77b8" category="paragraph">*SnapMirror Synchronous*
+<block ref="2340258309d7cdd01df38cc98a87a3ea" category="inline-link-macro-rx"></block>
+Scopri le procedure consigliate per la configurazione della replica SnapMirror Synchronous (SM-S).</block>
+  <block id="f12586dc1277168d3c0c6459b75b89b2" category="inline-link-macro">TR-4832: Disaster recovery per tre data center con SnapMirror di NetApp per ONTAP 9.7</block>
+  <block id="305d42e5bcf1d720993f502a36555674" category="paragraph">*SnapMirror Three-Data-Center DR*
+<block ref="5d46547177c28e1bf2a00909523bac82" category="inline-link-macro-rx"></block>
+Scopri di più su una configurazione di disaster recovery per tre data center che utilizza la tecnologia SnapMirror di ONTAP per la replica.</block>
+  <block id="84fb4414ca0766388d0fcb128ca503f2" category="section-title">Applicazione e infrastruttura con SnapMirror</block>
+  <block id="fa363beb233b27c4cdc010827133de31" category="inline-link-macro">TR-4900: VMware Site Recovery Manager con ONTAP</block>
+  <block id="1f0a55b00fe1a6c8836e3a3a55d4269e" category="paragraph"><block ref="336e83eb84c6d77dadefcf86f46bb14d" category="inline-link-macro-rx"></block>
+ONTAP è stata una soluzione storage leader per gli ambienti VMware vSphere sin dalla sua introduzione nel moderno data center nel 2002 e continua ad aggiungere funzionalità innovative per semplificare la gestione riducendo i costi. Scopri la soluzione ONTAP consigliata per VMware Site Recovery Manager (SRM), il software di disaster recovery (DR) leader di settore di VMware, che include le informazioni più recenti sui prodotti e le procedure consigliate per ottimizzare l'implementazione, ridurre i rischi e semplificare la gestione continua.</block>
+  <block id="9ef869565a4d7fd5d1234aaa1d61ab22" category="summary">Questi report tecnici forniscono una panoramica di SnapCenter con NetApp ONTAP e delle procedure consigliate.</block>
+  <block id="da994c44eacde8f5cafe8883779cb695" category="doc">Report tecnici SnapCenter</block>
+  <block id="87a2d2335b0146f51df29bf7aa03f72c" category="paragraph">SnapCenter offre una piattaforma unificata per la protezione dei dati coerente con l'applicazione e la gestione dei cloni. SnapCenter semplifica il backup, il ripristino e la gestione del ciclo di vita dei cloni con flussi di lavoro integrati nell'applicazione. Sfruttando la gestione dei dati basata sullo storage, SnapCenter consente di aumentare le performance e la disponibilità e ridurre i tempi di test e sviluppo.</block>
+  <block id="5c014f8939a89da0166a347a0237cf4f" category="inline-link-macro">SnapCenter</block>
+  <block id="919a0b7beff248d639fe6c4ae7ca5b0c" category="paragraph">Questi report tecnici si espandono su <block ref="7935f4ebc292f6492522899b619f020e" category="inline-link-macro-rx"></block> documentazione del prodotto.</block>
+  <block id="f6967390d49d08c53cc88d3cdf42eb92" category="section-title">SnapCenter per Oracle</block>
+  <block id="86fc900399fdd68e52d9705ec116494c" category="inline-link-macro">TR-4700: Plug-in SnapCenter per le Best practice del database Oracle</block>
+  <block id="5eccb29d61db9f44b772cf14b52a5281" category="paragraph"><block ref="997217bdef3f2324957d91e5a61f1595" category="inline-link-macro-rx"></block>
+NetApp SnapCenter è una piattaforma unificata e scalabile per la protezione dei dati coerente con Oracle che automatizza operazioni complesse con controllo e supervisione centralizzati. Scopri le procedure consigliate per l'implementazione di database Oracle con SnapCenter.</block>
+  <block id="9caa022ffa5eb0757a1a86c936148e7f" category="inline-link-macro">TR-4964: Backup, ripristino e clonazione di database Oracle con i servizi SnapCenter</block>
+  <block id="8edb16adeb3bfbbb14cfbd3ce193c823" category="paragraph"><block ref="469c3721dec8aacaaf4d487d09c5b2f1" category="inline-link-macro-rx"></block>
+Scopri come configurare i servizi SnapCenter per il backup, il ripristino e la clonazione dei database Oracle distribuiti su Amazon FSX per lo storage ONTAP e le istanze di calcolo EC2. Sebbene sia molto più semplice da configurare e utilizzare, i servizi SnapCenter offrono funzionalità chiave disponibili tramite l'interfaccia SnapCenter.</block>
+  <block id="42ae18b2764764698f69b07e734dad40" category="section-title">SnapCenter per Microsoft SQL Server</block>
+  <block id="8995957312e937e739e91f52a206a035" category="inline-link-macro">TR-4714: Best practice per Microsoft SQL Server con NetApp SnapCenter</block>
+  <block id="62b66809334b4fdc52ecdf06f725fdf5" category="paragraph"><block ref="09e9d7e5e027ca70dda5aee1aed560b4" category="inline-link-macro-rx"></block>
+Scopri come implementare con successo Microsoft SQL Server sullo storage NetApp utilizzando SnapCenter per la protezione dei dati.</block>
+  <block id="4e7c5a50f3152a19bafdf38cff0da40c" category="section-title">SnapCenter per server Microsoft Exchange</block>
+  <block id="2af54c7b508b16288b16a9671650d630" category="inline-link-macro">TR-4681: Best practice per Microsoft Exchange Server con NetApp SnapCenter</block>
+  <block id="39ce280703547e3222925611b66fd655" category="paragraph"><block ref="7919192a74ca5bbb876e0b81b84fc1a2" category="inline-link-macro-rx"></block>
+Scopri come implementare con successo Microsoft Exchange Server sullo storage NetApp utilizzando SnapCenter per la protezione dei dati.</block>
+  <block id="d9aefea329e9863d1871e70d2effa716" category="section-title">SnapCenter per SAP HANA</block>
+  <block id="042f7a2c227ce333d4132cb3d2f72c1a" category="inline-link-macro">TR-4926: SAP HANA su Amazon FSX per NetApp ONTAP - Backup e recovery con SnapCenter</block>
+  <block id="3ae5b19ed340d43acae0689efc380c35" category="paragraph"><block ref="048dd5cbef51620c12692ed5e05c07cd" category="inline-link-macro-rx"></block>
+Scopri le procedure consigliate per la protezione dei dati SAP HANA su Amazon FSX per NetApp ONTAP e SnapCenter. Gli argomenti trattati includono i concetti di SnapCenter, i consigli di configurazione e i flussi di lavoro operativi, tra cui configurazione, operazioni di backup, e operazioni di ripristino e recovery.</block>
+  <block id="659990413ee7b19b6e7d5d4d82f2dc08" category="inline-link-macro">TR-4667: Automazione delle operazioni di copia e clonazione del sistema SAP HANA con SnapCenter</block>
+  <block id="a1549107aa8ce711a75b6b549cfef410" category="paragraph"><block ref="9f976d6dddf1476622ebd9a4a5e3241b" category="inline-link-macro-rx"></block>
+La clonazione dello storage SnapCenter e la possibilità di definire in modo flessibile le operazioni di pre-cloning e post-cloning consentono agli amministratori SAP di accelerare e automatizzare le operazioni di copia, clonazione o refresh del sistema SAP. Scopri ora la possibilità di scegliere qualsiasi backup Snapshot di SnapCenter in qualsiasi storage primario o secondario consente di affrontare i casi di utilizzo più importanti, tra cui corruzione logica, test di disaster recovery o il refresh di un sistema QA SAP.</block>
+  <block id="8c751a81b08e28340991aae9438e1aeb" category="inline-link-macro">TR-4719: Backup e ripristino della replica del sistema SAP HANA con SnapCenter</block>
+  <block id="98a5f4caa4ea3e9ca0aa2266a7bbbc21" category="paragraph"><block ref="5bc114932295ab09dec0d5f5304f15ed" category="inline-link-macro-rx"></block>
+Scopri come utilizzare la tecnologia SnapCenter e il plug-in SAP HANA per il backup e il ripristino in un ambiente di replica del sistema SAP HANA.</block>
+  <block id="1bc114744e557579b581fd004451cd4c" category="inline-link-macro">TR-4667: Automazione delle operazioni di copia e clonazione del sistema SAP HANA con SnapCenter</block>
+  <block id="125f09c0c055b03b22bea9b00bb18560" category="paragraph"><block ref="652c814e87d9d52f2543c9f35bb0117c" category="inline-link-macro-rx"></block>
+La possibilità di creare backup Snapshot NetApp coerenti con l'applicazione sul layer di storage è la base per le operazioni di copia del sistema e di cloni del sistema. I backup Snapshot basati sullo storage vengono creati utilizzando il plug-in NetApp SnapCenter per SAP HANA e le interfacce fornite dal database SAP HANA. SnapCenter registra i backup Snapshot nel catalogo di backup SAP HANA in modo che possano essere utilizzati per il ripristino e il ripristino, nonché per le operazioni di cloning.</block>
+  <block id="4b9ad91fc0a75f4acb6eccfa4fb75d2e" category="section-title">Guida alla protezione avanzata di SnapCenter</block>
+  <block id="c511972d73075c967f583bc9b4110754" category="paragraph"><block ref="32cda38a3dba662f660e5eca3be0043a" category="inline-link-macro-rx"></block>
+Scopri come configurare SnapCenter per aiutare le organizzazioni a raggiungere gli obiettivi di sicurezza prescritti per la riservatezza, l'integrità e la disponibilità del sistema informativo.</block>
+  <block id="141350544bb9055d329f2c611da39532" category="summary">Questi report tecnici forniscono una panoramica del tiering in NetApp ONTAP e delle procedure consigliate.</block>
+  <block id="f887aa58f254d680de7bd891d2be7d1a" category="doc">Rapporti tecnici di tiering</block>
+  <block id="6f6a139045eae112c22973735a0e9109" category="paragraph">Con la soluzione di tiering dei dati di FabricPool, l'esperienza complessiva dell'utente dei sistemi flash migliora, evitando al tempo stesso il problema della riarchitettura delle applicazioni per l'efficienza dello storage. FabricPool riduce l'impatto dello storage e i costi associati all'ambiente di un sistema. I dati attivi rimangono su SSD dalle performance elevate. I dati inattivi vengono suddivisi in livelli per lo storage a oggetti a basso costo, preservando al contempo l'efficienza dello storage.</block>
+  <block id="990ddb1a4a5333b31f268a30646a04db" category="inline-link-macro">ONTAP FabricPool</block>
+  <block id="d78bbea9f2f3a40b75f9b857fb2f6850" category="paragraph">Questi report tecnici si espandono su <block ref="9f02b1f102d9449a407132c4b67ab5fc" category="inline-link-macro-rx"></block> documentazione del prodotto.</block>
+  <block id="c3528a5e48bbe189e76cf8d737aa5961" category="inline-link-macro">TR-4598: Best practice FabricPool</block>
+  <block id="76d11b8139c65fed86f8e4bfa70f3fd7" category="paragraph"><block ref="78cdb5bbeac0d9402b94c9aa73c4e381" category="inline-link-macro-rx"></block>
+Scopri le funzionalità, i requisiti, l'implementazione e le procedure consigliate per FabricPool.</block>
+  <block id="7b624859ee034d906f2af23282ba2bda" category="inline-link-macro">TR-4826: Guida ai consigli di NetApp FabricPool con StorageGRID</block>
+  <block id="f92a2aace3f4f550a29c1e261b8cea4c" category="paragraph"><block ref="40dd16c966d1cc5966a2a4cddee6f90a" category="inline-link-macro-rx"></block>
+Scopri le procedure consigliate per l'implementazione e il dimensionamento di StorageGRID come livello di capacità per il componente ONTAP FabricPool. Il presente documento illustra inoltre le funzionalità, i requisiti, l'implementazione e le procedure consigliate per l'utilizzo di StorageGRID.</block>
+  <block id="fabfc4c4100955619fafaf57bd923d20" category="inline-link-macro">TR-4695: Tiering dello storage del database con NetApp FabricPool</block>
+  <block id="640155b403e7ef849c9f178367dec7ea" category="paragraph"><block ref="2273714473900c20e86c804e06d807e4" category="inline-link-macro-rx"></block>
+Scopri i vantaggi e le opzioni di configurazione di FabricPool con diversi database, incluso il sistema di gestione dei database relazionali Oracle (RDBMS).</block>
+  <block id="afe5567d4585c6b672134af6bf96570a" category="summary">Questi report tecnici forniscono una panoramica della sicurezza in NetApp ONTAP e delle procedure consigliate.</block>
+  <block id="e6bd708199eed7d8bf33ef8308be0b3e" category="doc">Report tecnici sulla sicurezza</block>
+  <block id="786a25f6930c9ae71ad21603f498741d" category="paragraph">ONTAP continua a evolversi, con la sicurezza come parte integrante della soluzione. Le ultime versioni di ONTAP contengono molte nuove funzionalità di sicurezza che sono preziose per la tua organizzazione per proteggere i propri dati nel cloud ibrido, prevenire gli attacchi ransomware e rispettare le pratiche consigliate dal settore. Queste nuove funzionalità supportano anche il passaggio della tua organizzazione verso un modello Zero Trust.</block>
+  <block id="232a2b16a1710c0ed1d16548ba8bb8f1" category="section-title">Ransomware</block>
+  <block id="afd7e2b4105b3c0f637124474c6780aa" category="inline-link-macro">TR-4572: La soluzione NetApp per ransomware</block>
+  <block id="df81339197d6de37b537d325e629a34e" category="paragraph"><block ref="a2efee7226a0c9a1c73909308a4929db" category="inline-link-macro-rx"></block>
+Scopri come si è evoluto il ransomware e come identificare gli attacchi, prevenire la diffusione e ripristinare il più rapidamente possibile utilizzando la soluzione NetApp per il ransomware. Le linee guida e le soluzioni fornite in questo documento sono progettate per aiutare le organizzazioni a disporre di soluzioni resilienti dal punto di vista informatico, rispettando al contempo gli obiettivi di sicurezza prescritti in termini di riservatezza, integrità e disponibilità dei sistemi informatici.</block>
+  <block id="4806108c30efbcea3566bdb35a79396c" category="inline-link-macro">TR-4526: Storage WORM conforme con NetApp SnapLock</block>
+  <block id="6e10a9f29ea4d83a086b7ceba4cc08f6" category="paragraph"><block ref="bfdf2cce49faba7e8af63e592a46208a" category="inline-link-macro-rx"></block>
+Molte aziende si affidano allo storage dei dati WORM (write once, Read Many) per soddisfare i requisiti di conformità alle normative o semplicemente per aggiungere un altro livello alla propria strategia di protezione dei dati. Scopri come integrare SnapLock, la soluzione WORM di ONTAP, in ambienti che richiedono lo storage dei dati WORM.</block>
+  <block id="95708632a08675f7e77e5312ce2c047c" category="section-title">Zero Trust</block>
+  <block id="bbcfb10585a3382302149f55fb634e3a" category="inline-link-macro">TR-4829: NetApp e zero trust</block>
+  <block id="dbc994b1de7c805f4c68c6a884d9974a" category="paragraph"><block ref="ede7b56a16d5b347f860a68734d83076" category="inline-link-macro-rx"></block>
+Zero Trust è tradizionalmente un approccio incentrato sulla rete che prevede l'architettura di micro core e perimetro (MCAP) per proteggere dati, servizi, applicazioni o risorse con controlli noti come gateway di segmentazione. ONTAP adotta un approccio basato sui dati a Zero Trust in cui il sistema di gestione dello storage diventa il gateway di segmentazione per proteggere e monitorare l'accesso ai dati dei clienti. In particolare, il motore FPolicy Zero Trust e l'ecosistema di partner FPolicy diventano un centro di controllo per acquisire una comprensione dettagliata dei modelli di accesso ai dati normali e aberranti e identificare le minacce interne.</block>
+  <block id="1a98f49f191845835d6fd3e13eb29812" category="section-title">Autenticazione a più fattori</block>
+  <block id="c7c6fadf35a14d865d768c5f30ccec0b" category="inline-link-macro">TR-4647: Guida all'implementazione e Best practice per l'autenticazione multifattore in ONTAP</block>
+  <block id="51c9464c6f30a83c1321f77012016e78" category="paragraph"><block ref="d26c196c7d19a03267c0e824fa346801" category="inline-link-macro-rx"></block>
+Scopri la funzionalità di autenticazione multifattore di ONTAP per l'accesso amministrativo utilizzando Gestione di sistema, Active IQ Unified Manager e l'autenticazione CLI di ONTAP Secure shell (SSH).</block>
+  <block id="c41edc3403838216ae8382379649686f" category="inline-link-macro">TR-4717: Autenticazione SSH ONTAP con una scheda di accesso comune</block>
+  <block id="4a0b79142cd1283fe648d5f9b8ca0284" category="paragraph"><block ref="e6d466dae325761fdf17effaef5b5e4b" category="inline-link-macro-rx"></block>
+Scopri come configurare e testare client SSH di terze parti, insieme al software ActivClient, per autenticare un amministratore dello storage ONTAP tramite la chiave pubblica memorizzata su una CAC (Common Access Card) quando è configurato in ONTAP.</block>
+  <block id="e95bb6f1e85d1ffe0eb983fd5e0fbde8" category="section-title">Multi-tenancy</block>
+  <block id="93b3bc1e3c197dc14688f9ee00b8bb8e" category="inline-link-macro">TR-4160: Multi-tenancy sicura in ONTAP</block>
+  <block id="8ecbdd8d6e9d57ad3f5be58c0823ac45" category="paragraph"><block ref="5fe469fe43532b17bdd7eb62280b71c3" category="inline-link-macro-rx"></block>
+Scopri come implementare la multi-tenancy sicura utilizzando le VM di storage in ONTAP, incluse considerazioni di progettazione e procedure consigliate.</block>
+  <block id="8db7df66ab1d7ab5f1dc947acdb5fae4" category="section-title">Registrazione</block>
+  <block id="4f86fd480a3b60659d82af4d7287d57a" category="inline-link-macro">TR-4303: Accesso a ONTAP</block>
+  <block id="c83e6b39f1cca70bbfa00b39765be54d" category="paragraph"><block ref="39270507302c9a1a0cecf47a1d5be1e9" category="inline-link-macro-rx"></block>
+Scopri come definire i diversi log generati da ONTAP, le funzionalità offerte e come visualizzare e accedere ai log.</block>
+  <block id="3bacfbd563fe308a0fb610ff1388a915" category="section-title">Standard</block>
+  <block id="3b386de8bb010d73cc3b37f57c64bcca" category="inline-link-macro">TR-4401: PCI-DSS 4.0 e ONTAP</block>
+  <block id="ff509aae4c832c9d671ad2c3c199be87" category="paragraph"><block ref="9de31aaed92d032a38ce5211a576a07f" category="inline-link-macro-rx"></block>
+Scopri come convalidare un sistema in base allo standard PCI DSS 4.0 e soddisfare i requisiti dei controlli applicati a un sistema NetApp ONTAP.</block>
+  <block id="6a5e95f0afdff4e3a4cfd057c3a6e798" category="summary">Questi report tecnici forniscono una panoramica delle soluzioni di virtualizzazione VMware che utilizzano NetApp ONTAP e delle procedure consigliate.</block>
+  <block id="d01695fdd0427fa016f08f6f745e046e" category="doc">Report tecnici sulla virtualizzazione</block>
+  <block id="526a48425b1c96f69a1c08c7254591ce" category="paragraph">Le soluzioni di virtualizzazione NetApp ti aiutano a offrire il massimo valore dai tuoi server. Grazie a un'infrastruttura server virtuale reattiva basata su sistemi flash ONTAP dalle performance elevate e all'avanguardia, potrai accedere ai dati molto più rapidamente. La tua infrastruttura virtuale granulare è scalabile senza interruzioni per diversi petabyte di dati, offrendo le performance necessarie per l'accesso condiviso a più carichi di lavoro. ONTAP aiuta a ottimizzare e ridurre la complessità dell'implementazione dell'infrastruttura server virtuale con partnership chiave, guida all'implementazione, integrazione applicativa e design di livello superiore. ONTAP offre numerose procedure e soluzioni consigliate per un ambiente di virtualizzazione solido, sia on-premise che nel cloud.</block>
+  <block id="ed9018b2e8611a3d2c03bb6a205b9715" category="inline-link-macro">Strumenti ONTAP per VMware vSphere</block>
+  <block id="0688ce32a57a2bf996e248aacbe6bd49" category="paragraph">Questi report tecnici si espandono su <block ref="a3e8683995371a8fc111bdec419c54d3" category="inline-link-macro-rx"></block> documentazione del prodotto.</block>
+  <block id="952fd691754e388c7b7ba473cf410aff" category="inline-link-macro">TR-4597: VMware vSphere per ONTAP</block>
+  <block id="b50253aa14007552d86fdd9d1b36e939" category="paragraph"><block ref="1f119af838b672bfb4d24c9efb5e89df" category="inline-link-macro-rx"></block>
+ ONTAP è da quasi vent'anni una soluzione di storage leader per gli ambienti VMware vSphere e continua ad aggiungere funzionalità innovative per semplificare la gestione e ridurre i costi. Questo documento presenta la soluzione ONTAP per vSphere, incluse le informazioni più recenti sui prodotti e le procedure consigliate, per ottimizzare l'implementazione, ridurre i rischi e semplificare la gestione.</block>
+  <block id="be7078ced01754e29e7276ca5a01643f" category="inline-link-macro">TR-4400: Volumi virtuali VMware vSphere (vVol) con NetApp ONTAP</block>
+  <block id="a1873f1f39ecbc9a43ac55a7cde36eba" category="paragraph"><block ref="7f01827b62504629dd7e09834e30244a" category="inline-link-macro-rx"></block>
+ONTAP è stata una soluzione storage leader per gli ambienti VMware vSphere da oltre vent'anni e continua ad aggiungere funzionalità innovative per semplificare la gestione e ridurre i costi. Il presente documento illustra le funzionalità di ONTAP per i volumi virtuali VMware vSphere (vVol), incluse le informazioni più recenti sui prodotti e i casi di utilizzo, oltre a procedure consigliate e altre informazioni per semplificare l'implementazione e ridurre gli errori.</block>
+  <block id="b5a6695eb02f52042cab8cce0f6d66bf" category="inline-link-macro">TR-4900: VMware Site Recovery Manager con NetApp ONTAP</block>
+  <block id="d27914df04970951d214a1afb786ba99" category="paragraph"><block ref="7648c06ceebcbe7d14c2674d6d8c1c1c" category="inline-link-macro-rx"></block>
+ONTAP è stata una soluzione storage leader per gli ambienti VMware vSphere sin dalla sua introduzione nel moderno data center nel 2002 e continua ad aggiungere funzionalità innovative per semplificare la gestione riducendo i costi. Questo documento presenta la soluzione ONTAP per VMware Site Recovery Manager (SRM), il software di disaster recovery (DR) leader di settore di VMware, che include le informazioni più recenti sui prodotti e le procedure consigliate per ottimizzare l'implementazione, ridurre i rischi e semplificare la gestione continua.</block>
+  <block id="1406aa071af210d31c6a2951fe66ddcc" category="inline-link-macro">Introduzione all'automazione per ONTAP e vSphere</block>
+  <block id="3df39f30fd49044efd7eb0a5d2e9defd" category="paragraph"><block ref="6102aa7afe3360417ea8c52b1c680d4c" category="inline-link-macro-rx"></block>
+L'automazione è parte integrante della gestione degli ambienti VMware fin dai primi giorni di VMware ESX. La capacità di implementare l'infrastruttura come codice ed estendere le pratiche alle operazioni del cloud privato aiuta ad alleviare i problemi legati a scalabilità, flessibilità, self-provisioning ed efficienza. Questo documento presenta la soluzione ONTAP per l'automazione dell'ambiente ONTAP e VMware vSphere.</block>
+  <block id="777794440aa1ad0d5dfc51e1f00e6b65" category="inline-link-macro">WP-7353: Strumenti ONTAP per VMware vSphere - sicurezza del prodotto</block>
+  <block id="99ad633b114011ffc24a1aff8fe05a6f" category="paragraph"><block ref="94a3c7bfa85a246e1150f40c159e5ff2" category="inline-link-macro-rx"></block>
+Questo documento descrive le tecniche e la tecnologia utilizzate per proteggere i tool ONTAP per VMware vSphere 9.X dalle minacce esistenti ed emergenti negli ambienti di prodotto.</block>
+  <block id="a3d8d5aab8801e818f1ef65d0656ac6f" category="inline-link-macro">WP-7355: Plug-in SnapCenter VMware vSphere - sicurezza del prodotto</block>
+  <block id="01d5c6f5ce1a6fed30deb2d15c6cd55d" category="paragraph"><block ref="92224c43e8ec1baf3b9f7b0cf2e9a167" category="inline-link-macro-rx"></block>
+Questo documento descrive le tecniche e la tecnologia utilizzate per proteggere il plug-in NetApp SnapCenter per VMware vSphere 4.X dalle minacce esistenti ed emergenti negli ambienti di prodotto.</block>
+  <block id="6d4e2f1f073dd653734779d5d0cf0f77" category="sidebar">I report tecnici di ONTAP forniscono un contesto aggiuntivo per la pianificazione e l'ottimizzazione delle implementazioni ONTAP all'interno di ecosistemi diversi o con protocolli diversi. Alcuni report tecnici di ONTAP forniscono il contesto architettonico e le procedure consigliate per le funzionalità e le funzionalità di ONTAP.</block>
+  <block id="0abe2bf261d0e67218108321d4d12f80" category="sidebar">Microsoft SQL Server con ONTAP</block>
+  <block id="781ca1fc048eb6987f2bc84c0cfe89d2" category="sidebar">Performance del database Oracle su AFF A-Series e C-Series</block>
+  <block id="a6a168fa8021b0302c7d52eda6a33f25" category="sidebar">Performance del database Oracle virtualizzato su AFF A-Series e C-Series</block>
+  <block id="9eaca569c6f5ca3388f5613da3aa008c" category="sidebar">Database Oracle su ONTAP</block>
+  <block id="f764824b813fdd72c94db78f7fb3b24b" category="sidebar">Report tecnici aggiuntivi per applicazioni e database</block>
+  <block id="f15b6d4df033d13872ca3938921e3677" category="sidebar">Report tecnici sulla business continuity</block>
+  <block id="556eda250d1f196adc09c3afcd396b84" category="sidebar">Architettura e progettazione della soluzione MetroCluster</block>
+  <block id="4767099b22895a8101a1cba45d8cf6e9" category="sidebar">IP MetroCluster</block>
+  <block id="eab1124b93650078ec1e8e3092712538" category="sidebar">FC MetroCluster</block>
+  <block id="745e09dfe45dd426c5e73339b93791a9" category="sidebar">Ulteriori report tecnici sulla business continuity</block>
+  <block id="c5c30671213f4d20d0d3e001be835fff" category="sidebar">Configurazione asincrona e Best practice di SnapMirror</block>
+  <block id="b151fa9d3a99ac1198c348082841dadb" category="sidebar">Configurazione sincrona e Best practice di SnapMirror</block>
+  <block id="db43ac1a3df915eac1e2b05048e0ff14" category="sidebar">Storage WORM conforme con SnapLock</block>
+  <block id="35b0462c5bb2a4fdc39750037610b26b" category="sidebar">Report tecnici aggiuntivi sulla protezione dei dati e sul disaster recovery</block>
+  <block id="31947de3fc855dce40846d2cb60d48c4" category="sidebar">Report tecnici sui volumi FlexCache e FlexGroup</block>
+  <block id="098a9352bab68d0361bda3b31e3eaf76" category="sidebar">Volumi FlexCache</block>
+  <block id="98128573f1e72d145cae478573fe7e78" category="sidebar">Implementazione dei volumi FlexGroup e Best practice</block>
+  <block id="0a66e21020f14b45688f8e77b7e20b00" category="sidebar">Protezione dei dati e backup dei volumi ONTAP FlexGroup</block>
+  <block id="3f163a3114d2b0e94dec2a4a43c4029d" category="sidebar">Report tecnici aggiuntivi sui volumi FlexCache e FlexGroup</block>
+  <block id="a432199853e48c5637c242251f95c704" category="sidebar">Best practice e implementazione di NFS in NetApp ONTAP</block>
+  <block id="3dbf10ae4bfa4c7836a27c5cb585c0bd" category="sidebar">NAS multiprotocollo in ONTAP: Panoramica e Best practice</block>
+  <block id="58a229be829dc9196abdaff6a4a26864" category="sidebar">S3 in ONTAP Best practice</block>
+  <block id="31ca7aa5951254f3675ee33de50f7780" category="sidebar">Procedure consigliate per i name service</block>
+  <block id="fd4fb5e4cf43e214576dfc0e251fb50d" category="sidebar">NFS Kerberos in ONTAP</block>
+  <block id="0908ed986c402b0d82409382576f03e5" category="sidebar">Report tecnici NAS aggiuntivi</block>
+  <block id="6fce9db621e9f4b6fd60e707035ec03a" category="sidebar">BGP/VIP con ONTAP</block>
+  <block id="b8bc0e6a162c69f8935ea868dd0979e9" category="sidebar">Best practice per LE SAN moderne in ONTAP</block>
+  <block id="127df462941ca837507ee75e016f4b04" category="sidebar">Implementazione e configurazione di SAN moderne con NVMe over Fabrics (NVMe-of)</block>
+  <block id="e668c61f387e7319a559126e87ff0207" category="sidebar">Sistemi ONTAP AFF All SAN Array (ASA)</block>
+  <block id="80bed208c8c2b2b37854ecf2fcf63939" category="sidebar">La soluzione NetApp per ransomware</block>
+  <block id="63ab8aaa1f35361bdf5c84b3d1dd4765" category="sidebar">NetApp e zero trust</block>
+  <block id="2b1882b52bf0c1c3070f8c109bac0cb8" category="sidebar">Storage WORM conforme con NetApp SnapLock</block>
+  <block id="318a48e62d72677582dc9f48f0d4d7ed" category="sidebar">Autenticazione (SSH, MFA)</block>
+  <block id="3346583295d2f989677e5eaa1cec935e" category="sidebar">Multi-tenancy sicura in ONTAP</block>
+  <block id="78c62b440b6934886ff35073f6d2d20e" category="sidebar">Ulteriori report tecnici sulla sicurezza</block>
+  <block id="7e5dd2fcf84a948c9fc94ed527184b65" category="sidebar">SnapCenter per Microsoft SQL</block>
+  <block id="85b5ea7ba0f09e645b16f4e67a103712" category="sidebar">SnapCenter per la virtualizzazione</block>
+  <block id="fed6fa1f1b675c268f8b78258e2545a7" category="sidebar">Servizio SnapCenter</block>
+  <block id="4afeaf632b42b8ab98eecc7c4d0904b3" category="sidebar">Report tecnici SnapCenter aggiuntivi</block>
+  <block id="6dc00e1bbdeea3ffaca45fe746b95325" category="sidebar">Best practice di FabricPool</block>
+  <block id="ac5ffae4eb77272a6c60f806c6f27c44" category="sidebar">Consigli FabricPool con StorageGRID</block>
+  <block id="14307b8dac57f5d364e4c656a61f7214" category="sidebar">Tiering dello storage del database con FabricPool</block>
+  <block id="2bdc87f51d413e6d2fa23dd26238501f" category="sidebar">VMware vSphere per ONTAP</block>
+  <block id="0dca6505dd29defef873a6ae40e5ba67" category="sidebar">Volumi virtuali VMware vSphere (vVol) con ONTAP</block>
+  <block id="2d90ac09cbf108bddad31dd341f8614e" category="sidebar">VMware Site Recovery Manager con ONTAP</block>
+  <block id="16d877785afd5e8f401c4bd07d5afe32" category="sidebar">Report tecnici aggiuntivi sulla virtualizzazione</block>
+</blocks>

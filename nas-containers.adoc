@@ -1,0 +1,46 @@
+---
+layout: landing-page 
+sidebar: sidebar 
+keywords: Technical Reports, TR, NetApp TR, ONTAP TR, ONTAP, ONTAP 9, best practices, best-practices 
+permalink: nas-containers.html 
+summary: Questi report tecnici forniscono una panoramica dei volumi FlexCache e FlexGroup in NetApp ONTAP, oltre a consigli sulle Best practice 
+---
+= Report tecnici sui volumi FlexCache e FlexGroup
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Le soluzioni NAS di NetApp semplificano la gestione dei dati e ti aiutano a tenere il passo con la crescita, ottimizzando al contempo i costi. Le soluzioni NAS di ONTAP offrono operazioni senza interruzioni, efficienza comprovata e scalabilità perfetta all'interno di un'architettura unificata. Basato su ONTAP, il NAS scale-out sfrutta l'enorme ecosistema ONTAP, con un significativo vantaggio in termini di innovazione e una visione per un'innovazione futura aggressiva.
+
+[NOTE]
+====
+Questi report tecnici si espandono su link:https://docs.netapp.com/us-en/ontap/task_nas_flexcache.html["Volume ONTAP FlexCache"] e. link:https://docs.netapp.com/us-en/ontap/task_nas_provision_flexgroup.html["Volume ONTAP FlexGroup"] documentazione del prodotto.
+
+====
+
+
+== FlexCache
+
+link:https://www.netapp.com/pdf.html?item=/media/7336-tr4743.pdf["TR-4743: FlexCache in ONTAP"^]
+FlexCache è una tecnologia di caching che crea repliche di volumi sparse e scrivibili sullo stesso cluster ONTAP o su cluster diversi. Consente di avvicinare dati e file all'utente per un throughput più rapido con un ingombro ridotto. Scopri come utilizzare FlexCache, le procedure consigliate, i limiti e le considerazioni per la progettazione e l'implementazione.
+
+
+
+== Volumi FlexGroup
+
+link:https://www.netapp.com/pdf.html?item=/media/17251-tr4571a.pdf["TR-4571a: Le dieci Best practice di FlexGroup"^]
+Questo report tecnico è una versione condensata di TR-4571: Best practice e guida all'implementazione di NetApp ONTAP FlexGroup Volumes per un consumo rapido.
+
+link:https://www.netapp.com/pdf.html?item=/media/7337-tr4557.pdf["TR-4557: NetApp ONTAP FlexGroup Volumes - Panoramica tecnica"^]
+Scopri FlexGroup Volumes, un container NAS scale-out di ONTAP, che unisce capacità quasi infinita con performance prevedibili e a bassa latenza in carichi di lavoro con elevati carichi di metadati.
+
+link:https://www.netapp.com/pdf.html?item=/media/12385-tr4571.pdf["TR-4571: Best practice e guida all'implementazione di NetApp ONTAP FlexGroup Volumes"^]
+Scopri i volumi FlexGroup, le procedure consigliate e i suggerimenti per l'implementazione. I volumi FlexGroup sono un'evoluzione dei container NAS scale-out di ONTAP, che combina capacità quasi infinita con performance prevedibili e a bassa latenza in carichi di lavoro con carichi di lavoro elevati di metadati.
+
+link:https://www.netapp.com/pdf.html?item=/media/17064-tr4678.pdf["TR-4678: Protezione dei dati e backup dei volumi FlexGroup"^]
+Scopri di più sulla protezione dei dati e sul backup per i volumi FlexGroup, tra cui copie Snapshot, SnapMirror e altre soluzioni di backup e protezione dei dati.

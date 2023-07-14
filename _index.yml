@@ -1,0 +1,125 @@
+---
+indexpage:
+  lead: I report tecnici di ONTAP forniscono un contesto aggiuntivo per la pianificazione
+    e l'ottimizzazione delle implementazioni ONTAP all'interno di ecosistemi diversi
+    o con protocolli diversi. Alcuni report tecnici di ONTAP forniscono il contesto
+    architettonico e le procedure consigliate per le funzionalità e le funzionalità
+    di ONTAP.
+  tiles:
+  - title: Report tecnici di applicazioni e database
+    links:
+    - title: Microsoft SQL Server con ONTAP
+      url: apps-dbs.html
+    - title: Performance del database Oracle su AFF A-Series e C-Series
+      url: apps-dbs.html
+    - title: Performance del database Oracle virtualizzato su AFF A-Series e C-Series
+      url: apps-dbs.html
+    - title: Database Oracle su ONTAP
+      url: apps-dbs.html
+    - title: Report tecnici aggiuntivi per applicazioni e database
+      url: apps-dbs.html
+  - title: Report tecnici sulla business continuity
+    links:
+    - title: Continuità aziendale SnapMirror (SM-BC)
+      url: business-continuity.html
+    - title: Architettura e progettazione della soluzione MetroCluster
+      url: business-continuity.html
+    - title: IP MetroCluster
+      url: business-continuity.html
+    - title: FC MetroCluster
+      url: business-continuity.html
+    - title: Ulteriori report tecnici sulla business continuity
+      url: business-continuity.html
+  - title: Report tecnici sulla protezione dei dati e sul disaster recovery
+    links:
+    - title: Configurazione asincrona e Best practice di SnapMirror
+      url: data-protection-disaster-recovery.html
+    - title: Configurazione sincrona e Best practice di SnapMirror
+      url: data-protection-disaster-recovery.html
+    - title: Storage WORM conforme con SnapLock
+      url: data-protection-disaster-recovery.html
+    - title: Report tecnici aggiuntivi sulla protezione dei dati e sul disaster recovery
+      url: data-protection-disaster-recovery.html
+  - title: Report tecnici sui volumi FlexCache e FlexGroup
+    links:
+    - title: Volumi FlexCache
+      url: nas-containers.html
+    - title: Implementazione dei volumi FlexGroup e Best practice
+      url: nas-containers.html
+    - title: Protezione dei dati e backup dei volumi ONTAP FlexGroup
+      url: nas-containers.html
+    - title: Report tecnici aggiuntivi sui volumi FlexCache e FlexGroup
+      url: nas-containers.html
+  - title: Report tecnici NAS
+    links:
+    - title: Best practice e implementazione di NFS in NetApp ONTAP
+      url: nas.html
+    - title: 'NAS multiprotocollo in ONTAP: Panoramica e Best practice'
+      url: nas.html
+    - title: S3 in ONTAP Best practice
+      url: nas.html
+    - title: Procedure consigliate per i name service
+      url: nas.html
+    - title: NFS Kerberos in ONTAP
+      url: nas.html
+    - title: Report tecnici NAS aggiuntivi
+      url: nas.html
+  - title: Report tecnici di rete
+    links:
+    - title: BGP/VIP con ONTAP
+      url: networking.html
+  - title: Report tecnici SAN
+    links:
+    - title: Best practice per LE SAN moderne in ONTAP
+      url: san.html
+    - title: Implementazione e configurazione di SAN moderne con NVMe over Fabrics
+        (NVMe-of)
+      url: san.html
+    - title: Sistemi ONTAP AFF All SAN Array (ASA)
+      url: san.html
+  - title: Report tecnici sulla sicurezza
+    links:
+    - title: Guide per la protezione avanzata
+      url: security-hardening-guides.html
+    - title: La soluzione NetApp per ransomware
+      url: security.html
+    - title: NetApp e zero trust
+      url: security.html
+    - title: Storage WORM conforme con NetApp SnapLock
+      url: security.html
+    - title: Autenticazione (SSH, MFA)
+      url: security.html
+    - title: Multi-tenancy sicura in ONTAP
+      url: security.html
+    - title: Ulteriori report tecnici sulla sicurezza
+      url: security.html
+  - title: Report tecnici SnapCenter
+    links:
+    - title: SnapCenter per Oracle
+      url: snapcenter.html
+    - title: SnapCenter per Microsoft SQL
+      url: snapcenter.html
+    - title: SnapCenter per la virtualizzazione
+      url: snapcenter.html
+    - title: Servizio SnapCenter
+      url: snapcenter.html
+    - title: Report tecnici SnapCenter aggiuntivi
+      url: snapcenter.html
+  - title: Rapporti tecnici di tiering
+    links:
+    - title: Best practice di FabricPool
+      url: tiering.html
+    - title: Consigli FabricPool con StorageGRID
+      url: tiering.html
+    - title: Tiering dello storage del database con FabricPool
+      url: tiering.html
+  - title: Report tecnici sulla virtualizzazione
+    links:
+    - title: VMware vSphere per ONTAP
+      url: virtualization.html
+    - title: Volumi virtuali VMware vSphere (vVol) con ONTAP
+      url: virtualization.html
+    - title: VMware Site Recovery Manager con ONTAP
+      url: virtualization.html
+    - title: Report tecnici aggiuntivi sulla virtualizzazione
+      url: virtualization.html

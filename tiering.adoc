@@ -1,0 +1,31 @@
+---
+layout: landing-page 
+sidebar: sidebar 
+keywords: Technical Reports, TR, NetApp TR, ONTAP TR, ONTAP, ONTAP 9, best practices, best-practices 
+permalink: tiering.html 
+summary: Questi report tecnici forniscono una panoramica del tiering in NetApp ONTAP e delle procedure consigliate. 
+---
+= Rapporti tecnici di tiering
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+
+
+[role="lead"]
+Con la soluzione di tiering dei dati di FabricPool, l'esperienza complessiva dell'utente dei sistemi flash migliora, evitando al tempo stesso il problema della riarchitettura delle applicazioni per l'efficienza dello storage. FabricPool riduce l'impatto dello storage e i costi associati all'ambiente di un sistema. I dati attivi rimangono su SSD dalle performance elevate. I dati inattivi vengono suddivisi in livelli per lo storage a oggetti a basso costo, preservando al contempo l'efficienza dello storage.
+
+[NOTE]
+====
+Questi report tecnici si espandono su link:https://docs.netapp.com/us-en/ontap/fabricpool/index.html["ONTAP FabricPool"] documentazione del prodotto.
+
+====
+link:https://www.netapp.com/pdf.html?item=/media/17239-tr4598.pdf["TR-4598: Best practice FabricPool"^]
+Scopri le funzionalità, i requisiti, l'implementazione e le procedure consigliate per FabricPool.
+
+link:https://www.netapp.com/pdf.html?item=/media/19403-tr-4826.pdf["TR-4826: Guida ai consigli di NetApp FabricPool con StorageGRID"^]
+Scopri le procedure consigliate per l'implementazione e il dimensionamento di StorageGRID come livello di capacità per il componente ONTAP FabricPool. Il presente documento illustra inoltre le funzionalità, i requisiti, l'implementazione e le procedure consigliate per l'utilizzo di StorageGRID.
+
+link:https://www.netapp.com/pdf.html?item=/media/9138-tr4695.pdf["TR-4695: Tiering dello storage del database con NetApp FabricPool"^]
+Scopri i vantaggi e le opzioni di configurazione di FabricPool con diversi database, incluso il sistema di gestione dei database relazionali Oracle (RDBMS).

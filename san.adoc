@@ -1,0 +1,38 @@
+---
+layout: landing-page 
+sidebar: sidebar 
+keywords: Technical Reports, TR, NetApp TR, ONTAP TR, ONTAP, ONTAP 9, SAN, NVMe, NVMeoF, NVMeoTCP, NVMeoFC, iSCSI, fibre channel, fiber channel, igroups, namespaces, namespace, LUN, subsystem, best practices, best-practices 
+permalink: san.html 
+summary: Questi report tecnici forniscono una panoramica dei protocolli a blocchi in ONTAP e delle procedure consigliate. 
+---
+= Report tecnici SAN
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Lo storage SAN ONTAP offre un'esperienza SAN semplificata che offre alta disponibilità per i database mission-critical della tua organizzazione e per altri carichi di lavoro SAN. Grazie all'integrazione dei servizi dati Best-in-class con database Oracle, SAP e Microsoft SQL Server, oltre a VMware e altri hypervisor leader del settore, ONTAP SAN offre un time-to-value accelerato per le applicazioni di database aziendali.
+
+[NOTE]
+====
+Questi report tecnici si espandono su link:https://docs.netapp.com/us-en/ontap/san-management/index.html["Gestione dello storage SAN ONTAP"] documentazione del prodotto.
+
+====
+link:https://www.netapp.com/pdf.html?item=/media/10680-tr4080.pdf["TR-4080: Best practice per LE SAN moderne in ONTAP"^]
+Scopri i protocolli a blocchi in ONTAP e le procedure consigliate.
+
+link:https://www.netapp.com/pdf.html?item=/media/10681-tr4684.pdf["TR-4684: Implementazione e configurazione di SAN moderne con NVMe over Fabrics (NVMe-of)"^]
+Scopri come implementare e configurare NVMe sui trasporti di fabric (NVMe su Fibre Channel e NVMe su TCP). Gli argomenti trattati includono le linee guida di progettazione, implementazione, configurazione, gestione e le procedure consigliate per creare soluzioni SAN moderne ad alta disponibilità e performance utilizzando i protocolli e i trasporti NVMe.
+
+link:https://www.netapp.com/pdf.html?item=/media/10379-tr4515.pdf["TR-4515: Sistemi ONTAP AFF All SAN Array (ASA)"^]
+Scopri i sistemi NetApp AFF All SAN Array (ASA) e come implementarli in base alle procedure consigliate per le configurazioni SAN business-critical sempre disponibili.
+
+link:https://www.netapp.com/pdf.html?item=/media/85671-tr-4968.pdf["TR-4968: Integrità e disponibilità dei dati dell'array all-SAN NetApp"^]
+Scopri in che modo le varie funzionalità di protezione dei dati e integrità dei dati di un array all SAN funzionano per ottenere il massimo uptime delle applicazioni e le procedure consigliate per la progettazione, l'implementazione e la gestione di una rete SAN.
+
+link:https://www.netapp.com/pdf.html?item=/media/9222-nva-1145-design.pdf["Moderna soluzione flash SAN connessa al cloud"^]
+Questa architettura verificata da NetApp è stata progettata e verificata congiuntamente da NetApp, VMware e Broadcom. Utilizza le più recenti soluzioni tecnologiche Brocade, Emulex e VMware vSphere insieme allo storage all-flash NetApp, che definisce un nuovo standard per lo storage SAN aziendale e la protezione dei dati che favorirà un valore di business superiore.
