@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <blocks>
-  <block id="f1574d51fcf9f775687f0113052df518" category="summary">Questi report tecnici forniscono una panoramica di ONTAP e delle procedure consigliate</block>
   <block id="4434424bd2c1011098a508e85df56b94" category="doc">Report tecnici ONTAP</block>
   <block id="f282b1ca0090a5b43997888b90926fdd" category="summary">Questi report tecnici forniscono una panoramica delle soluzioni di settore con NetApp ONTAP e delle procedure consigliate</block>
   <block id="0fa7990fb9bf5e1fa283be0a561304a6" category="doc">Report tecnici sulle soluzioni di settore</block>
@@ -411,4 +410,5 @@ Questo documento descrive le tecniche e la tecnologia utilizzate per proteggere 
   <block id="0dca6505dd29defef873a6ae40e5ba67" category="sidebar">Volumi virtuali VMware vSphere (vVol) con ONTAP</block>
   <block id="2d90ac09cbf108bddad31dd341f8614e" category="sidebar">VMware Site Recovery Manager con ONTAP</block>
   <block id="16d877785afd5e8f401c4bd07d5afe32" category="sidebar">Report tecnici aggiuntivi sulla virtualizzazione</block>
+  <block id="606ae2d52250c5830b4f47feec9aadee" category="summary">I report tecnici di ONTAP forniscono un contesto aggiuntivo per la pianificazione e l'ottimizzazione delle implementazioni ONTAP all'interno di ecosistemi diversi o con protocolli diversi, oltre alle procedure consigliate per le funzionalità di ONTAP.</block>
 </blocks>
