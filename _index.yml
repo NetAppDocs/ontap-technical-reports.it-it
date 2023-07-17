@@ -6,7 +6,7 @@ indexpage:
     architettonico e le procedure consigliate per le funzionalità e le funzionalità
     di ONTAP.
   tiles:
-  - title: Report tecnici di applicazioni e database
+  - title: Applicazioni e database
     links:
     - title: Microsoft SQL Server con ONTAP
       url: apps-dbs.html
@@ -18,7 +18,7 @@ indexpage:
       url: apps-dbs.html
     - title: Report tecnici aggiuntivi per applicazioni e database
       url: apps-dbs.html
-  - title: Report tecnici sulla business continuity
+  - title: Continuità del business
     links:
     - title: Continuità aziendale SnapMirror (SM-BC)
       url: business-continuity.html
@@ -30,7 +30,7 @@ indexpage:
       url: business-continuity.html
     - title: Ulteriori report tecnici sulla business continuity
       url: business-continuity.html
-  - title: Report tecnici sulla protezione dei dati e sul disaster recovery
+  - title: Protezione dei dati e disaster recovery
     links:
     - title: Configurazione asincrona e Best practice di SnapMirror
       url: data-protection-disaster-recovery.html
@@ -40,7 +40,7 @@ indexpage:
       url: data-protection-disaster-recovery.html
     - title: Report tecnici aggiuntivi sulla protezione dei dati e sul disaster recovery
       url: data-protection-disaster-recovery.html
-  - title: Report tecnici sui volumi FlexCache e FlexGroup
+  - title: Volumi FlexCache e FlexGroup
     links:
     - title: Volumi FlexCache
       url: nas-containers.html
@@ -50,7 +50,7 @@ indexpage:
       url: nas-containers.html
     - title: Report tecnici aggiuntivi sui volumi FlexCache e FlexGroup
       url: nas-containers.html
-  - title: Report tecnici NAS
+  - title: NAS
     links:
     - title: Best practice e implementazione di NFS in NetApp ONTAP
       url: nas.html
@@ -64,11 +64,11 @@ indexpage:
       url: nas.html
     - title: Report tecnici NAS aggiuntivi
       url: nas.html
-  - title: Report tecnici di rete
+  - title: Networking
     links:
     - title: BGP/VIP con ONTAP
       url: networking.html
-  - title: Report tecnici SAN
+  - title: SAN
     links:
     - title: Best practice per LE SAN moderne in ONTAP
       url: san.html
@@ -77,7 +77,7 @@ indexpage:
       url: san.html
     - title: Sistemi ONTAP AFF All SAN Array (ASA)
       url: san.html
-  - title: Report tecnici sulla sicurezza
+  - title: Sicurezza
     links:
     - title: Guide per la protezione avanzata
       url: security-hardening-guides.html
@@ -93,7 +93,7 @@ indexpage:
       url: security.html
     - title: Ulteriori report tecnici sulla sicurezza
       url: security.html
-  - title: Report tecnici SnapCenter
+  - title: SnapCenter
     links:
     - title: SnapCenter per Oracle
       url: snapcenter.html
@@ -105,7 +105,7 @@ indexpage:
       url: snapcenter.html
     - title: Report tecnici SnapCenter aggiuntivi
       url: snapcenter.html
-  - title: Rapporti tecnici di tiering
+  - title: Tiering
     links:
     - title: Best practice di FabricPool
       url: tiering.html
@@ -113,7 +113,7 @@ indexpage:
       url: tiering.html
     - title: Tiering dello storage del database con FabricPool
       url: tiering.html
-  - title: Report tecnici sulla virtualizzazione
+  - title: Virtualizzazione
     links:
     - title: VMware vSphere per ONTAP
       url: virtualization.html
