@@ -71,3 +71,49 @@ Scopri le procedure consigliate per il provisioning, la gestione e la protezione
 
 link:https://www.netapp.com/pdf.html?item=/media/17140-tr4770.pdf["TR-4770: Database PostgreSQL su ONTAP"^]
 PostgreSQL viene fornito con varianti che includono PostgreSQL, PostgreSQL Plus ed EDB Postgres Advanced Server (ECAS). PostgreSQL viene in genere implementato come database back-end per applicazioni multi-Tier. È supportato da pacchetti middleware comuni (come PHP, Java, Python, Tcl/TK, ODBC, E JDBC) ed è stata storicamente una scelta popolare per i sistemi di gestione di database open-source. Scopri i requisiti di configurazione e le istruzioni per l'ottimizzazione e la configurazione dello storage per l'implementazione di PostgreSQL su ONTAP.
+
+
+
+== SAP HANA
+
+link:https://docs.netapp.com/us-en/netapp-solutions-sap/bp/saphana_aff_nfs_introduction.html["TR-4435: SAP HANA su sistemi NetApp AFF con NFS"]
+Scopri le procedure consigliate e altre considerazioni sull'utilizzo di SAP HANA su sistemi AFF con NFS.
+
+link:https://docs.netapp.com/us-en/netapp-solutions-sap/bp/saphana_aff_fc_introduction.html["TR-4436: SAP HANA su sistemi NetApp AFF con protocollo Fibre Channel"]
+Scopri le procedure consigliate e altre considerazioni sull'utilizzo di SAP HANA su sistemi AFF con Fibre Channel.
+
+link:https://docs.netapp.com/us-en/netapp-solutions-sap/bp/saphana-fas-nfs_introduction.html["TR-4290: SAP HANA su sistemi NetApp FAS con NFS"]
+Scopri le procedure consigliate e altre considerazioni sull'utilizzo di SAP HANA su sistemi FAS con NFS.
+
+link:https://docs.netapp.com/us-en/netapp-solutions-sap/bp/saphana_fas_fc_introduction.html["TR-4384: SAP HANA su sistemi NetApp FAS con protocollo Fibre Channel"]
+Scopri le procedure consigliate e altre considerazioni sull'utilizzo di SAP HANA su sistemi FAS con Fibre Channel.
+
+link:https://www.netapp.com/pdf.html?item=/media/19887-TR-4821.pdf["TR-4821: SAP HANA su sistemi IBM Power e sistemi NetApp AFF con NFS"^]
+IBM Power Systems è progettato per carichi di lavoro mission-critical e ad uso intensivo di dati come SAP HANA. IBM Power Systems semplifica e accelera le implementazioni di SAP HANA fornendo quattro funzionalità chiave: Virtualizzazione e flessibilità superiori, provisioning più rapido, scalabilità conveniente e uptime massimizzato. La famiglia di prodotti AFF è certificata per l'utilizzo con SAP HANA in progetti TDI (Tailored Data Center Integration) e si integra perfettamente con IBM Power Systems. Questo documento descrive le procedure consigliate per una configurazione dello storage NAS (NFS) con ONTAP e la famiglia di prodotti AFF.
+
+link:https://docs.netapp.com/us-en/netapp-solutions-sap/backup/saphana-br-scs-overview.html["TR-4614: Backup e recovery SAP HANA con SnapCenter"]
+SnapCenter è una piattaforma unificata e scalabile per la protezione dei dati coerente con l'applicazione per SAP HANA e altri database. SnapCenter offre controllo e supervisione centralizzati, delegando al contempo la capacità degli utenti di gestire processi di backup, ripristino e clonazione specifici dell'applicazione. Con SnapCenter, gli amministratori di database e storage imparano a utilizzare un unico strumento per gestire le operazioni di backup, ripristino e clonazione per una vasta gamma di applicazioni e database.
+
+link:https://docs.netapp.com/us-en/netapp-solutions-sap/backup/amazon-fsx-overview.html["TR-4926: SAP HANA su Amazon FSX per NetApp ONTAP - Backup e recovery con SnapCenter"]
+Scopri le procedure consigliate per la protezione dei dati SAP HANA su Amazon FSX per NetApp ONTAP e SnapCenter. Gli argomenti trattati includono i concetti di SnapCenter, i consigli di configurazione e i flussi di lavoro operativi, tra cui configurazione, operazioni di backup, e operazioni di ripristino e recovery.
+
+link:https://docs.netapp.com/us-en/netapp-solutions-sap/lifecycle/sc-copy-clone-introduction.html["TR-4667: Automazione delle operazioni di copia e clonazione del sistema SAP HANA con SnapCenter"]
+La clonazione dello storage SnapCenter e la possibilità di definire in modo flessibile le operazioni di pre-cloning e post-cloning consentono agli amministratori SAP di accelerare e automatizzare le operazioni di copia, clonazione o refresh del sistema SAP. Scopri ora la possibilità di scegliere qualsiasi backup Snapshot di SnapCenter in qualsiasi storage primario o secondario consente di affrontare i casi di utilizzo più importanti, tra cui corruzione logica, test di disaster recovery o il refresh di un sistema QA SAP.
+
+link:https://www.netapp.com/pdf.html?item=/media/17030-tr4719.pdf["TR-4719: Backup e ripristino della replica del sistema SAP HANA con SnapCenter"^]
+Scopri come utilizzare la tecnologia SnapCenter e il plug-in SAP HANA per il backup e il ripristino in un ambiente di replica del sistema SAP HANA.
+
+link:https://docs.netapp.com/us-en/netapp-solutions-sap/lifecycle/sc-copy-clone-introduction.html["TR-4667: Automazione delle operazioni di copia e clonazione del sistema SAP HANA con SnapCenter"]
+La possibilità di creare backup Snapshot NetApp coerenti con l'applicazione sul layer di storage è la base per le operazioni di copia del sistema e di cloni del sistema. I backup Snapshot basati sullo storage vengono creati utilizzando il plug-in NetApp SnapCenter per SAP HANA e le interfacce fornite dal database SAP HANA. SnapCenter registra i backup Snapshot nel catalogo di backup SAP HANA in modo che possano essere utilizzati per il ripristino e il ripristino, nonché per le operazioni di cloning.
+
+link:https://www.netapp.com/pdf.html?item=/media/8584-tr4646pdf.pdf["TR-4646: Disaster recovery SAP HANA con replica dello storage"^]
+Questo documento offre una panoramica delle opzioni per la protezione del disaster recovery per SAP HANA. Include informazioni dettagliate sull'installazione e una descrizione del caso di utilizzo di una soluzione di disaster recovery a tre siti basata sulla replica dello storage SnapMirror sincrona e asincrona. La soluzione descritta utilizza SnapCenter con il plug-in SAP HANA per gestire la coerenza del database.
+
+link:https://www.netapp.com/pdf.html?item=/media/17050-tr4711pdf.pdf["TR-4711: Backup e ripristino SAP HANA con sistemi storage NetApp e software CommVault"^]
+Questo documento descrive la progettazione di una soluzione NetApp e CommVault per SAP HANA, che include la tecnologia di gestione snapshot CommVault IntelliSnap e la tecnologia Snapshot. La soluzione si basa sullo storage NetApp e sulla suite di protezione dei dati CommVault.
+
+link:https://docs.netapp.com/us-en/netapp-solutions-sap/lifecycle/lama-ansible-introduction.html["TR-4953: Integrazione della gestione del panorama SAP di NetApp con Ansible"]
+SAP Landscape Management (lama) consente agli amministratori di sistema SAP di automatizzare le operazioni del sistema SAP, incluse le operazioni end-to-end di cloning, copia e refresh del sistema SAP. NetApp offre un'ampia gamma di moduli Ansible che consentono a SAP lama di accedere a tecnologie come NetApp Snapshot e FlexClone attraverso SAP lama Automation Studio. Queste tecnologie aiutano a semplificare e accelerare le operazioni di cloning, copia e refresh del sistema SAP. L'integrazione può essere utilizzata dai clienti che eseguono le soluzioni di storage NetApp on-premise o dai clienti che utilizzano i servizi di storage NetApp presso provider di cloud pubblico come Amazon Web Services, Microsoft Azure o Google Cloud Platform. Questo documento descrive la configurazione di SAP lama con le funzionalità di storage NetApp per le operazioni di copia, clonazione e refresh del sistema SAP utilizzando l'automazione Ansible.
+
+link:https://docs.netapp.com/us-en/netapp-solutions-sap/lifecycle/libelle-sc-overview.html["TR-4929: Automazione delle operazioni di copia del sistema SAP con libelle SystemCopy"]
+Libelle SystemCopy è una soluzione software basata su framework per creare copie di sistema e orizzontale completamente automatizzate. Con il tocco proverbiale di un pulsante, i sistemi di QA e test possono essere aggiornati con nuovi dati di produzione. Libelle SystemCopy supporta tutti i database e i sistemi operativi convenzionali, fornisce i propri meccanismi di copia per tutte le piattaforme ma, allo stesso tempo, integra procedure di backup/ripristino o tool di storage come le copie Snapshot di NetApp e i volumi FlexClone di NetApp.
