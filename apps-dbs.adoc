@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-keywords: Technical Reports, TR, NetApp TR, ONTAP TR, ONTAP, ONTAP 9, best practices, best-practices 
+keywords: Databases, Applications, Technical Reports, TR, NetApp TR, ONTAP TR, ONTAP, ONTAP 9, best practices, best-practices 
 permalink: apps-dbs.html 
 summary: Questi report tecnici forniscono una panoramica delle applicazioni e dei database su ONTAP, oltre alle procedure consigliate 
 ---
@@ -20,11 +20,16 @@ ONTAP è la base per la gestione dei dati e la protezione dei dati per molte app
 
 == Microsoft SQL Server
 
+SQL Server è la base della piattaforma dati di Microsoft, che offre prestazioni mission-critical con tecnologie in memoria e informazioni più rapide su qualsiasi dato, sia in sede che nel cloud.
+
+link:https://docs.netapp.com/us-en/ontap-apps-dbs/mssql/overview.html["Best practice per Microsoft SQL Server con ONTAP"]
+Scopri come gli amministratori dello storage e i database possono implementare correttamente Microsoft SQL Server sullo storage ONTAP.
+
+
+NOTE: Questa documentazione sostituisce il report tecnico precedentemente pubblicato _TR-4590: Best practice guide for Microsoft SQL Server with ONTAP._
+
 link:https://www.netapp.com/pdf.html?item=/media/88704-tr-4976-virtualized-microsoft-sql-server-performance-on-netapp-aff-a-series-and-c-series.pdf["TR-4976: Performance virtualizzate di Microsoft SQL Server su sistemi NetApp AFF A-Series e C-Series"^]
 Scopri le caratteristiche delle performance di Microsoft SQL Server utilizzando i sistemi NetApp AFF A-Series e C-Series e ottieni indicazioni su come scegliere il sistema giusto in base al carico di lavoro.
-
-link:https://www.netapp.com/pdf.html?item=/media/8585-tr4590.pdf["TR-4590: Guida alle Best practice per Microsoft SQL Server con ONTAP"^]
-Scopri come gli amministratori dello storage e i database possono implementare correttamente Microsoft SQL Server sullo storage ONTAP.
 
 link:https://www.netapp.com/pdf.html?item=/media/12400-tr4714.pdf["TR-4714: Best practice per Microsoft SQL Server con SnapCenter"^]
 Scopri ora come implementare con successo Microsoft SQL Server sullo storage ONTAP utilizzando la tecnologia SnapCenter per la protezione dei dati.
@@ -33,30 +38,40 @@ Scopri ora come implementare con successo Microsoft SQL Server sullo storage ONT
 
 == MySQL
 
-link:https://www.netapp.com/pdf.html?item=/media/16423-tr-4722pdf.pdf["Database MySQL su ONTAP"^]
+Questo documento descrive i requisiti di configurazione e fornisce istruzioni sull'ottimizzazione e la configurazione dello storage per l'implementazione di MySQL su ONTAP.
+
+link:https://docs.netapp.com/us-en/ontap-apps-dbs/mysql/overview.html["Database MySQL su Best practice NetApp ONTAP"]
 MySQL e le sue varianti, tra cui MariaDB e Percona, sono ampiamente utilizzate per molte applicazioni aziendali. Queste applicazioni spaziano dai siti di social networking globali ai sistemi di e-commerce di grandi dimensioni ai sistemi di hosting per PMI contenenti migliaia di istanze di database. Scopri i requisiti di configurazione e le indicazioni per l'ottimizzazione e la configurazione dello storage per l'implementazione di MySQL su ONTAP.
+
+
+NOTE: Questa documentazione sostituisce il report tecnico precedentemente pubblicato _TR-4722: Database MySQL sulle Best practice NetApp ONTAP._
 
 
 
 == Oracle
 
-link:https://www.netapp.com/pdf.html?item=/media/8744-tr3633pdf.pdf["TR-3633: Database Oracle su ONTAP"^]
+ONTAP è progettato per i database Oracle. Per decenni, ONTAP è stato ottimizzato per le esigenze uniche di i/o dei database relazionali e sono state create più funzionalità di ONTAP appositamente per soddisfare le esigenze dei database Oracle e persino su richiesta della stessa Oracle Inc.
+
+link:https://docs.netapp.com/us-en/ontap-apps-dbs/oracle/overview.html["Database Oracle su ONTAP"]
 Scopri le procedure consigliate che consentono agli amministratori dello storage e ai database di implementare con successo Oracle sullo storage ONTAP.
+
+link:https://docs.netapp.com/us-en/ontap-apps-dbs/oracle/dp/oracle-data-protection-introduction.html["Data Protection di Oracle con ONTAP"]
+Scopri le procedure consigliate che consentono agli amministratori dello storage e ai database di eseguire correttamente il backup, il ripristino, la replica e il disaster recovery per lo storage Oracle su ONTAP.
+
+link:https://docs.netapp.com/us-en/ontap-apps-dbs/oracle/dr/oracle-dr-overview.html["Disaster recovery di Oracle con ONTAP"]
+Scopri le procedure consigliate, le procedure di test e le altre considerazioni per il funzionamento dei database Oracle su un ambiente MetroCluster e SnapMirror Business Continuity.
+
+link:https://docs.netapp.com/us-en/ontap-apps-dbs/oracle/migration/oracle-migration-overview.html["Migrazione dei database Oracle sui sistemi di storage ONTAP"]
+Scopri le considerazioni generali per la pianificazione di una strategia di migrazione, i tre diversi livelli in cui avviene lo spostamento dei dati e illustra in dettaglio alcune delle varie procedure disponibili.
+
+
+NOTE: La documentazione sopra riportata sostituisce i report tecnici precedentemente pubblicati _TR-3633: Database Oracle su ONTAP; TR-4591: Data Protection Oracle: Backup, recovery, replica; TR-4592: Oracle su MetroCluster; e TR-4534: Migrazione dei database Oracle sui sistemi di storage NetApp_
 
 link:https://www.netapp.com/pdf.html?item=/media/85630-tr-4969.pdf["TR-4969: Performance dei database Oracle su AFF A-Series e C-Series"^]
 ONTAP è una potente piattaforma per la gestione dei dati con funzionalità native che includono compressione inline, aggiornamenti hardware senza interruzioni e la possibilità di importare un LUN da uno storage array esterno. È possibile eseguire il clustering di un massimo di 24 nodi, fornendo contemporaneamente i dati attraverso i protocolli NFS (Network file System), SMB (Server message Block), iSCSI, Fibre Channel (FC) e NVMe (Nonvolatile Memory Express). Inoltre, la tecnologia Snapshot è la base per la creazione di decine di migliaia di backup online e cloni di database completamente operativi. Oltre al ricco set di funzionalità di ONTAP, esistono una vasta gamma di requisiti per gli utenti, tra cui dimensioni del database, requisiti di performance e esigenze di protezione dei dati. Scopri le performance dei database bare metal utilizzando i sistemi storage AFF, inclusi I Sistemi A-Series e C-Series, e copre sia i massimi che la differenza pratica tra le due opzioni AFF.
 
 link:https://www.netapp.com/pdf.html?item=/media/85629-tr-4971.pdf["TR-4971: Performance del database Oracle virtualizzato su AFF A-Series e C-Series"^]
-ONTAP è una potente piattaforma per la gestione dei dati con funzionalità native che includono compressione inline, aggiornamenti hardware senza interruzioni e la possibilità di importare un LUN da uno storage array esterno. È possibile eseguire il clustering di un massimo di 24 nodi, fornendo contemporaneamente i dati tramite protocolli NFS (Network file System), SMB (Server message Block), iSCSI, Fibre Channel FC) e NVMe (Nonvolatile Memory Express). Inoltre, la tecnologia Snapshot è la base per la creazione di decine di migliaia di backup online e cloni di database completamente operativi. Oltre al ricco set di funzionalità di ONTAP, esistono una vasta gamma di requisiti per gli utenti, tra cui dimensioni del database, requisiti di performance e esigenze di protezione dei dati. Scopri le performance dei database virtualizzati che utilizzano i sistemi storage AFF, inclusi I Sistemi A-Series e C-Series, e copre sia i massimi che la differenza pratica tra le due opzioni AFF.
-
-link:https://www.netapp.com/pdf.html?item=/media/19666-tr-4591.pdf["TR-4591: Protezione dei dati Oracle: Backup, recovery, replica e disaster recovery"^]
-Scopri le procedure consigliate che consentono agli amministratori dello storage e ai database di eseguire correttamente il backup, il ripristino, la replica e il disaster recovery per lo storage Oracle su ONTAP.
-
-link:https://www.netapp.com/pdf.html?item=/media/8583-tr4592.pdf["TR-4592: Oracle su MetroCluster"^]
-Scopri le procedure consigliate, le procedure di test e altre considerazioni per il funzionamento dei database Oracle su una funzionalità di replica sincrona di MetroCluster.
-
-link:https://www.netapp.com/pdf.html?item=/media/19750-tr-4534.pdf["TR-4534: Migrazione dei database Oracle ai sistemi storage ONTAP"^]
-Scopri le considerazioni generali per la pianificazione di una strategia di migrazione, i tre diversi livelli in cui avviene lo spostamento dei dati e illustra in dettaglio alcune delle varie procedure disponibili.
+ONTAP è una potente piattaforma per la gestione dei dati con funzionalità native che includono compressione inline, aggiornamenti hardware senza interruzioni e la possibilità di importare un LUN da uno storage array esterno. È possibile eseguire il clustering di un massimo di 24 nodi, fornendo contemporaneamente i dati attraverso i protocolli NFS (Network file System), SMB (Server message Block), iSCSI, Fibre Channel (FC) e NVMe (Nonvolatile Memory Express). Inoltre, la tecnologia Snapshot è la base per la creazione di decine di migliaia di backup online e cloni di database completamente operativi. Oltre al ricco set di funzionalità di ONTAP, esistono una vasta gamma di requisiti per gli utenti, tra cui dimensioni del database, requisiti di performance e esigenze di protezione dei dati. Scopri le performance dei database virtualizzati che utilizzano i sistemi storage AFF, inclusi I Sistemi A-Series e C-Series, e copre sia i massimi che la differenza pratica tra le due opzioni AFF.
 
 link:https://www.netapp.com/pdf.html?item=/media/9138-tr4695.pdf["TR-4695: Tiering dello storage del database con FabricPool"^]
 Scopri i vantaggi e le opzioni di configurazione di FabricPool con diversi database, incluso il sistema di gestione dei database relazionali Oracle (RDBMS).
@@ -71,51 +86,18 @@ Scopri le procedure consigliate per il provisioning, la gestione e la protezione
 
 == PostgreSQL
 
-link:https://www.netapp.com/pdf.html?item=/media/17140-tr4770.pdf["TR-4770: Database PostgreSQL su ONTAP"^]
+PostgreSQL viene fornito con varianti che includono PostgreSQL, PostgreSQL Plus ed EDB Postgres Advanced Server (ECAS). PostgreSQL viene in genere distribuito come database back-end per applicazioni multi-Tier. NetApp ONTAP è una scelta eccellente per l'esecuzione di database PostgreSQL per la sua affidabilità, prestazioni elevate ed efficienza di gestione dei dati.
+
+link:https://docs.netapp.com/us-en/ontap-apps-dbs/postgres/overview.html["Database PostgreSQL sulle Best practice di ONTAP"]
 PostgreSQL viene fornito con varianti che includono PostgreSQL, PostgreSQL Plus ed EDB Postgres Advanced Server (ECAS). PostgreSQL viene in genere implementato come database back-end per applicazioni multi-Tier. È supportato da pacchetti middleware comuni (come PHP, Java, Python, Tcl/TK, ODBC, E JDBC) ed è stata storicamente una scelta popolare per i sistemi di gestione di database open-source. Scopri i requisiti di configurazione e le istruzioni per l'ottimizzazione e la configurazione dello storage per l'implementazione di PostgreSQL su ONTAP.
+
+
+NOTE: Questa documentazione sostituisce il report tecnico precedentemente pubblicato TR-4770: Database PostgreSQL sulle Best practice ONTAP.
 
 
 
 == SAP HANA
 
-link:https://docs.netapp.com/us-en/netapp-solutions-sap/bp/saphana_aff_nfs_introduction.html["TR-4435: SAP HANA su sistemi NetApp AFF con NFS"]
-Scopri le procedure consigliate e altre considerazioni sull'utilizzo di SAP HANA su sistemi AFF con NFS.
+Le Best practice per la configurazione, la gestione e l'automazione delle soluzioni SAP sono disponibili nella pagina soluzioni SAP di NetApp.
 
-link:https://docs.netapp.com/us-en/netapp-solutions-sap/bp/saphana_aff_fc_introduction.html["TR-4436: SAP HANA su sistemi NetApp AFF con protocollo Fibre Channel"]
-Scopri le procedure consigliate e altre considerazioni sull'utilizzo di SAP HANA su sistemi AFF con Fibre Channel.
-
-link:https://docs.netapp.com/us-en/netapp-solutions-sap/bp/saphana-fas-nfs_introduction.html["TR-4290: SAP HANA su sistemi NetApp FAS con NFS"]
-Scopri le procedure consigliate e altre considerazioni sull'utilizzo di SAP HANA su sistemi FAS con NFS.
-
-link:https://docs.netapp.com/us-en/netapp-solutions-sap/bp/saphana_fas_fc_introduction.html["TR-4384: SAP HANA su sistemi NetApp FAS con protocollo Fibre Channel"]
-Scopri le procedure consigliate e altre considerazioni sull'utilizzo di SAP HANA su sistemi FAS con Fibre Channel.
-
-link:https://www.netapp.com/pdf.html?item=/media/19887-TR-4821.pdf["TR-4821: SAP HANA su sistemi IBM Power e sistemi NetApp AFF con NFS"^]
-IBM Power Systems è progettato per carichi di lavoro mission-critical e ad uso intensivo di dati come SAP HANA. IBM Power Systems semplifica e accelera le implementazioni di SAP HANA fornendo quattro funzionalità chiave: Virtualizzazione e flessibilità superiori, provisioning più rapido, scalabilità conveniente e uptime massimizzato. La famiglia di prodotti AFF è certificata per l'utilizzo con SAP HANA in progetti TDI (Tailored Data Center Integration) e si integra perfettamente con IBM Power Systems. Questo documento descrive le procedure consigliate per una configurazione dello storage NAS (NFS) con ONTAP e la famiglia di prodotti AFF.
-
-link:https://docs.netapp.com/us-en/netapp-solutions-sap/backup/saphana-br-scs-overview.html["TR-4614: Backup e recovery SAP HANA con SnapCenter"]
-SnapCenter è una piattaforma unificata e scalabile per la protezione dei dati coerente con l'applicazione per SAP HANA e altri database. SnapCenter offre controllo e supervisione centralizzati, delegando al contempo la capacità degli utenti di gestire processi di backup, ripristino e clonazione specifici dell'applicazione. Con SnapCenter, gli amministratori di database e storage imparano a utilizzare un unico strumento per gestire le operazioni di backup, ripristino e clonazione per una vasta gamma di applicazioni e database.
-
-link:https://docs.netapp.com/us-en/netapp-solutions-sap/backup/amazon-fsx-overview.html["TR-4926: SAP HANA su Amazon FSX per NetApp ONTAP - Backup e recovery con SnapCenter"]
-Scopri le procedure consigliate per la protezione dei dati SAP HANA su Amazon FSX per NetApp ONTAP e SnapCenter. Gli argomenti trattati includono i concetti di SnapCenter, i consigli di configurazione e i flussi di lavoro operativi, tra cui configurazione, operazioni di backup, e operazioni di ripristino e recovery.
-
-link:https://docs.netapp.com/us-en/netapp-solutions-sap/lifecycle/sc-copy-clone-introduction.html["TR-4667: Automazione delle operazioni di copia e clonazione del sistema SAP HANA con SnapCenter"]
-La clonazione dello storage SnapCenter e la possibilità di definire in modo flessibile le operazioni di pre-cloning e post-cloning consentono agli amministratori SAP di accelerare e automatizzare le operazioni di copia, clonazione o refresh del sistema SAP. Scopri ora la possibilità di scegliere qualsiasi backup Snapshot di SnapCenter in qualsiasi storage primario o secondario consente di affrontare i casi di utilizzo più importanti, tra cui corruzione logica, test di disaster recovery o il refresh di un sistema QA SAP.
-
-link:https://www.netapp.com/pdf.html?item=/media/17030-tr4719.pdf["TR-4719: Backup e ripristino della replica del sistema SAP HANA con SnapCenter"^]
-Scopri come utilizzare la tecnologia SnapCenter e il plug-in SAP HANA per il backup e il ripristino in un ambiente di replica del sistema SAP HANA.
-
-link:https://docs.netapp.com/us-en/netapp-solutions-sap/lifecycle/sc-copy-clone-introduction.html["TR-4667: Automazione delle operazioni di copia e clonazione del sistema SAP HANA con SnapCenter"]
-La possibilità di creare backup Snapshot NetApp coerenti con l'applicazione sul layer di storage è la base per le operazioni di copia del sistema e di cloni del sistema. I backup Snapshot basati sullo storage vengono creati utilizzando il plug-in NetApp SnapCenter per SAP HANA e le interfacce fornite dal database SAP HANA. SnapCenter registra i backup Snapshot nel catalogo di backup SAP HANA in modo che possano essere utilizzati per il ripristino e il ripristino, nonché per le operazioni di cloning.
-
-link:https://www.netapp.com/pdf.html?item=/media/8584-tr4646pdf.pdf["TR-4646: Disaster recovery SAP HANA con replica dello storage"^]
-Questo documento offre una panoramica delle opzioni per la protezione del disaster recovery per SAP HANA. Include informazioni dettagliate sull'installazione e una descrizione del caso di utilizzo di una soluzione di disaster recovery a tre siti basata sulla replica dello storage SnapMirror sincrona e asincrona. La soluzione descritta utilizza SnapCenter con il plug-in SAP HANA per gestire la coerenza del database.
-
-link:https://www.netapp.com/pdf.html?item=/media/17050-tr4711pdf.pdf["TR-4711: Backup e ripristino SAP HANA con sistemi storage NetApp e software CommVault"^]
-Questo documento descrive la progettazione di una soluzione NetApp e CommVault per SAP HANA, che include la tecnologia di gestione snapshot CommVault IntelliSnap e la tecnologia Snapshot. La soluzione si basa sullo storage NetApp e sulla suite di protezione dei dati CommVault.
-
-link:https://docs.netapp.com/us-en/netapp-solutions-sap/lifecycle/lama-ansible-introduction.html["TR-4953: Integrazione della gestione del panorama SAP di NetApp con Ansible"]
-SAP Landscape Management (lama) consente agli amministratori di sistema SAP di automatizzare le operazioni del sistema SAP, incluse le operazioni end-to-end di cloning, copia e refresh del sistema SAP. NetApp offre un'ampia gamma di moduli Ansible che consentono a SAP lama di accedere a tecnologie come NetApp Snapshot e FlexClone attraverso SAP lama Automation Studio. Queste tecnologie aiutano a semplificare e accelerare le operazioni di cloning, copia e refresh del sistema SAP. L'integrazione può essere utilizzata dai clienti che eseguono le soluzioni di storage NetApp on-premise o dai clienti che utilizzano i servizi di storage NetApp presso provider di cloud pubblico come Amazon Web Services, Microsoft Azure o Google Cloud Platform. Questo documento descrive la configurazione di SAP lama con le funzionalità di storage NetApp per le operazioni di copia, clonazione e refresh del sistema SAP utilizzando l'automazione Ansible.
-
-link:https://docs.netapp.com/us-en/netapp-solutions-sap/lifecycle/libelle-sc-overview.html["TR-4929: Automazione delle operazioni di copia del sistema SAP con libelle SystemCopy"]
-Libelle SystemCopy è una soluzione software basata su framework per creare copie di sistema e orizzontale completamente automatizzate. Con il tocco proverbiale di un pulsante, i sistemi di QA e test possono essere aggiornati con nuovi dati di produzione. Libelle SystemCopy supporta tutti i database e i sistemi operativi convenzionali, fornisce i propri meccanismi di copia per tutte le piattaforme ma, allo stesso tempo, integra procedure di backup/ripristino o tool di storage come le copie Snapshot di NetApp e i volumi FlexClone di NetApp.
+link:https://docs.netapp.com/us-en/netapp-solutions-sap/["Soluzioni per i database SAP HANA su ONTAP"]
