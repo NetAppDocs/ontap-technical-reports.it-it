@@ -18,20 +18,20 @@ Le soluzioni di virtualizzazione NetApp ti aiutano a offrire il massimo valore d
 
 Questi report tecnici si espandono su link:https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere/index.html["Strumenti ONTAP per VMware vSphere"] documentazione del prodotto.
 
-link:https://docs.netapp.com/us-en/ontap-apps-dbs/vmware/vsphere/overview.html["TR-4597: VMware vSphere per ONTAP"]
+link:https://docs.netapp.com/us-en/ontap-apps-dbs/vmware/vmware-vsphere-overview.html["TR-4597: VMware vSphere per ONTAP"]
  ONTAP è da quasi vent'anni una soluzione di storage leader per gli ambienti VMware vSphere e continua ad aggiungere funzionalità innovative per semplificare la gestione e ridurre i costi. Questo documento presenta la soluzione ONTAP per vSphere, incluse le informazioni più recenti sui prodotti e le procedure consigliate, per ottimizzare l'implementazione, ridurre i rischi e semplificare la gestione.
 
-link:https://docs.netapp.com/us-en/ontap-apps-dbs/vmware/vvols/overview.html["TR-4400: Volumi virtuali VMware vSphere (vVol) con NetApp ONTAP"]
+link:https://docs.netapp.com/us-en/ontap-apps-dbs/vmware/vmware-vvols-overview.html["TR-4400: Volumi virtuali VMware vSphere (vVol) con NetApp ONTAP"]
 ONTAP è stata una soluzione storage leader per gli ambienti VMware vSphere da oltre vent'anni e continua ad aggiungere funzionalità innovative per semplificare la gestione e ridurre i costi. Il presente documento illustra le funzionalità di ONTAP per i volumi virtuali VMware vSphere (vVol), incluse le informazioni più recenti sui prodotti e i casi di utilizzo, oltre a procedure consigliate e altre informazioni per semplificare l'implementazione e ridurre gli errori.
 
-link:https://docs.netapp.com/us-en/ontap-apps-dbs/vmware/srm/overview.html["TR-4900: VMware Site Recovery Manager con NetApp ONTAP"]
+link:https://docs.netapp.com/us-en/ontap-apps-dbs/vmware/vmware-srm-overview.html["TR-4900: VMware Site Recovery Manager con NetApp ONTAP"]
 ONTAP è stata una soluzione storage leader per gli ambienti VMware vSphere sin dalla sua introduzione nel moderno data center nel 2002 e continua ad aggiungere funzionalità innovative per semplificare la gestione riducendo i costi. In questo documento viene presentata la soluzione ONTAP per VMware Site Recovery Manager (SRM), il software di disaster recovery (DR) leader del settore di VMware, che include le informazioni più recenti sui prodotti e le procedure consigliate per semplificare la distribuzione, ridurre i rischi e semplificare la gestione continua.
 
 link:https://docs.netapp.com/us-en/netapp-solutions/virtualization/vsphere_auto_introduction.html["Introduzione all'automazione per ONTAP e vSphere"]
 L'automazione è parte integrante della gestione degli ambienti VMware fin dai primi giorni di VMware ESX. La capacità di implementare l'infrastruttura come codice ed estendere le pratiche alle operazioni del cloud privato aiuta ad alleviare i problemi legati a scalabilità, flessibilità, self-provisioning ed efficienza. Questo documento presenta la soluzione ONTAP per l'automazione dell'ambiente ONTAP e VMware vSphere.
 
-link:https://docs.netapp.com/us-en/ontap-apps-dbs/vmware/security/tools.html["WP-7353: Strumenti ONTAP per VMware vSphere - sicurezza del prodotto"]
+link:https://docs.netapp.com/us-en/ontap-apps-dbs/vmware/vmware-security-tools.html["WP-7353: Strumenti ONTAP per VMware vSphere - sicurezza del prodotto"]
 Questo documento descrive le tecniche e la tecnologia utilizzate per proteggere i tool ONTAP per VMware vSphere 9.X dalle minacce esistenti ed emergenti negli ambienti di prodotto.
 
-link:https://docs.netapp.com/us-en/ontap-apps-dbs/vmware/security/snapcenter.html["WP-7355: Plug-in SnapCenter VMware vSphere - sicurezza del prodotto"]
+link:https://docs.netapp.com/us-en/ontap-apps-dbs/vmware/vmware-security-snapcenter.html["WP-7355: Plug-in SnapCenter VMware vSphere - sicurezza del prodotto"]
 Questo documento descrive le tecniche e la tecnologia utilizzate per proteggere il plug-in NetApp SnapCenter per VMware vSphere 4.X dalle minacce esistenti ed emergenti negli ambienti di prodotto.
