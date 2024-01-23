@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <blocks>
-  <block id="4434424bd2c1011098a508e85df56b94" category="doc">Report tecnici ONTAP</block>
   <block id="f282b1ca0090a5b43997888b90926fdd" category="summary">Questi report tecnici forniscono una panoramica delle soluzioni di settore con NetApp ONTAP e delle procedure consigliate</block>
   <block id="0fa7990fb9bf5e1fa283be0a561304a6" category="doc">Report tecnici sulle soluzioni di settore</block>
   <block id="26ae15834646723cf4e06c663b022301" category="paragraph">Le nostre soluzioni di storage dei dati specifiche del settore, potenziate da partnership strategiche, affrontano le sfide aziendali critiche.</block>
@@ -341,7 +340,6 @@ L'automazione è parte integrante della gestione degli ambienti VMware fin dai p
   <block id="0dca6505dd29defef873a6ae40e5ba67" category="sidebar">Volumi virtuali VMware vSphere (vVol) con ONTAP</block>
   <block id="2d90ac09cbf108bddad31dd341f8614e" category="sidebar">VMware Site Recovery Manager con ONTAP</block>
   <block id="16d877785afd5e8f401c4bd07d5afe32" category="sidebar">Report tecnici aggiuntivi sulla virtualizzazione</block>
-  <block id="606ae2d52250c5830b4f47feec9aadee" category="summary">I report tecnici di ONTAP forniscono un contesto aggiuntivo per la pianificazione e l'ottimizzazione delle implementazioni ONTAP all'interno di ecosistemi diversi o con protocolli diversi, oltre alle procedure consigliate per le funzionalità di ONTAP.</block>
   <block id="16eb034c60d3efff32199367e1dacd1f" category="sidebar">Applicazioni e database</block>
   <block id="3c2615f951be2a520d1b872deaa1da54" category="sidebar">Continuità del business</block>
   <block id="03c39d763ca15978d9ef16c2ba5fe98a" category="sidebar">Protezione dei dati e disaster recovery</block>
@@ -378,28 +376,6 @@ SnapCenter è una piattaforma unificata e scalabile per la protezione dei dati c
   <block id="bf7dcf6467a8a03b05b2d37d31d6eccd" category="inline-link-macro">Avviso per ONTAP 9,3</block>
   <block id="0328352fdfda84af6968462d1a67d3a6" category="inline-link-macro">Avviso per ONTAP 9,2</block>
   <block id="83904100c7d6fe0102e8b2b5bd8ec4bb" category="inline-link-macro">Avviso per ONTAP 9,1</block>
-  <block id="5672f5979be77bb31dd559817c9e1e76" category="paragraph"><block ref="f7a2b1db149ed9886af0ce846dbc3e14" category="inline-link-macro-rx"></block>
-<block ref="b349c509ad858348b30db7e73307e3aa" category="inline-link-macro-rx"></block>
-<block ref="0dce234dfded58bd461541473b86e42a" category="inline-link-macro-rx"></block>
-<block ref="9760ec4df13f0afbdfec88ae16c871ae" category="inline-link-macro-rx"></block>
-<block ref="b6dab2933dfb92cf0c1355707a4aec7c" category="inline-link-macro-rx"></block>
-<block ref="1b7c80b26162b03bd0addd587f70df55" category="inline-link-macro-rx"></block>
-<block ref="14faf912aa42102a6628af4551e02583" category="inline-link-macro-rx"></block>
-<block ref="a90f36d649d3be5d386cc3563ab044fb" category="inline-link-macro-rx"></block>
-<block ref="2cd65b4a044075cfd9ad4a91f42fdff4" category="inline-link-macro-rx"></block>
-<block ref="5e764cc3fdcc19ff667796e414159bdc" category="inline-link-macro-rx"></block>
-<block ref="561451f09c7bca700ea0d7833cd9e92e" category="inline-link-macro-rx"></block>
-<block ref="d23d341a344216fbf99a91152429d49c" category="inline-link-macro-rx"></block>
-<block ref="b35e8fbd7b0369b23734510994911ec4" category="inline-link-macro-rx"></block>
-<block ref="41d4305cf7a6acb595086f123121a781" category="inline-link-macro-rx"></block>
-<block ref="ea685649fabe77da53e843fec56f72b8" category="inline-link-macro-rx"></block></block>
-  <block id="07ee2fe6f236deffba69a7cf80a680fd" category="section-title">ONTAP Mediator per MCC IP</block>
-  <block id="f089ab2b9f25f609795bdd46ae636f18" category="inline-link-macro">9.9.1 Avviso per ONTAP Mediator per MCC IP</block>
-  <block id="239794a299abe62705440f2dab3114cb" category="inline-link-macro">9,8 Avviso per ONTAP Mediator per MCC IP</block>
-  <block id="51fcca20d278d2d03192c01120f17442" category="inline-link-macro">9,7 Avviso per ONTAP Mediator per MCC IP</block>
-  <block id="3ba2aeb22339424d5f5b15dafd2c3eca" category="paragraph"><block ref="c8696a7854fcd089ea112145e4968b10" category="inline-link-macro-rx"></block>
-<block ref="4d19e06382f392d0f1a50df789d77c13" category="inline-link-macro-rx"></block>
-<block ref="fe4ac88b6b3f1cb9f1dc6d5d4b5086ee" category="inline-link-macro-rx"></block></block>
   <block id="5bde4271a0d37b365d828370d9f295ea" category="inline-link-macro">TR-4976: Performance virtualizzate di Microsoft SQL Server su sistemi NetApp AFF A-Series e C-Series</block>
   <block id="b6018356ef7ac30cce209c17c680d305" category="paragraph"><block ref="156ab091613d6163254f8cebcd80c3dc" category="inline-link-macro-rx"></block>
 Scopri le caratteristiche delle performance di Microsoft SQL Server utilizzando i sistemi NetApp AFF A-Series e C-Series e ottieni indicazioni su come scegliere il sistema giusto in base al carico di lavoro.</block>
@@ -434,7 +410,6 @@ ONTAP è una potente piattaforma per la gestione dei dati con funzionalità nati
   <block id="2c1b27a986b5e37a810d61f72b23ee4b" category="paragraph">Le Best practice per la configurazione, la gestione e l'automazione delle soluzioni SAP sono disponibili nella pagina soluzioni SAP di NetApp.</block>
   <block id="79e3a796ebb97492e0ca65b735e63753" category="inline-link-macro">Soluzioni per i database SAP HANA su ONTAP</block>
   <block id="ada0578499f1a7909dee7f18bbd44352" category="paragraph"><block ref="ada0578499f1a7909dee7f18bbd44352" category="inline-link-macro-rx"></block></block>
-  <block id="a440b0e78204c6f9b29a7d388e209033" category="sidebar">Microsoft SQL Server su ONTAP</block>
   <block id="bf516b5e063503df33730496f5cd0e61" category="paragraph"><block ref="2ec362a557f59f60518807a9741e8a00" category="inline-link-macro-rx"></block>
 ONTAP è stata una soluzione storage leader per gli ambienti VMware vSphere sin dalla sua introduzione nel moderno data center nel 2002 e continua ad aggiungere funzionalità innovative per semplificare la gestione riducendo i costi. Informazioni sulla soluzione ONTAP consigliata per VMware Site Recovery Manager (SRM), il software di disaster recovery (DR) leader del settore di VMware, incluse le informazioni più recenti sui prodotti e le procedure consigliate per semplificare la distribuzione, ridurre i rischi e semplificare la gestione continua.</block>
   <block id="0655f58a0e33e8062619dcfd012221cc" category="paragraph"><block ref="8b011bfaf7ed1ab91e2467210b049c9a" category="inline-link-macro-rx"></block>
@@ -461,4 +436,31 @@ Questo documento descrive le tecniche e la tecnologia utilizzate per proteggere 
 Questo documento descrive le tecniche e la tecnologia utilizzate per proteggere il plug-in NetApp SnapCenter per VMware vSphere 4.X dalle minacce esistenti ed emergenti negli ambienti di prodotto.</block>
   <block id="e74dea5ebe0bf602183d15a978202e4a" category="paragraph"><block ref="ccbfbdd26305051b6ddb45fe28dfc4cd" category="inline-link-macro-rx"></block>
 Scopri le procedure consigliate che consentono agli amministratori dello storage e ai database di eseguire correttamente il backup, il ripristino, la replica e il disaster recovery per lo storage Oracle su ONTAP.</block>
+  <block id="98ea16e049d26c017c083e3896766015" category="inline-link-macro">Avviso per ONTAP 9.14.1</block>
+  <block id="2a0d0e639657d07a66d55606242f8863" category="inline-link-macro">Avviso per ONTAP 9.14.0</block>
+  <block id="523c8b1e9973fa88312759bc71eec732" category="paragraph"><block ref="d16c9b11843460f788b4709fb5f6f9c0" category="inline-link-macro-rx"></block>
+<block ref="5032e7169b10b3f96d6c299a82923a0e" category="inline-link-macro-rx"></block>
+<block ref="f7a2b1db149ed9886af0ce846dbc3e14" category="inline-link-macro-rx"></block>
+<block ref="b349c509ad858348b30db7e73307e3aa" category="inline-link-macro-rx"></block>
+<block ref="0dce234dfded58bd461541473b86e42a" category="inline-link-macro-rx"></block>
+<block ref="9760ec4df13f0afbdfec88ae16c871ae" category="inline-link-macro-rx"></block>
+<block ref="b6dab2933dfb92cf0c1355707a4aec7c" category="inline-link-macro-rx"></block>
+<block ref="1b7c80b26162b03bd0addd587f70df55" category="inline-link-macro-rx"></block>
+<block ref="14faf912aa42102a6628af4551e02583" category="inline-link-macro-rx"></block>
+<block ref="a90f36d649d3be5d386cc3563ab044fb" category="inline-link-macro-rx"></block>
+<block ref="2cd65b4a044075cfd9ad4a91f42fdff4" category="inline-link-macro-rx"></block>
+<block ref="5e764cc3fdcc19ff667796e414159bdc" category="inline-link-macro-rx"></block>
+<block ref="561451f09c7bca700ea0d7833cd9e92e" category="inline-link-macro-rx"></block>
+<block ref="d23d341a344216fbf99a91152429d49c" category="inline-link-macro-rx"></block>
+<block ref="b35e8fbd7b0369b23734510994911ec4" category="inline-link-macro-rx"></block>
+<block ref="41d4305cf7a6acb595086f123121a781" category="inline-link-macro-rx"></block>
+<block ref="ea685649fabe77da53e843fec56f72b8" category="inline-link-macro-rx"></block></block>
+  <block id="9f875be69c7685bab2118b783273f9cb" category="section-title">MEDIATORE ONTAP PER IP MCC</block>
+  <block id="9c737a80c28b60fa0a89b239e49754be" category="inline-link-macro">9.9.1 Avviso per ONTAP MEDIATOR per MCC IP</block>
+  <block id="fa29a7a0592293de2c9dcc278d56bc7e" category="inline-link-macro">9.8 Avviso per ONTAP MEDIATOR per MCC IP</block>
+  <block id="186313e86066c6c03d059adfc998c283" category="inline-link-macro">9,7 Avviso per ONTAP MEDIATORE per MCC IP</block>
+  <block id="da86bbce92dc808c91ba1376c176a12f" category="paragraph"><block ref="03dc7d738ea465fbcf752653ce5a8a9f" category="inline-link-macro-rx"></block>
+<block ref="ddd7bb6791d512b6bbd035245f183b42" category="inline-link-macro-rx"></block>
+<block ref="2f9e1ae374fcd81bbb2bbbd4546951d9" category="inline-link-macro-rx"></block></block>
+  <block id="beb3ca55ed0a53a38a2b97540b05d6e4" category="sidebar">Microsoft SQL Server su ONTAP</block>
 </blocks>
