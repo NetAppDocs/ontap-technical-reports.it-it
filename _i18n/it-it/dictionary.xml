@@ -463,4 +463,8 @@ Scopri le procedure consigliate che consentono agli amministratori dello storage
 <block ref="ddd7bb6791d512b6bbd035245f183b42" category="inline-link-macro-rx"></block>
 <block ref="2f9e1ae374fcd81bbb2bbbd4546951d9" category="inline-link-macro-rx"></block></block>
   <block id="beb3ca55ed0a53a38a2b97540b05d6e4" category="sidebar">Microsoft SQL Server su ONTAP</block>
+  <block id="8db7df66ab1d7ab5f1dc947acdb5fae4" category="section-title">Registrazione</block>
+  <block id="4f86fd480a3b60659d82af4d7287d57a" category="inline-link-macro">TR-4303: Accesso a ONTAP</block>
+  <block id="ffd46bdf1b63cf5b513ae89527869e27" category="paragraph"><block ref="9345b88722e99c268b49c1da01abbe4c" category="inline-link-macro-rx"></block>
+Scopri come definire i diversi log generati da ONTAP, le funzionalità offerte e come visualizzare e accedere ai log.</block>
 </blocks>

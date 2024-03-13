@@ -57,6 +57,13 @@ Scopri come implementare la multi-tenancy sicura utilizzando le VM di storage in
 
 
 
+== Registrazione
+
+link:https://www.netapp.com/pdf.html?item=/media/103610-tr-4303i-0514-logging-in-clustered-dot.pdf["TR-4303: Accesso a ONTAP"^]
+Scopri come definire i diversi log generati da ONTAP, le funzionalità offerte e come visualizzare e accedere ai log.
+
+
+
 == Standard
 
 link:https://www.netapp.com/pdf.html?item=/media/17180-tr4401.pdf["TR-4401: PCI-DSS 4.0 e ONTAP"^]
