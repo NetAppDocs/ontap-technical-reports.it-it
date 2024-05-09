@@ -28,6 +28,9 @@ Questi report tecnici si espandono su link:https://docs.netapp.com/us-en/ontap/s
 link:https://www.netapp.com/pdf.html?item=/media/10674-tr4569.pdf["TR-4569: Guida alla protezione avanzata per NetApp ONTAP"^]
 Scopri come configurare NetApp ONTAP per aiutare le organizzazioni a raggiungere gli obiettivi di sicurezza prescritti per la riservatezza, l'integrità e la disponibilità del sistema informativo.
 
+link:https://docs.netapp.com/us-en/ontap-apps-dbs/vmware/vmware-otv-hardening-overview.html["Guida alla protezione avanzata per gli strumenti ONTAP per VMware"]
+Scopri come configurare gli strumenti ONTAP per VMware vSphere per aiutare le organizzazioni a soddisfare gli obiettivi di sicurezza prescritti per la riservatezza, l'integrità e la disponibilità del sistema informativo.
+
 link:https://www.netapp.com/pdf.html?item=/media/82393-tr-4957.pdf["TR-4957: Guida alla protezione avanzata per NetApp SnapCenter"^]
 Scopri come configurare il software NetApp SnapCenter per aiutare le organizzazioni a raggiungere gli obiettivi di sicurezza prescritti per la riservatezza, l'integrità e la disponibilità del sistema informativo.
 

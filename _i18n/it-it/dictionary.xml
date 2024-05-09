@@ -467,4 +467,8 @@ Scopri le procedure consigliate che consentono agli amministratori dello storage
   <block id="11001fb821f9ba1fb2e3a93608a688cb" category="paragraph"><block ref="c141febea7d2bd403fd12cb6dd24d35c" category="inline-link-macro-rx"></block>
 Microsoft Windows Server è un sistema operativo di classe Enterprise che copre networking, sicurezza, virtualizzazione, cloud, infrastruttura desktop virtuale, protezione degli accessi, protezione delle informazioni, servizi web, infrastruttura della piattaforma applicativa e molto altro ancora. Il presente documento si concentra su Microsoft Windows, che si concentra in particolare sulla tecnologia di virtualizzazione Hyper-V, incluse le ultime informazioni sui prodotti e le pratiche consigliate, al fine di semplificare l'installazione, ridurre i rischi e semplificare la gestione.</block>
   <block id="b0da974886af36b76614baf1f4df0289" category="sidebar">Microsoft Windows Server (Hyper-V)</block>
+  <block id="ea80e7a221b7d29abbf2b1def0f49eff" category="inline-link-macro">Guida alla protezione avanzata per gli strumenti ONTAP per VMware</block>
+  <block id="f0363ce68d8f8c316c89e502fa07f4a6" category="paragraph"><block ref="5b7528c0e47af54726e633b3e59db241" category="inline-link-macro-rx"></block>
+Scopri come configurare gli strumenti ONTAP per VMware vSphere per aiutare le organizzazioni a soddisfare gli obiettivi di sicurezza prescritti per la riservatezza, l'integrità e la disponibilità del sistema informativo.</block>
+  <block id="47d29daaa26fbfa9c9a069d4cd023ac1" category="sidebar">Guida alla protezione avanzata per gli strumenti ONTAP per VMware vSphere</block>
 </blocks>

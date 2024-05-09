@@ -124,6 +124,8 @@ indexpage:
     links:
     - title: VMware vSphere per ONTAP
       url: virtualization.html
+    - title: Guida alla protezione avanzata per gli strumenti ONTAP per VMware vSphere
+      url: virtualization.html
     - title: Volumi virtuali VMware vSphere (vVol) con ONTAP
       url: virtualization.html
     - title: VMware Site Recovery Manager con ONTAP
