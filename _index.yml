@@ -27,15 +27,15 @@ indexpage:
       url: apps-dbs.html#sap-hana
   - title: Continuità del business
     links:
-    - title: Continuità aziendale SnapMirror (SM-BC)
-      url: business-continuity.html
+    - title: Sincronizzazione attiva di SnapMirror
+      url: https://docs.netapp.com/us-en/ontap/snapmirror-active-sync/index.html
     - title: Architettura e progettazione della soluzione MetroCluster
       url: business-continuity.html
     - title: IP MetroCluster
       url: business-continuity.html
     - title: FC MetroCluster
       url: business-continuity.html
-    - title: Ulteriori report tecnici sulla business continuity
+    - title: Report tecnici aggiuntivi per la business continuity
       url: business-continuity.html
   - title: Protezione dei dati e disaster recovery
     links:
