@@ -30,6 +30,12 @@ FlexCache è una tecnologia di caching che crea repliche di volumi sparse e scri
 
 
 
+== Write-back di FlexCache
+
+link:https://docs.netapp.com/us-en/ontap/flexcache-writeback/flexcache-write-back-overview.html["Write-back di FlexCache"^] Introdotto in ONTAP 9.15.1, FlexCache write-back è una modalità operativa alternativa per la scrittura in una cache. La funzione write-back consente il commit della scrittura nello storage stabile nella cache e il riconoscimento al client senza attendere che i dati giungano all'origine. I dati vengono sottoposti nuovamente all'origine in modo asincrono. Il risultato è un file system distribuito a livello globale che consente alle scritture di operare a velocità quasi locali per carichi di lavoro e ambienti specifici, offrendo benefici di performance significativi.
+
+
+
 == Volumi FlexGroup
 
 link:https://www.netapp.com/pdf.html?item=/media/17251-tr4571a.pdf["TR-4571a: Le dieci Best practice di FlexGroup"^]

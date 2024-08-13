@@ -51,6 +51,8 @@ indexpage:
     links:
     - title: Volumi FlexCache
       url: nas-containers.html
+    - title: Write-back di FlexCache
+      url: https://docs.netapp.com/us-en/ontap/flexcache-writeback/flexcache-write-back-overview.html
     - title: Implementazione dei volumi FlexGroup e Best practice
       url: nas-containers.html
     - title: Protezione dei dati e backup dei volumi ONTAP FlexGroup
