@@ -10,10 +10,11 @@ summary: Questi report tecnici forniscono una panoramica del tiering in NetApp O
 :nofooter: 
 :icons: font
 :linkattrs: 
+:imagesdir: ./media/
 
 
 [role="lead"]
-Con la soluzione di tiering dei dati di FabricPool, l'esperienza complessiva dell'utente dei sistemi flash migliora, evitando al tempo stesso il problema della riarchitettura delle applicazioni per l'efficienza dello storage. FabricPool riduce l'impatto dello storage e i costi associati all'ambiente di un sistema. I dati attivi rimangono su SSD dalle performance elevate. I dati inattivi vengono suddivisi in livelli per lo storage a oggetti a basso costo, preservando al contempo l'efficienza dello storage.
+Con la soluzione di tiering dei dati FabricPool, l'esperienza utente complessiva dei sistemi flash di un'azienda migliora, evitando al tempo stesso i problemi legati alla riprogettazione delle applicazioni per l'efficienza dello storage. FabricPool riduce l'impatto dello storage e i costi associati dell'ambiente di un sistema. I dati attivi rimangono su SSD dalle performance elevate. I dati inattivi vengono suddivisi in livelli per lo storage a oggetti a basso costo, preservando al contempo l'efficienza dello storage.
 
 [NOTE]
 ====
