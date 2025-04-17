@@ -1,10 +1,10 @@
 ---
+permalink: nas-containers.html 
 sidebar: sidebar 
 keywords: Technical Reports, TR, NetApp TR, ONTAP TR, ONTAP, ONTAP 9, best practices, best-practices 
-permalink: nas-containers.html 
 summary: Questi report tecnici forniscono una panoramica dei volumi FlexCache e FlexGroup in NetApp ONTAP, oltre a consigli sulle Best practice 
 ---
-= Report tecnici sui volumi FlexCache e FlexGroup
+= Report tecnici su volumi ONTAP FlexCache e FlexGroup
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -18,7 +18,7 @@ Le soluzioni NAS di NetApp semplificano la gestione dei dati e ti aiutano a tene
 
 [NOTE]
 ====
-Questi report tecnici si espandono su link:https://docs.netapp.com/us-en/ontap/task_nas_flexcache.html["Volume ONTAP FlexCache"] e. link:https://docs.netapp.com/us-en/ontap/task_nas_provision_flexgroup.html["Volume ONTAP FlexGroup"] documentazione del prodotto.
+Questi report tecnici si espandono nella link:https://docs.netapp.com/us-en/ontap/task_nas_flexcache.html["Volume ONTAP FlexCache"^] documentazione di e link:https://docs.netapp.com/us-en/ontap/task_nas_provision_flexgroup.html["Volume ONTAP FlexGroup"^] del prodotto.
 
 ====
 
