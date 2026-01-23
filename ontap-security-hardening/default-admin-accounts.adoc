@@ -18,9 +18,9 @@ Esistono due account amministrativi predefiniti: `admin` E `diag`.
 Gli account orfani sono un importante vettore di sicurezza che spesso porta a vulnerabilità, inclusa l'escalation dei privilegi. Si tratta di account non necessari e inutilizzati che rimangono nell'archivio degli account utente. Si tratta principalmente di account predefiniti che non sono mai stati utilizzati o per i quali le password non sono mai state aggiornate o modificate. Per risolvere questo problema, ONTAP supporta la rimozione e la ridenominazione degli account.
 
 
-NOTE: ONTAP non può rimuovere o rinominare gli account incorporati. Tuttavia, NetApp consiglia di bloccare gli account incorporati non necessari con il comando LOCK.
+NOTE: Non è possibile rimuovere o rinominare gli account predefiniti. Se un amministratore rimuove l'account, al riavvio l'account predefinito verrà ricreato. *NetApp consiglia* di bloccare tutti gli account predefiniti non necessari con il comando lock.
 
-Sebbene gli account orfani siano un problema di protezione significativo, NetApp consiglia vivamente di verificare l'effetto della rimozione degli account dall'archivio degli account locali.
+Sebbene gli account orfani rappresentino un problema di sicurezza significativo, *NetApp consiglia vivamente* di testare l'effetto della rimozione degli account dal repository degli account locali.
 
 
 
@@ -32,7 +32,7 @@ Per elencare gli account locali, eseguire il `security login show` comando.
 ----
 cluster1::*> security login show -vserver cluster1
 
-Vserver: cluster1
+vserver: cluster1
                              Authentication             Acct   Is-Nsswitch
 User/Group Name  Application Method    Role Name        Locked Group
 ---------------- ----------- --------- ---------------- ------ -----------

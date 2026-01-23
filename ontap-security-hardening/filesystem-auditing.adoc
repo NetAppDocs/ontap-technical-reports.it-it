@@ -13,7 +13,7 @@ summary: 'È necessario attivare il controllo CIFS per generare eventi di contro
 [role="lead"]
 I file system NAS occupano un impatto sempre maggiore nel panorama delle minacce di oggi, le funzioni di audit sono critiche per supportare la visibilità.
 
-La protezione richiede convalida. ONTAP 9 fornisce maggiori eventi di controllo e dettagli in tutta la soluzione. Poiché i file system NAS occupano un impatto sempre maggiore nel panorama delle minacce odierno, le funzioni di audit sono critiche per supportare la visibilità. Grazie alla migliore funzionalità di audit di ONTAP 9, i dettagli di audit CIFS sono più abbondanti che mai. I dettagli chiave, inclusi i seguenti, vengono registrati con gli eventi creati:
+La sicurezza richiede convalida. ONTAP fornisce un numero maggiore di eventi e dettagli di auditing in tutta la soluzione. Poiché i file system NAS occupano una posizione sempre maggiore nell'attuale panorama delle minacce, le funzioni di audit sono fondamentali per supportare la visibilità. Grazie alle funzionalità di audit migliorate in ONTAP, i dettagli di audit CIFS sono più numerosi che mai. I dettagli chiave, inclusi i seguenti, vengono registrati con gli eventi creati:
 
 * Accesso a file, cartelle e condivisioni
 * File creati, modificati o eliminati
@@ -59,6 +59,9 @@ ONTAP include la possibilità per gli account degli amministratori di accedere e
 === Creare un ruolo API REST senza accesso
 
 Puoi impedire agli amministratori di ONTAP di utilizzare le API REST per l'accesso al file creando un ruolo API REST che non ha accesso ai volumi ONTAP via REST. Per assegnare questo ruolo, completare i passaggi seguenti.
+
+
+NOTE: L'API REST /api/storage/volumes viene utilizzata per scopi che vanno oltre il semplice accesso ai file. Viene utilizzata da System Manager e da altre interfacce GUI per creare, visualizzare e modificare volumi.
 
 .Fasi
 . Creare un nuovo ruolo REST che non abbia accesso ai volumi storage ma che disponga di tutti gli altri accesso ad API REST.
