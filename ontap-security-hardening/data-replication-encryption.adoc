@@ -1,8 +1,8 @@
 ---
 sidebar: sidebar 
 permalink: ontap-security-hardening/data-replication-encryption.html 
-keywords: tr-4569, ontap hardening guide, encrypted SnapMirror, SnapVault, FlexCache, pre-shared key, TLS 1.2 
-summary: USA la crittografia di replica dei dati per TLS 1,2 cripta il traffico di replica per SnapMirror, SnapVault, FlexCache con una chiave pre-condivisa tra i cluster ONTAP. 
+keywords: tr-4569, ontap hardening guide, encrypted SnapMirror, SnapVault, FlexCache, pre-shared key, TLS 1.2, TLS 1.3, TLS 
+summary: Utilizzare la crittografia della replica dei dati per crittografare con TLS il traffico di replica per SnapMirror, SnapVault, FlexCache con una chiave pre-condivisa tra cluster ONTAP. 
 ---
 = Crittografia replica dei dati
 :allow-uri-read: 
@@ -11,29 +11,31 @@ summary: USA la crittografia di replica dei dati per TLS 1,2 cripta il traffico 
 
 
 [role="lead"]
-Per integrare la crittografia dei dati inattivi, puoi crittografare il traffico di replica dei dati ONTAP tra i cluster utilizzando TLS 1,2 con una chiave pre-condivisa per SnapMirror, SnapVault o FlexCache.
+Per integrare la crittografia dei dati a riposo, è possibile crittografare il traffico di replica dei dati ONTAP tra cluster utilizzando TLS con una chiave precondivisa per SnapMirror, SnapVault o FlexCache.
 
 Durante la replica dei dati per il disaster recovery, il caching o il backup, è necessario proteggerli durante il trasporto via cavo da un cluster ONTAP a un altro. In questo modo si previene un attacco malware man-in-the-middle contro i dati sensibili mentre sono in movimento.
 
-A partire da ONTAP 9,6, la crittografia di peering dei cluster fornisce il supporto per la crittografia TLS 1,2 AES-256 GCM per funzioni di replica dei dati ONTAP come SnapMirror, SnapVault e FlexCache. La crittografia viene impostata tramite una chiave precondivisa (PSK) tra due peer del cluster.
+A partire da ONTAP 9.6, la crittografia del cluster peering fornisce il supporto per la crittografia TLS 1.2 AES-256 GCM per le funzionalità di replica dei dati ONTAP come SnapMirror, SnapVault e FlexCache. La crittografia viene configurata tramite una chiave pre-condivisa (PSK) tra due cluster peer.
 
-I clienti che utilizzano tecnologie come NSE, NVE e NAE per proteggere i dati a riposo possono anche utilizzare la crittografia dei dati end-to-end effettuando l'aggiornamento a ONTAP 9,6 o versioni successive per utilizzare la crittografia di peering del cluster.
+A partire da ONTAP 9.15.1, la crittografia del cluster peering fornisce il supporto per la crittografia TLS 1.3 AES-256 GCM per le funzionalità di replica dei dati ONTAP come SnapMirror, SnapVault e FlexCache. La crittografia viene configurata tramite una chiave pre-condivisa (PSK) tra due cluster peer.
 
-Il peering dei cluster crittografa tutti i dati tra peer cluster. Ad esempio, quando si utilizza SnapMirror, tutte le informazioni di peering e tutte le relazioni SnapMirror tra il peer del cluster di origine e di destinazione vengono crittografate. Non è possibile inviare dati non crittografati tra peer cluster con la crittografia di peering dei cluster abilitata.
+I clienti che utilizzano tecnologie come NSE, NVE e NAE per proteggere i dati inattivi possono anche utilizzare la crittografia dei dati end-to-end eseguendo l'aggiornamento a ONTAP 9.6 o versione successiva per utilizzare la crittografia del peering del cluster.
 
-A partire da ONTAP 9,6, la crittografia delle nuove relazioni cluster-peer è abilitata per impostazione predefinita. Per abilitare la crittografia delle relazioni di cluster peer create prima di ONTAP 9,6, è necessario aggiornare il cluster di origine e destinazione a 9,6. Inoltre, per utilizzare la crittografia di peering dei cluster, è necessario `cluster peer modify` utilizzare il comando per modificare i peer dei cluster di origine e di destinazione.
+Il peering dei cluster crittografa tutti i dati tra i cluster peer. Ad esempio, quando si utilizza SnapMirror, tutte le informazioni di peering, così come tutte le relazioni SnapMirror tra il cluster di origine e il cluster di destinazione peer, vengono crittografate. Non è possibile inviare dati in chiaro tra cluster peer con la crittografia del peering dei cluster abilitata.
 
-È possibile convertire una relazione peer esistente per utilizzare la crittografia di peering dei cluster in ONTAP 9,6, come illustrato nell'esempio seguente:
+A partire da ONTAP 9.6, le nuove relazioni cluster-peer hanno la crittografia abilitata per impostazione predefinita. Per abilitare la crittografia sulle relazioni cluster-peer create prima di ONTAP 9.6, è necessario aggiornare sia il cluster di origine che il cluster di destinazione alla versione 9.6. Inoltre, è necessario utilizzare il  `cluster peer modify` comando per modificare sia il cluster di origine che il cluster di destinazione affinché utilizzino la crittografia del cluster peering.
+
+È possibile convertire una relazione peer esistente per utilizzare la crittografia del cluster peering in ONTAP 9.6, come mostrato nel seguente esempio:
 
 [listing]
 ----
-On the Destination Cluster Peer
+On the destination cluster peer:
 
 cluster2::> cluster peer modify cluster1 -auth-status-admin use-authentication -encryption-protocol-proposed tls-psk
 
 When prompted enter a passphrase.
 
-On the Source Cluster Peer
+On the source cluster peer:
 
 cluster1::> cluster peer modify cluster2 -auth-status-admin use-authentication -encryption-protocol-proposed tls-psk
 
