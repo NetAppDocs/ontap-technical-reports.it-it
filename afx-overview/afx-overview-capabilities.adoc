@@ -1,0 +1,99 @@
+---
+sidebar: sidebar 
+permalink: afx-overview/afx-overview-capabilities.html 
+keywords: netapp afx, networking, security, data protection, nondisruptive, volumes 
+summary: NetApp AFX supporta lo stesso stack di rete, le stesse funzionalità di sicurezza, le stesse tecnologie di protezione dei dati, le stesse operazioni non interruttive e gli stessi tipi di volume di unified ONTAP, con alcune modifiche. 
+---
+= Reti, sicurezza e operazioni
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/afx-overview/
+
+
+[role="lead"]
+NetApp AFX supporta lo stesso stack di rete, funzionalità di sicurezza, tecnologie di protezione dei dati, operazioni non interruttive e tipi di volume di unified ONTAP, con alcune modifiche specifiche per l'architettura disaggregata.
+
+
+
+== Networking
+
+Lo stack di rete in NetApp AFX è identico a quello unified ONTAP.
+
+* Le interfacce LIF dati sono tuttora utilizzate per presentare gli indirizzi di rete ai servizi interni ed esterni.
+* Ciascun nodo possiede un proprio set di porte fisiche e virtuali.
+* VLAN, ifgroups e BGP sono ancora tutti supportati.
+* I LIF possono comunque eseguire il failover tra nodi e porte fisiche nel cluster.
+* Gli spazi IP/domini di broadcast sono ancora configurati allo stesso modo.
+* Ogni SVM può avere la propria rete dati dedicata.
+* Le reti di gestione possono essere segmentate dalle reti dati.
+* Le reti dati dei client non subiscono modifiche, a parte la nuova aggiunta del supporto di rete da 400GB.
+* Gli switch del cluster backend sono ancora configurati tramite un file di "configurazione standard" fornito da NetApp.
+
+
+Alcune differenze chiave tra le reti includono:
+
+* Le porte di rete del cluster backend ora supportano solo connessioni da 100GB agli switch del cluster.
+* Poiché gli switch del cluster hanno una capacità di 400 GB, le connessioni dei nodi backend utilizzano 4 cavi breakout da 100 GB per ridurre il numero di porte utilizzate sugli switch.
+* NVRAM è ora replicata tra le coppie HA attraverso la rete del cluster backend tramite una nuova configurazione VLAN HA sugli switch.
+* Una nuova rete DCN viene aggiunta per impostazione predefinita per l'AI Data Engine. Questi indirizzi IP vengono generati automaticamente e possono essere modificati secondo necessità.
+
+
+
+
+== Sicurezza
+
+NetApp AFX utilizza ONTAP, il che significa che si avvale della stessa sicurezza di ONTAP. Tutti i cryptomod sono identici, pertanto anche le certificazioni di sicurezza saranno identiche una volta completati i processi di certificazione. NetApp AFX sfrutta inoltre lo stesso supporto per i cifrari di sicurezza di ONTAP.
+
+Inoltre, NetApp AFX supporta molte delle funzionalità di sicurezza fornite da unified ONTAP, tra cui (a titolo esemplificativo ma non esaustivo):
+
+* Protezione ransomware autonoma
+* Multi-tenancy sicura
+* Crittografia a riposo (crittografia del volume) e in transito (TLS 1.3)
+* Unità a crittografia automatica (SED)
+* Autenticazione e crittografia Kerberos per NFS e SMB
+* Verifica multi-admin
+* SnapLock
+
+
+Per informazioni sulle certificazioni che unified ONTAP ha ricevuto (nonché su altre informazioni relative al rafforzamento della sicurezza), consultare:
+
+* link:https://security.netapp.com/certifications["Sicurezza dei prodotti NetApp"^]
+* link:https://docs.netapp.com/us-en/ontap-technical-reports/ontap-security-hardening/security-hardening-overview.html["Panoramica sulla protezione avanzata di ONTAP"^]
+
+
+
+
+== Istantanee e protezione dei dati
+
+NetApp AFX sfrutta le stesse tecnologie di snapshot e replica di unified ONTAP, senza modifiche sostanziali al funzionamento di queste funzionalità. Infatti, AFX può replicare da e verso sistemi unified ONTAP con le stesse link:https://docs.netapp.com/us-en/ontap/data-protection/compatible-ontap-versions-snapmirror-concept.html["regole e configurazioni"^] che già conoscete.
+
+L'unica eccezione in AFX per la replica riguarda i volumi FlexGroup che vengono replicati verso un sistema ONTAP unificato. In tal caso, il sistema ONTAP unificato di destinazione deve eseguire ONTAP 9.16.1 o versioni successive per fornire il supporto per Advanced Capacity Balancing.
+
+
+
+== Operazioni non dirompenti
+
+ONTAP offre operazioni senza interruzioni, come spostamenti di volumi, aggiornamenti, manutenzione del cluster, failover dello storage e altro ancora. NetApp AFX offre le stesse operazioni senza interruzioni, con alcune modifiche.
+
+* Lo spostamento dei volumi rimane non invasivo, ma non richiede più una copia.
+* I failover dello storage rimangono non interruttivi, ma dopo il failover iniziale, i volumi vengono ribilanciati su tutti i nodi rimanenti del cluster.
+* Le migrazioni LIF sono identiche.
+* La manutenzione e gli aggiornamenti hardware sono identici.
+
+
+
+
+== Tipi di volume
+
+Unified ONTAP supporta diversi tipi di volume, tra cui:
+
+* FlexVols
+* Volumi FlexGroup
+* FlexCache
+* FlexClone
+* bucket di oggetti
+
+
+NetApp AFX offre supporto completo per ciascuna di queste tipologie di volume, nonché piena interoperabilità per i volumi FlexCache con sistemi ONTAP unificati.
+
+Per ulteriori informazioni su come i volumi FlexGroup traggono vantaggio dall'architettura AFX, vedere link:afx-overview-architecture.html#flexgroup-volume-management-improvements["Miglioramenti nella gestione dei volumi FlexGroup"].

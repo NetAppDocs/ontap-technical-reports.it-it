@@ -1,0 +1,449 @@
+---
+sidebar: sidebar 
+permalink: afx-overview/afx-overview-architecture.html 
+keywords: netapp afx, architecture, storage availability zone, nvram, raid, disaggregated 
+summary: 'NetApp AFX introduce significative differenze architetturali rispetto a unified ONTAP per quanto riguarda la modalità di presentazione dello storage, l"interazione dei nodi con i dischi e la gestione della capacità.' 
+---
+= In che modo l'architettura NetApp AFX differisce da ONTAP unificato
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/afx-overview/
+
+
+[role="lead"]
+NetApp AFX introduce significative differenze architetturali rispetto a unified ONTAP per quanto riguarda la modalità di presentazione dello storage, l'interazione dei nodi con i dischi e la gestione della capacità.
+
+In precedenza, abbiamo illustrato in generale come l'architettura unificata ONTAP fornisca l'archiviazione di file, oggetti e dati a blocchi tramite coppie HA connesse direttamente, ciascuna dotata di un proprio set di dischi e in grado di offrire capacità fisica tramite aggregati di dischi. In questa sezione, analizzeremo in dettaglio alcune delle principali differenze tra le architetture unificate ONTAP e NetApp AFX.
+
+
+
+== Come capire se un sistema sta eseguendo NetApp AFX
+
+Il modo principale per verificare se il sistema sta eseguendo NetApp AFX è eseguire il seguente comando:
+
+[listing]
+----
+AFX::> node show -fields personality
+node             personality
+---------------- -----------
+afx-01           AFX
+afx-02           AFX
+----
+Un altro indizio è la nuova Storage Availability Zone, ma si tratta di un concetto disponibile anche per NetApp All-SAN Arrays (ASA). È possibile visualizzare la capacità tramite questo comando.
+
+[listing]
+----
+AFX::> storage availability-zone show
+                     Availability Zone Name: storage_availability_zone_0
+                     Availability Zone UUID: 545cb59f-32e9-11f1-a2f5-d039eabdd925
+                                 Total Size: 69.59TB
+                              Physical Used: 837.1GB
+                      Physical Used Percent: 1%
+                                  Available: 68.77TB
+                              Metadata Used: 837.1GB
+                  Log and Recovery Metadata: 834.6GB
+                              Delayed Frees: 2.50GB
+ Physical User Data Without Snapshot Copies: 17.24MB
+  Logical User Data Without Snapshot Copies: 17.24MB
+   Efficiency Ratio Without Snapshot Copies: 1.00:1
+               Space Full Threshold Percent: 98%
+        Space Nearly Full Threshold Percent: 95%
+----
+
+
+== Relazioni nodo-disco
+
+Nell'architettura unificata ONTAP, le operazioni di lettura e scrittura vengono indirizzate a un sottoinsieme specifico di dischi. Quindi, anche se si dispone di 24 shelf di dischi in un cluster a 24 nodi (uno shelf per nodo), in un dato momento ciascun nodo può accedere direttamente solo a uno shelf di dischi, il che limita la capacità e le performance disponibili nel cluster.
+
+image:image5.png["Immagine"]
+
+Inoltre, poiché NVRAM è collegata direttamente tra le coppie HA, i nodi devono trovarsi fisicamente uno accanto all'altro e sono più strettamente accoppiati come destinazioni di failover. Ad esempio, quando un nodo effettua un failover sul suo nodo partner, gli unici dischi a cui ha accesso fisicamente sono i dischi nel dominio della coppia HA.
+
+*Unified ONTAP cluster durante il failover HA*
+
+image:image6.png["Immagine"]
+
+In NetApp AFX, si verificano alcuni importanti cambiamenti nel modo in cui i dischi vengono presentati ai nodi di calcolo.
+
+
+
+=== Tutti i dischi sono visibili a tutti i nodi di storage--nessuna proprietà dei dischi
+
+In NetApp AFX, nodi e chassis sono tutti collegati allo stesso switch backend, il che consente a ONTAP di estendere il dominio di visibilità complessivo dei dischi all'intero stack. Di conseguenza, nessun nodo possiede dischi specifici. Piuttosto, tutti i dischi partecipano a un unico pool di capacità chiamato Storage Availability Zone, che offre una gestione della capacità più semplice e un maggiore potenziale di prestazioni (più dischi disponibili significano maggiori prestazioni disponibili).
+
+*Zona di disponibilità storage NetApp AFX*
+
+image:image7.png["Immagine"]
+
+
+
+=== Niente più aggregati fisici
+
+Unified ONTAP raggruppa i dischi in gruppi RAID e poi li combina in una struttura di capacità nota come aggregato. Questo aggregato è il modo in cui la capacità fisica viene presentata allo storage ed è il limite dello spazio disponibile per la creazione di volumi per fornire dati agli utenti finali. Ogni nodo deve avere almeno un aggregato assegnato e questi aggregati hanno un limite attuale di 800TB. Una volta raggiunto tale limite, non è più disponibile spazio per ulteriori scritture.
+
+Gli aggregati fisici possono anche presentare alcune sfide nella gestione della capacità, poiché gli amministratori dello storage a volte dovranno spostare manualmente i volumi per mantenere un equilibrio di capacità tra i nodi del cluster. Queste sfide possono anche essere amplificate quando si sfrutta un'architettura di volumi scale-out (come un volume FlexGroup). Gli aggregati possono anche variare in termini di dimensioni, numero di dischi, tipi di dischi, ecc., il che può anche creare alcune differenze di prestazioni quando si attraversano i nodi.
+
+*Aggregati in ONTAP unificato*
+
+image:image8.png["Immagine"]
+
+NetApp AFX riprende il concetto di aggregato fisico e lo virtualizza, lo rende gestito da ONTAP e poi sposta la gestione della capacità fisica da una metodologia per nodo a una per cluster tramite la nuova Storage Availability Zone. Questo pool unico di capacità offre un approccio "ciò che vedi è ciò che ottieni" alla gestione dello spazio.
+
+*Zona di disponibilità storage NetApp AFX*
+
+image:image9.png["Immagine"]
+
+
+
+=== NVRAM è passata dalla connessione diretta alla replica commutata
+
+ONTAP utilizza NVRAM come staging per proteggere le scritture in entrata in un cluster. Ogni nodo in un cluster ONTAP dispone di una scheda NVRAM supportata dalla batteria. Quando una scrittura viene inviata a un volume da un client, viene prima memorizzata nella NVRAM. Il contenuto della NVRAM viene quindi trasferito su disco quando la NVRAM è piena o quando un timer di 10 secondi scade (a seconda di quale evento si verifichi per primo). Questo è noto come consistency point.
+
+Il contenuto della NVRAM viene inoltre costantemente replicato tra le coppie HA, il che contribuisce ulteriormente a proteggere la coerenza dei dati, perché in caso di guasto di un nodo, il contenuto della NVRAM verrà conservato sul nodo rimanente e scritto su disco.
+
+Nei cluster ONTAP unificati, le schede NVRAM tra le coppie HA sono collegate direttamente tra loro. NetApp AFX sposta la replica NVRAM nella rete di backend del cluster. Di conseguenza, i nodi partner HA non hanno un requisito di distanza così stringente per i nodi. Invece, le coppie HA possono essere separate fino alla distanza massima consentita da ethernet.
+
+*Replica NVRAM NetApp AFX*
+
+image:image10.png["Immagine"]
+
+
+
+=== Dati scritti su qualsiasi (e tutti) disco nella zona di disponibilità
+
+NetApp AFX elimina il concetto di proprietà del disco e sposta la struttura dell'aggregato fisico verso un approccio virtualizzato gestito da ONTAP, in cui la capacità acquistata per il cluster è interamente disponibile per i nodi collegati al cluster. Con AFX, tutti i nodi hanno la possibilità di scrivere su qualsiasi e tutti i dischi nella Storage Availability Zone, indipendentemente dalla proprietà nodo:volume. I nodi mantengono comunque un concetto di proprietà del volume, poiché le scritture seguono ancora un percorso attraverso la NVRAM, ma quei dati possono essere memorizzati in qualsiasi punto della capacità disponibile. Ciò significa che un numero maggiore di dischi può partecipare a un singolo carico di lavoro, il che offre vantaggi in termini di prestazioni.
+
+*Come i dati vengono inseriti in una Storage Availability Zone*
+
+image:image11.png["Immagine"]
+
+
+
+=== Scalabilità indipendente della capacità e dei nodi di calcolo
+
+Grazie al disaccoppiamento delle risorse hardware nella NetApp AFX architecture, i nodi non necessitano più di dischi associati da aggiungere uno accanto all'altro. Quando un cluster ha una disponibilità limitata di risorse legate alle performance, come RAM, CPU o throughput di rete, è sufficiente aggiungere solo nodi di storage al cluster, che potranno sfruttare la Storage Availability Zone esistente. Viceversa, se il requisito è la capacità, sarà necessario aggiungere solo gli shelf. Questa flessibilità garantisce che vengano acquistate solo le risorse necessarie, evitando così il sovradimensionamento.
+
+*NetApp AFX – Scala indipendente*
+
+image:image12.png["Immagine"]
+
+
+
+=== Scalatura lineare delle prestazioni del nodo
+
+Con l'aggiunta di nodi a un cluster AFX, vengono introdotte nel carico di lavoro ulteriori risorse di CPU, RAM e risorse di rete. Man mano che queste risorse vengono incorporate nell'ambiente, gli aumenti delle prestazioni sono di natura lineare. Il grafico seguente mostra come tali prestazioni aumenterebbero con l'aggiunta di nodi.
+
+*Le prestazioni aumentano in modo lineare con l'aggiunta di nodi NetApp AFX*
+
+image:image13.png["Immagine"]
+
+
+
+=== Gruppi RAID più grandi, meno unità di parità
+
+ONTAP offre una combinazione di protezione dei dati e prestazioni per i dischi tramite gruppi RAID, in particolare RAID-TEC, che offre una tripla protezione di parità in caso di guasti dei dischi. RAID-TEC può resistere fino a tre guasti simultanei di unità in un gruppo RAID. In unified ONTAP, i gruppi RAID hanno un numero massimo di 28 dischi, di cui 3 utilizzati per la parità e 1 riservato come spare. Di conseguenza, 24 dei 28 dischi vengono utilizzati per le operazioni sui dati/stripe RAID.
+
+*Gruppi RAID ONTAP unificati*
+
+image:image14.png["Immagine"]
+
+NetApp AFX continua a sfruttare RAID-TEC, ma aumenta la dimensione del gruppo RAID a 96 unità, richiedendo solo 3 unità di parità e 1 di riserva. Gruppi RAID più grandi offrono prestazioni complessive superiori, mentre il rischio di guasti alle unità è ridotto al minimo grazie a una combinazione di bassi tassi di guasto per gli SSD, operazioni distribuite in modo più uniforme su un set più ampio di unità e miglioramenti alla ricostruzione delle unità dati dalla parità in NetApp AFX.
+
+*NetApp AFX Storage Availability Zone gruppo RAID*
+
+image:image15.png["Immagine"]
+
+La tabella seguente fornisce una stima della capacità raw utilizzabile per 84 dischi in ONTAP unificato e NetApp AFX, con diverse dimensioni delle unità.
+
+*Confronto approssimativo della capacità raw, 84 unità – Unified ONTAP e NetApp AFX*
+
+|===
+| Dimensioni dell'unità | Capacità raw approssimativa (Unificata) | Capacità raw approssimativa (AFX) 
+
+
+| 7,6 TB | ~547,2TB | ~608TB (+60,8TB) 
+
+
+| 15,3 TB | ~1101,6TB | ~1224TB (+122,4TB) 
+
+
+| 30,6 TB | ~2203,2TB | ~2448TB (+244,7TB) 
+
+
+| 60,1 TB | ~4327,2TB | ~4808TB (+480,8TB) 
+|===
+
+
+=== Tempi di ricostruzione del disco più rapidi in caso di guasto
+
+In ONTAP unificato, ogni nodo possiede un sottoinsieme di dischi nello stack di storage. Ciò significa che quel nodo scrive solo su quei dischi, ma anche che la ricostruzione dei dischi viene gestita da un solo nodo in caso di guasto di un disco.
+
+NetApp AFX elimina la necessità di possedere i dischi. Di conseguenza, è possibile scrivere su tutte le unità da un singolo nodo, se necessario. Ciò significa anche che, quando un'unità deve essere ricostruita dalla parità, tutti i nodi del cluster partecipano, consentendo una ricostruzione più rapida rispetto a quanto avverrebbe se un singolo nodo dovesse eseguire l'operazione da solo.
+
+*Ricostruzione del disco in NetApp AFX*
+
+image:image16.png["Immagine"]
+
+
+
+=== Domini di deduplicazione
+
+La deduplicazione consente a un sistema storage di individuare i blocchi duplicati nel proprio file system e di creare puntatori a un singolo blocco per ridurre la quantità totale di capacità utilizzata. In unified ONTAP, la deduplicazione segue un limite specifico per i blocchi che possono essere ridotti. Tali limiti dipendono dal tipo di deduplicazione in uso. In generale:
+
+* Deduplicazione basata sul volume -> Confine del volume
+* Deduplicazione cross-volume -> Confine aggregato
+
+
+*Domini di deduplicazione unificati ONTAP*
+
+image:image17.png["Immagine"]
+
+La tabella seguente mostra il comportamento della capacità per i dati duplicati in diversi scenari in ONTAP unificato. Poiché le copie dei file si estendono su nodi e aggregati (e quindi su domini di deduplicazione), il risparmio di spazio si riduce.
+
+*Comportamenti di deduplicazione in diversi scenari per file identici da 10GB – ONTAP unificato*
+
+|===
+| Scenario | Spazio utilizzato 
+
+
+| Quattro copie dello stesso file da 10GB, stesso volume (deduplicazione del volume) | 10 GB 
+
+
+| Quattro copie dello stesso file da 10GB, su volumi diversi, stesso aggregato (deduplicazione tra volumi abilitata) | 10 GB 
+
+
+| Quattro copie dello stesso file da 10GB, 4 volumi diversi, 4 aggregati diversi (deduplicazione tra volumi abilitata) | 40 GB 
+|===
+Poiché NetApp AFX rimuove gli aggregati fisici e sposta la gestione della capacità nella nuova Storage Availability Zone, anche i confini del dominio di deduplicazione cambiano. In AFX, il dominio di deduplicazione si trova a livello di volume (come in ONTAP unificato) e di nodo (anziché di aggregato) prima della versione 9.19.1.
+
+A partire da ONTAP 9.19.1, AFX supporta un dominio di deduplicazione globale a livello di Storage Availability Zone, quindi tutti i blocchi duplicati nel pool di storage del cluster vengono trattati allo stesso modo.
+
+*NetApp AFX – Dominio di deduplicazione globale (ONTAP 9.19.1)*
+
+image:image18.png["Immagine"]
+
+La tabella seguente mostra il comportamento della capacità per i dati duplicati in diversi scenari in NetApp AFX.
+
+*Comportamenti di deduplicazione in diversi scenari per file identici da 10 GB – NetApp AFX*
+
+|===
+| Scenario | Spazio utilizzato 
+
+
+| Quattro copie dello stesso file da 10GB, stesso volume (deduplicazione del volume) | 10GB (9.18.1) 10GB (9.19.1) 
+
+
+| Quattro copie dello stesso file da 10GB, su volumi diversi, sullo stesso nodo (deduplicazione tra volumi abilitata) | 10GB (9.18.1) 10GB (9.19.1) 
+
+
+| Quattro copie dello stesso file da 10GB, 4 volumi diversi, 4 nodi diversi (deduplicazione tra volumi abilitata) | 40GB (9.18.1) 10GB (9.19.1) 
+|===
+
+
+== Funzionalità rimosse/non supportate
+
+NetApp AFX è progettato per carichi di lavoro NAS e a oggetti dalle performance elevate, in particolare (ma non esclusivamente) quelli nel campo dell'addestramento e dell'inferenza dell'IA. Con la progettazione di NetApp AFX, sono state prese alcune decisioni per disabilitare alcune delle funzionalità di ONTAP.
+
+* A causa dell'attenzione rivolta alle dalle performance elevate di NAS e ai carichi di lavoro a oggetti, i carichi di lavoro a blocchi sono stati rimossi dalla soluzione NetApp AFX. Non è previsto il supporto per i protocolli dati FCP, iSCSI o NVMe e non sono previsti piani per l'aggiunta di protocolli a blocchi.
+* Disaggregato è sinonimo di de-aggregato, il che significa che gli aggregati (almeno come concetto di amministrazione dello storage fisico) sono stati rimossi. La rimozione dell'aggregato fisico non solo semplifica la gestione della capacità in ONTAP, ma fornisce anche il meccanismo per consentire un unico pool di capacità.
+* La rimozione degli aggregati implica la rimozione anche delle funzionalità specifiche di ciascun aggregato. Metrocluster, ad esempio, sfrutta il mirroring a livello di aggregato per le sue funzionalità di failover del sito. Pertanto, anche Metrocluster viene rimosso da NetApp AFX. La funzionalità di failover del sito sarà invece fornita dalla nuova funzionalità SnapMirror Active-Sync for NAS offerta in ONTAP 9.19.1GA.
+* La funzionalità di suddivisione in livelli dei dati freddi chiamata FabricPool non è attualmente disponibile per NetApp AFX poiché è anch'essa specifica per gli aggregati.
+* Gli spostamenti di volumi basati su copie non sono più necessari nemmeno in NetApp AFX, grazie alla nuova architettura di capacità. Per ulteriori informazioni, consultare <<Movimenti di volume a copia zero>>.
+* La rimozione di alcune funzionalità comporta anche modifiche all'interfaccia a riga di comando (CLI), all'interfaccia grafica (GUI) e alle API REST, quindi tutti i comandi o le chiamate API relativi a funzionalità non più supportate verranno rimossi.
+* ZAPI al momento non è disponibile per NetApp AFX.
+* Offload di copia NFS per virtualizzazione (FlexGroup volumi con sola distribuzione dati granulare)
+
+
+
+
+== Modifiche alla gestione di ONTAP
+
+In generale, la gestione NetApp AFX non modifica i meccanismi utilizzati per gestire un cluster. Gli amministratori possono ancora utilizzare la CLI, la GUI e le API REST per accedere e configurare un cluster. Tuttavia, NetApp AFX ha offerto l'opportunità di migliorare alcune delle modalità di esecuzione delle operazioni di gestione dello storage.
+
+
+
+=== gestione della capacità semplificata
+
+La NetApp AFX Storage Availability Zone riduce gli endpoint di gestione, passando da un approccio basato su nodi e aggregati a un singolo pool di capacità disponibile per l'intero cluster. Man mano che i volumi aumentano o diminuiscono, ONTAP preleva e restituisce automaticamente capacità dalla Storage Availability Zone.
+
+Grazie a ciò, gli amministratori dello storage non devono più preoccuparsi di individuare e gestire lo spazio libero su un massimo di 24 nodi e potenzialmente centinaia di aggregati. Invece, esiste un solo punto in cui la capacità viene gestita e visualizzata.
+
+Ad esempio, nella CLI di ONTAP unificato, se si desidera visualizzare le informazioni sulla capacità fisica totale di un cluster, si utilizza il comando "`aggregate show-space`", che visualizza tutte le voci aggregate. In NetApp AFX, si utilizza "`cluster space show`", che mostra solo la singola Storage Availability Zone.
+
+*Confronto affiancato dei comandi CLI di capacità in ONTAP unificato e NetApp AFX*
+
+image:image19.png["Immagine"]
+
+Nell'interfaccia grafica di Unified ONTAP System Manager, i livelli vengono utilizzati per visualizzare la capacità. In effetti, l'interfaccia grafica tenta di mostrare la capacità complessiva del cluster sommando i totali, ma mostrerà comunque l'utilizzo complessivo per ogni singolo aggregato.
+
+*System Manager viste della capacità – Unified ONTAP*
+
+image:image20.png["Immagine"]
+
+In NetApp AFX System Manager, la visualizzazione per lo spazio del cluster è praticamente la stessa, ma poiché non ci sono aggregati, non è necessario eseguire calcoli aggiuntivi. La capacità visualizzata è la capacità effettiva.
+
+*System Manager visualizzazioni della capacità – NetApp AFX*
+
+image:image21.png["Immagine"]
+
+
+
+=== Miglioramenti nella gestione dei volumi FlexGroup
+
+Un volume FlexGroup è costituito da più volumi costituenti FlexVol sottostanti, creati su più nodi e aggregati nel cluster e presentati come un unico grande namespace ai client NAS. I volumi FlexGroup offrono vantaggi in termini di prestazioni, scalabilità, bilanciamento del carico e numero di file per i carichi di lavoro dalle performance elevate. Tuttavia, poiché sono coordinati tra nodi e aggregati, occasionalmente possono incontrare delle limitazioni fisiche quando la capacità inizia a esaurirsi, dato che i file system indipendenti forniti dagli aggregati hanno anche un utilizzo della capacità e limiti indipendenti. Ad esempio, se un aggregato con volumi costituenti FlexGroup inizia a riempirsi prima degli altri aggregati nel cluster, l'intero FlexGroup potrebbe essere soggetto a problemi di capacità o di prestazioni.
+
+Di conseguenza, gli amministratori dello storage potrebbero ritrovarsi a preoccuparsi eccessivamente dell'infrastruttura FlexGroup sottostante e diventare meno concentrati sulla manutenzione di altri aspetti dell'ambiente.
+
+*Layout del volume FlexGroup - Aggregati ONTAP unificati*
+
+image:image22.png["Immagine"]
+
+NetApp AFX presenta la capacità in un'unica Storage Availability Zone, che rispecchia più fedelmente il modo in cui i volumi FlexGroup sono progettati per funzionare. Invece di più volumi costituenti distribuiti su più aggregati disparati di dimensioni potenzialmente diverse, tutti i volumi risiedono nello stesso pool di capacità, il che semplifica notevolmente la gestione complessiva dell'utilizzo di un volume FlexGroup.
+
+Inoltre, AFX abilita per impostazione predefinita il bilanciamento avanzato della capacità per i volumi FlexGroup, il che contribuisce a distribuire meglio i file di grandi dimensioni all'interno del volume. Ora, i costituenti del volume FlexGroup non sono più un concetto da gestire, ma svolgono il loro lavoro in modo automatico e silenzioso in background.
+
+*Layout del volume FlexGroup - NetApp AFX*
+
+image:image23.png["Immagine"]
+
+
+
+=== Attività automatizzate di amministrazione dello storage
+
+Con Storage Availability Zone in NetApp AFX, tutta la capacità è condivisa tra tutti i nodi. Sebbene i nodi continuino a possedere volumi, ONTAP gestisce automaticamente l'utilizzo della capacità di ciascun nodo, prendendo in prestito e rilasciando capacità in base alle esigenze del nodo in un dato momento. Ciò significa che gli amministratori dello storage non devono più preoccuparsi di come bilanciare al meglio lo spazio utilizzabile.
+
+Inoltre, la gestione dei gruppi RAID è automatizzata da ONTAP, che consente di aggiungere i dischi appena inseriti a gruppi RAID esistenti o nuovi senza l'intervento dell'amministratore. ONTAP gestisce anche lo spostamento dei volumi tra i nodi senza la necessità di copiare i dati.
+
+
+
+=== Movimenti di volume a copia zero
+
+Unified ONTAP offre un metodo per spostare volumi tra nodi o aggregati senza interruzioni, al fine di gestire le performance e l'utilizzo della capacità nell'intero cluster.
+
+Quando si avvia uno spostamento di volume, accade quanto segue:
+
+* Viene creato un nuovo volume vuoto sull'aggregato di destinazione
+* I metadati del volume (come le informazioni sull'efficienza di storage, i file handle, ecc.) vengono replicati nel nuovo volume di destinazione
+* I dati del volume vengono replicati sul volume di destinazione attraverso la rete del cluster backend tramite la tecnologia SnapMirror: l'aggregato di destinazione deve disporre di spazio libero per lo spostamento, altrimenti il job di spostamento fallirà
+* La replica del volume viene eseguita nuovamente per garantire che entrambi i volumi siano coerenti con eventuali modifiche ai dati
+* Viene avviato un processo di cutover per mettere offline il volume di origine e promuovere il volume di destinazione come nuovo volume di origine per i client
+* L'I/O del client subisce una breve pausa durante cutover, ma non sono necessari rimontaggi
+
+
+In NetApp AFX, la Storage Availability Zone mette a disposizione tutta la capacità a tutti i nodi e tutti i nodi possono scrivere su qualsiasi disco in quel pool. Una volta che i dati vengono inseriti, rimangono dove si trovano, anche se il volume viene spostato. Ciò significa che non è necessaria alcuna copia dei dati. Il processo di spostamento del volume è identico a quello di ONTAP unificato, senza la necessità di replicare i dati tramite SnapMirror. Non è richiesta capacità aggiuntiva.
+
+*Spostamenti di volumi zero copy in NetApp AFX*
+
+image:image24.png["Immagine"]
+
+La possibilità di spostare volumi in modo leggero consente ad AFX di automatizzare molte attività amministrative senza limitazioni di prestazioni o capacità, e questi spostamenti di volumi vengono utilizzati in alcune nuove funzionalità offerte da NetApp AFX, come descritto negli argomenti seguenti.
+
+
+
+==== comportamento di failover HA
+
+In ONTAP unificato, i nodi possiedono dischi e aggregati, dove i dati vengono serviti tramite volumi. Le scritture vengono eseguite utilizzando la NVRAM locale del nodo per trasferirle sui dischi di proprietà del nodo stesso. Quando un nodo viene riavviato o si guasta, ONTAP attiva un takeover delle risorse del nodo guasto, trasferendo la proprietà di dischi e aggregati al nodo partner. Anche le interfacce di rete vengono trasferite a porte nello spazio IP e, poiché il contenuto della NVRAM viene costantemente replicato sulla coppia HA, il nodo trasferisce il contenuto della NVRAM per confermare le scritture del nodo guasto sui dischi. Successivamente, il nodo sopravvissuto possiederà gli aggregati e i volumi del nodo guasto fino al ripristino della proprietà del nodo. Ciò significa che tutto il traffico verso tali volumi, così come verso i volumi già di proprietà del nodo sopravvissuto, verrà elaborato su un singolo nodo fino alla risoluzione del problema di failover.
+
+Nell'ambito della distribuzione iniziale di un cluster ONTAP unificato, si raccomanda di pianificare in anticipo i failover per evitare che un singolo nodo sovraccarichi il suo partner. Questo rappresenta di per sé una sfida, poiché è difficile prevedere quali volumi potrebbero essere dalle performance elevate, ma funzionalità come lo spostamento non interruttivo dei volumi e le policy di qualità del servizio dei volumi possono contribuire a mitigare il problema.
+
+Le immagini seguenti mostrano come i cluster ONTAP unificati possano presentare uno squilibrio delle performance tra i nodi e come un failover possa causare un peggioramento delle performance in alcuni casi.
+
+*Unified ONTAP – potenziali squilibri nell'utilizzo dei nodi*
+
+image:image25.png["Immagine"]
+
+Quando i nodi di una coppia HA presentano uno squilibrio tra volumi totali e utilizzo delle prestazioni, i failover dei nodi influiranno sulle prestazioni complessive, poiché il nodo sopravvissuto si troverà a gestire tutti i volumi del nodo guasto. Nel frattempo, altri nodi del cluster potrebbero avere spazio per assumere ulteriore carico di lavoro.
+
+*Unified ONTAP – Impatto del failover sull'utilizzo dei nodi*
+
+image:image26.png["Immagine"]
+
+Come spiegato sopra, quando un partner HA deve assumersi un carico di lavoro aggiuntivo, può potenzialmente sovraccaricarsi e compromettere le performance di tutti i volumi su quel nodo. Lo spostamento dei volumi può contribuire ad alleviare la situazione, ma richiede copie tra i nodi (il che richiede spazio libero), e il tempo necessario potrebbe superare il tempo necessario per il failback dei nodi. Inoltre, se si sposta un volume, questo non verrà eseguito il failback sul nodo originale. Rimarrà invece sul nodo su cui è stato spostato.
+
+Con NetApp AFX, i failover dei nodi assumono comportamenti leggermente diversi.
+
+* Poiché i nodi non possiedono dischi e non esistono aggregati fisici, un failover di un nodo non richiederà il trasferimento di tali risorse. Invece, solo le interfacce di rete e la proprietà dei volumi vengono trasferite agli altri nodi.
+* Le operazioni di commit sulla NVRAM avvengono ancora, ma tramite la rete HA anziché tramite una connessione diretta.
+* Una volta che i volumi hanno eseguito il failover iniziale sul nodo partner, AFX ridistribuirà i volumi sugli altri nodi rimanenti del cluster. Ciò è reso possibile dallo spostamento dei volumi senza copia.
+* Quando il nodo viene ripristinato, i volumi verranno spostati nuovamente sul nodo originale.
+
+
+NetApp AFX mantiene già un bilanciamento delle prestazioni tra i nodi del cluster per garantire un utilizzo relativamente uniforme, quindi quando si verifica un failover e i volumi vengono ribilanciati, l'utilizzo dei nodi dovrebbe essere pressoché identico in tutto il cluster.
+
+*NetApp AFX - Ribilanciamento del volume dopo il failover*
+
+image:image27.png["Immagine"]
+
+
+
+==== Aggiunta e rimozione di nodi
+
+Sia ONTAP unificato che NetApp AFX consentono di aggiungere e rimuovere nodi dal cluster. Tuttavia, a causa di alcune differenze architetturali, la procedura per l'aggiunta e la rimozione dei nodi risulta leggermente diversa.
+
+
+
+==== Aggiunta/rimozione di nodi in ONTAP unificato
+
+Abbiamo già appreso che ONTAP unificato ha una proprietà diretta tra nodo e disco e che tutti i nodi devono avere alcuni dischi e almeno un aggregate collegato. Tenendo presente ciò, le seguenti considerazioni valgono per le aggiunte e le rimozioni.
+
+* L'aggiunta di nodi in unified ONTAP non richiede passaggi aggiuntivi, ma per garantire prestazioni bilanciate su tutti i nodi (inclusi i nuovi nodi), è necessario spostare i volumi sui nuovi nodi. Ciò richiede un'analisi preliminare dei volumi esistenti e dei relativi carichi di lavoro, la decisione su quali volumi spostare e, infine, lo spostamento effettivo dei volumi, che, ancora una volta, richiederebbe una copia di tali dati attraverso la rete del cluster di backend.
+* La rimozione dei nodi in ONTAP unificato richiederebbe l'evacuazione manuale dei volumi esistenti sul nodo, il che significa che è necessario identificare quali nodi possono ospitare quali volumi per mantenere prestazioni uniformi e che si deve disporre di sufficiente capacità libera per fornire una destinazione a cui spostare tali volumi. Se la capacità libera rappresenta una sfida, potrebbero essere necessari ulteriori spostamenti di volumi per ridistribuire i carichi di lavoro all'interno del cluster. La rimozione dei nodi comporta anche la rimozione delle coppie HA, quindi il lavoro richiesto è raddoppiato. Poiché i nodi possiedono i dischi, sarà inoltre necessaria una reinizializzazione completa dei dischi per tali nodi. Ciascuno di questi aspetti aggiunge tempo e impegno a quella che dovrebbe essere un'operazione relativamente semplice.
+
+
+
+
+==== Aggiunta/rimozione di nodi in NetApp AFX
+
+Abbiamo inoltre appreso che NetApp AFX non sfrutta la proprietà standard dei nodi rispetto ai dischi e non utilizza aggregati fisici per presentare la capacità al cluster. Per questo motivo, l'aggiunta e la rimozione dei nodi si comportano in modo leggermente diverso.
+
+* L'aggiunta di nodi in NetApp AFX non richiederà la stessa analisi preliminare dei volumi, né l'intervento amministrativo per garantire che ciascun nodo abbia un bilanciamento uniforme dei volumi. Invece, ONTAP bilancia automaticamente il numero di volumi tra i nodi appena aggiunti per mantenere profili di performance relativamente uniformi. ONTAP sposterà automaticamente i volumi tra i nodi senza copiare nulla, riducendo il tempo, la capacità e lo sforzo necessari per aggiungere nodi a un cluster.
+* La rimozione dei nodi in NetApp AFX non richiede quasi nessun – se non nessun – intervento manuale. Quando un nodo viene contrassegnato per la rimozione, ONTAP sposta automaticamente i volumi tra i nodi (di nuovo, senza copiarli) per evacuare i nodi da rimuovere. E poiché non ci sono dischi di proprietà dei nodi, non è necessario reinizializzare i dischi dopo la rimozione dei nodi. Questo rende i nodi in AFX modulari per natura e facili da scalare verso l’alto o verso il basso.
+
+
+
+
+==== Movimenti di volume basati sulle performance
+
+La funzionalità di spostamento dei volumi zero-copy di NetApp AFX significa che può ribilanciare i volumi secondo necessità senza copiare i dati, consentendo di operare rapidamente e senza bisogno di capacità aggiuntiva. Questo significa che lo spostamento dei volumi può diventare una parte più importante del bilanciamento del carico automatizzato disponibile per i cluster ONTAP. Ora che spostare un volume non comporta praticamente alcun costo, ONTAP può sfruttare questo prezioso strumento per integrare funzionalità come il bilanciamento del carico dei volumi basato sulle performance.
+
+In NetApp AFX con ONTAP 9.18.1 e versioni successive, l'utilizzo di nodo, coppia HA e volume viene costantemente monitorato, mentre i dati sulle performance vengono raccolti e analizzati. Se l'utilizzo di un nodo esce dalle soglie definite, ONTAP selezionerà automaticamente un volume da spostare su un nodo meno utilizzato, al fine di mantenere performance bilanciate nell'intero cluster.
+
+*Movimenti di volume guidati dalle prestazioni in NetApp AFX – un elevato utilizzo innesca un movimento di volume*
+
+image:image28.png["Immagine"]
+
+*Spostamenti di volume orientati alle prestazioni in NetApp AFX – Utilizzo bilanciato dei nodi dopo lo spostamento del volume*
+
+image:image29.png["Immagine"]
+
+
+
+=== Scala ed espansione del cluster
+
+I cluster ONTAP unificati supportano fino a 24 nodi e ogni nodo aggiunto deve essere dotato di dischi (sia per funzionalità del sistema che per i servizi dati). È possibile aggiungere shelf di dischi al cluster, ma questi sono sempre connessi a una singola coppia HA e appartengono solo a un singolo nodo, anche se il cluster è composto da 24 nodi. Ciò significa che la capacità viene aggiunta a un cluster anche quando è richiesta solo la performance, e tale aumento delle performance è per lo più relegato a uno specifico set di dischi di proprietà dei nuovi nodi. Di conseguenza, si potrebbe finire con una capacità in eccesso che non è necessariamente necessaria.
+
+*Unified ONTAP – considerazioni aggiuntive sulla scalabilità*
+
+image:image30.png["Immagine"]
+
+NetApp AFX supporta una scalabilità maggiore per i cluster. A partire dalla versione 9.19.1, i cluster AFX possono raggiungere 32 nodi in un singolo cluster. E poiché tutti i nodi possono vedere e accedere a tutti i dischi, possono condividere le performance e la capacità (fino a 32PB a partire da ONTAP 9.19.1) di tali unità, in modo che non vi siano mai risorse inutilizzate. Lo spostamento dei volumi non richiede copie, quindi ONTAP è in grado di spostare automaticamente i volumi sui nodi appena aggiunti per garantire un utilizzo uniforme dei nodi, mentre la capacità viene distribuita uniformemente tramite la Storage Availability Zone.
+
+*NetApp AFX – considerazioni aggiuntive sulla scala*
+
+image:image31.png["Immagine"]
+
+
+
+=== Modifiche al volume root
+
+In NetApp ONTAP, a ciascun nodo viene assegnato un volume root, utilizzato per file e funzioni specifici del sistema, come file di log, immagini di avvio, file core, database del cluster e altro ancora.
+
+In unified ONTAP, questi volumi root risiedevano su aggregati root fisici. Per ridurre la quantità di capacità utilizzata dagli aggregati root, questi venivano creati su partizioni di unità dati tramite Advanced Disk Partitioning (ADP).
+
+NetApp AFX elimina gli aggregati fisici dall'equazione e, di conseguenza, elimina la necessità di utilizzare aggregati root e ADP. I volumi root rimangono un concetto, ma ora risiedono in aree virtualizzate del pool di capacità e non richiedono configurazioni aggiuntive. Inoltre, la funzionalità del volume root cambia. Le immagini di avvio e i database del cluster replicati vengono spostati dallo stack di storage a un supporto di avvio integrato presente su ciascun nodo AFX. Ora, se si perde l'accesso allo stack di storage, i nodi possono comunque avviarsi e mantenere l'idoneità al cluster, semplificando la risoluzione dei problemi.
+
+
+
+=== Supporto di avvio integrato
+
+NetApp I nodi AFX utilizzano supporti di avvio integrati, ovvero dispositivi M.2 NVMe da circa 3,8TB. Questi dispositivi di avvio contengono file immagine di avvio e database replicati, separati dagli enclosure di storage, il che garantisce una maggiore ridondanza in caso di problemi di accesso al disco. In caso di guasto del supporto di avvio, il nodo verrà gestito dalla sua coppia HA e il supporto di avvio potrà essere sostituito. Una volta sostituito, un amministratore dello storage caricherà una nuova immagine ONTAP sul dispositivo e ONTAP ricostruirà automaticamente il cluster database per ripristinare la piena funzionalità.

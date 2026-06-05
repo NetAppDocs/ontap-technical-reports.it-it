@@ -1,17 +1,15 @@
 ---
 indexpage:
-  title: Report tecnici di ONTAP
-  summary: I report tecnici di ONTAP forniscono un contesto aggiuntivo per la pianificazione
-    e l'ottimizzazione delle implementazioni ONTAP all'interno di ecosistemi diversi
-    o con protocolli diversi. Alcuni report tecnici di ONTAP forniscono il contesto
-    architettonico e le procedure consigliate per le funzionalità e le funzionalità
-    di ONTAP.
+  title: Report tecnici NetApp
+  summary: NetApp technical reports forniscono un contesto aggiuntivo per la pianificazione
+    e l'ottimizzazione delle implementazioni all'interno di diversi ecosistemi o con
+    diversi protocolli. Alcuni report tecnici ONTAP forniscono un contesto architetturale
+    e pratiche consigliate per le funzionalità e le capacità di ONTAP.
   keywords: ONTAP 9, ONTAP, Technical Reports, TR
-  lead: I report tecnici di ONTAP forniscono un contesto aggiuntivo per la pianificazione
-    e l'ottimizzazione delle implementazioni ONTAP all'interno di ecosistemi diversi
-    o con protocolli diversi. Alcuni report tecnici di ONTAP forniscono il contesto
-    architettonico e le procedure consigliate per le funzionalità e le funzionalità
-    di ONTAP.
+  lead: NetApp technical reports forniscono un contesto aggiuntivo per la pianificazione
+    e l'ottimizzazione delle implementazioni all'interno di diversi ecosistemi o con
+    diversi protocolli. Alcuni report tecnici ONTAP forniscono un contesto architetturale
+    e pratiche consigliate per le funzionalità e le capacità di ONTAP.
   tiles:
   - title: Applicazioni e database
     links:

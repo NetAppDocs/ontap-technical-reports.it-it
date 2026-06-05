@@ -1,0 +1,105 @@
+---
+sidebar: sidebar 
+permalink: afx-overview/afx-overview-hardware.html 
+keywords: netapp afx, hardware, nodes, shelves, switches, disks, nvme 
+summary: 'Questa pagina fornisce dettagli sull"hardware del cluster NetApp AFX, inclusi nodi, shelf, switch e tipi di dischi supportati.' 
+---
+= Dettagli hardware
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/afx-overview/
+
+
+[role="lead"]
+La sezione seguente descrive in dettaglio l'hardware del cluster NetApp AFX. Per le informazioni più recenti sull'hardware NetApp AFX, consultare link:https://hwu.netapp.com["https://hwu.netapp.com"^].
+
+
+
+== Hardware supportato
+
+Per le informazioni più recenti sull'hardware supportato per NetApp AFX, consultare link:https://hwu.netapp.com["https://hwu.netapp.com"^].
+
+
+
+== Nodi
+
+NetApp AFX nodi si basano sul modello AFF A1K fornito per i cluster ONTAP unificati. Questi nodi non dispongono di dischi integrati per l'archiviazione e sono concepiti per essere modulari, consentendo di aggiungere e rimuovere facilmente nodi in base ai requisiti di prestazioni. Ogni nodo utilizza 2U di spazio rack e le prestazioni aumentano linearmente man mano che vengono aggiunti a un cluster AFX.
+
+*NetApp AFX 1K dettagli del nodo*
+
+image:image42.png["Immagine"]
+
+
+
+=== Slot hardware
+
+NetApp I nodi AFX 1K utilizzano le seguenti assegnazioni di slot.
+
+* Lo slot 1 è dedicato alla replica HA
+* Lo slot 7 è dedicato alla replica del cluster
+* Gli slot 10 e 11 sono dedicati alla comunicazione degli shelf di storage
+
+
+
+
+== Shelf di espansione
+
+NetApp AFX shelves utilizzano gli stessi chassis che i sistemi AFF utilizzano. La principale differenza negli shelf AFX è nel modulo utilizzato. I moduli NSM140 offrono capacità di prestazioni migliorate e contribuiscono a rendere possibile ONTAP disaggregato. Alcune considerazioni chiave:
+
+* Sono supportati solo gli scaffali completamente pieni.
+* Gli scaffali vengono rilevati automaticamente da NetApp AFX quando vengono collegati.
+* Al momento non è disponibile il supporto per la rimozione degli shelf.
+
+
+*NetApp dettagli del contenitore shelf AFX*
+
+image:image43.png["Immagine"]
+
+
+
+== Switch
+
+NetApp AFX utilizza ancora switch di cluster backend per la comunicazione intracluster, come la replica del database del cluster, le operazioni sui dati remoti, le operazioni di storage e il mirroring NVRAM. Dal punto di vista funzionale, le uniche differenze tra ONTAP unificato e gli switch di cluster NetApp AFX sono:
+
+* Supporto 400GbE
+* Nuova VLAN HA
+* Per ulteriori informazioni, vedere il link:https://www.cisco.com/site/us/en/products/collateral/networking/switches/nexus-9000-series-switches/nexus-9300-gx2-series-fixed-switches-data-sheet.html["Scheda tecnica degli switch Cisco"^].
+
+
+*Switch cluster NetApp AFX*
+
+image:image44.png["Immagine"]
+
+
+
+=== Connettività dello switch di cluster
+
+NetApp AFX sfrutta ampiamente gli switch di cluster backend per molti dei suoi principali concetti architetturali. Ad esempio, le interfacce del cluster, gli adattatori di storage, gli shelf di storage e le schede NVRAM si collegano tutte agli switch di cluster. Attualmente, tutte queste interfacce supportano solo la comunicazione a 100GB, mentre gli switch supportano 400GB. Di conseguenza, le interfacce a 100GB si collegano alle interfacce a 400GB dello switch tramite 4 cavi breakout da 100GB. Questo approccio riduce il numero di porte utilizzate sugli switch. Ad esempio, le 16 porte dei moduli shelf di storage da 100GB utilizzeranno solo 4 porte sugli switch, mentre le 8 porte totali sui nodi utilizzeranno 2 porte dello switch.
+
+*NetApp Cablaggio switch AFX*
+
+image:image45.png["Immagine"]
+
+
+
+== Tipi e dimensioni dei dischi
+
+NetApp AFX attualmente supporta solo SSD NVMe collegati nei seguenti formati:
+
+* 7,6 TB
+* 15,3 TB
+* 30,1 TB
+* 60,6 TB
+
+
+
+
+=== TLC vs. QLC
+
+NetApp AFX può sfruttare sia i tipi di flash TLC che QLC. Le unità da 7,6 e 15,3 TB sono modelli TLC, mentre le unità superiori a 30,1 TB saranno QLC. Indipendentemente dal tipo di supporto, è possibile soddisfare gli standard prestazionali di certificazione NVIDIA SuperPod.
+
+Tutte le unità utilizzate con NetApp AFX sono unità ad alte prestazioni e sia QLC che TLC offrono prestazioni pressoché identiche in lettura. QLC è leggermente inferiore in scrittura rispetto a TLC e può subire un livellamento dell'usura leggermente maggiore con carichi di lavoro ad alta intensità di scrittura.
+
+Per i dati sulle prestazioni, vedere link:afx-overview-performance.html#per-shelf-performance["prestazioni per shelf"].
+
+Quando si sceglie il tipo di unità da utilizzare, è importante considerare i carichi di lavoro che lo storage dovrà ospitare e i compromessi tra prestazioni e densità di capacità.
