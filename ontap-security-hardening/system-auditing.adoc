@@ -15,6 +15,7 @@ Garantire l'integrità del controllo degli eventi trasferendo gli eventi ONTAP i
 
 
 
+[[send-out-syslog]]
 == Inviare syslog
 
 Le informazioni di log e di audit sono preziose per un'organizzazione dal punto di vista del supporto e della disponibilità. Inoltre, le informazioni e i dettagli contenuti nei log (syslog), nei report e nei risultati di revisione sono generalmente di natura sensibile. Per mantenere i controlli e la posizione di sicurezza, è fondamentale che le organizzazioni gestiscano i dati di log e di revisione in modo sicuro.
@@ -23,6 +24,7 @@ L'offload delle informazioni syslog è necessario per limitare l'ambito o l'impa
 
 
 
+[[create-a-log-forwarding-destination]]
 === Creare una destinazione di inoltro dei log
 
 Utilizzare il `cluster log-forwarding create` comando per creare destinazioni di inoltro dei log per la registrazione remota.
@@ -82,6 +84,7 @@ NOTE: NetApp consiglia di utilizzare il `cluster log-forwarding` comando per for
 
 
 
+[[event-notification]]
 == Notifica degli eventi
 
 Proteggere le informazioni e i dati che lasciano un sistema è fondamentale per mantenere e gestire la posizione di sicurezza del sistema. Gli eventi generati dalla soluzione ONTAP forniscono una vasta gamma di informazioni su ciò che la soluzione incontra, le informazioni elaborate e altro ancora. La vitalità di questi dati evidenzia la necessità di gestirli e migrarli in modo sicuro.

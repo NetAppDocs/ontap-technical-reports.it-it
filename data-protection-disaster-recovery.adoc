@@ -23,6 +23,7 @@ Questi report tecnici si espandono nella link:https://docs.netapp.com/us-en/onta
 ====
 
 
+[[snapmirror]]
 == SnapMirror
 
 .Connessione asincrona SnapMirror
@@ -39,12 +40,14 @@ link:https://www.netapp.com/pdf.html?item=/media/19369-tr-4832.pdf["TR-4832: Dis
 
 
 
+[[application-and-infrastructure-with-snapmirror]]
 == Applicazione e infrastruttura con SnapMirror
 
 link:https://docs.netapp.com/us-en/ontap-apps-dbs/vmware/vmware-srm-overview.html["TR-4900: VMware Site Recovery Manager con ONTAP"^] ONTAP è una soluzione storage leader per gli ambienti VMware vSphere fin dall'introduzione nel moderno data center nel 2002 e continua ad aggiungere funzionalità innovative per semplificare la gestione riducendo i costi. Informazioni sulla soluzione ONTAP consigliata per VMware Site Recovery Manager (SRM), il software di disaster recovery (DR) leader del settore di VMware, incluse le informazioni più recenti sui prodotti e le procedure consigliate per semplificare la distribuzione, ridurre i rischi e semplificare la gestione continua.
 
 
 
+[[ontap-cyber-vault]]
 == Cyber vault di ONTAP
 
 link:https://docs.netapp.com/us-en/netapp-solutions/cyber-vault/ontap-cyber-vault-overview.html["Cyber vault di ONTAP"^] Il cyber vault di NetApp basato su ONTAP fornisce alle organizzazioni una soluzione completa e flessibile per proteggere le loro risorse dati più critiche. Sfruttando l'air-gapping logico con solide metodologie di potenziamento, ONTAP ti consente di creare ambienti storage sicuri e isolati in grado di resistere alle minacce informatiche in evoluzione. Con ONTAP, puoi garantire la riservatezza, l'integrità e la disponibilità dei tuoi dati mantenendo al contempo l'agilità e l'efficienza della tua infrastruttura storage.

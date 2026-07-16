@@ -22,6 +22,7 @@ NOTE: La configurazione FIPS è valida per ONTAP e BMC.
 
 
 
+[[netapp-ontaps-fips-mode-configuration]]
 == Configurazione NetApp ONTAP in modalità FIPS
 
 NetApp ONTAP dispone di una configurazione in modalità FIPS che crea un'istanza di un livello di protezione aggiuntivo per il piano di controllo:
@@ -36,6 +37,7 @@ NOTE: NIST ha inviato uno standard FIPS-140-3 e NCSM disporrà di convalide FIPS
 
 
 
+[[enable-fips-140-2-and-fips-140-3-compliance-mode]]
 == Attiva la modalità di conformità FIPS-140-2 e FIPS-140-3-2
 
 A partire da ONTAP 9, puoi abilitare la modalità di conformità FIPS-140-2 e FIPS-140-3 per le interfacce planari di controllo a livello del cluster.
@@ -46,6 +48,7 @@ A partire da ONTAP 9, puoi abilitare la modalità di conformità FIPS-140-2 e FI
 
 
 
+[[fips-enablement-and-protocols]]
 == Abilitazione e protocolli FIPS
 
 Il `security config modify` comando consente di modificare la configurazione di sicurezza esistente a livello del cluster. Se si attiva la modalità conforme a FIPS, il cluster seleziona automaticamente solo i protocolli TLS.
@@ -62,6 +65,7 @@ Il `security config modify` comando consente di modificare la configurazione di 
 
 
 
+[[fips-enablement-and-ciphers]]
 == Abilitazione FIPS e cifrari
 
 * Utilizzare il `-supported-cipher-suites` parametro per configurare solo AES (Advanced Encryption Standard) o AES e 3DES.
@@ -72,6 +76,7 @@ Il `security config modify` comando consente di modificare la configurazione di 
 
 
 
+[[ssh-and-tls-security-hardening]]
 == Protezione avanzata della sicurezza SSH e TLS
 
 L'amministrazione SSH di ONTAP 9 richiede un client OpenSSH 5,7 o successivo. I client SSH devono negoziare con l'algoritmo a chiave pubblica ECDSA (Elliptic Curve Digital Signature Algorithm) affinché la connessione abbia esito positivo.
@@ -80,6 +85,7 @@ Per rafforzare la protezione TLS, abilitare solo TLS 1,2 e utilizzare suite di c
 
 
 
+[[enable-tlsv1-2-and-pfs-capable-cipher-suites]]
 == Attivare suite di crittografia compatibili con TLSv1,2 e PFS
 
 Per attivare solo suite di crittografia compatibili con TLS 1,2 e PFS, utilizzare il `security config modify` comando dal livello di privilegi avanzato.

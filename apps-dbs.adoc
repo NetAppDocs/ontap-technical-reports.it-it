@@ -18,6 +18,7 @@ ONTAP è la base per la gestione dei dati e la protezione dei dati per molte app
 
 
 
+[[microsoft-sql-server]]
 == Microsoft SQL Server
 
 SQL Server è la base della piattaforma dati di Microsoft, che offre prestazioni mission-critical con tecnologie in memoria e informazioni più rapide su qualsiasi dato, sia in sede che nel cloud.
@@ -35,6 +36,7 @@ Scopri ora come implementare con successo Microsoft SQL Server sullo storage ONT
 
 
 
+[[mysql]]
 == MySQL
 
 Questo documento descrive i requisiti di configurazione e fornisce istruzioni sull'ottimizzazione e la configurazione dello storage per l'implementazione di MySQL su ONTAP.
@@ -46,6 +48,7 @@ NOTE: Questa documentazione sostituisce il report tecnico precedentemente pubbli
 
 
 
+[[oracle]]
 == Oracle
 
 ONTAP è progettato per i database Oracle. Per decenni, ONTAP è stato ottimizzato per le esigenze uniche di i/o dei database relazionali e sono state create più funzionalità di ONTAP appositamente per soddisfare le esigenze dei database Oracle e persino su richiesta della stessa Oracle Inc.
@@ -77,6 +80,7 @@ Scopri le procedure consigliate per il provisioning, la gestione e la protezione
 
 
 
+[[postgresql]]
 == PostgreSQL
 
 PostgreSQL viene fornito con varianti che includono PostgreSQL, PostgreSQL Plus ed EDB Postgres Advanced Server (ECAS). PostgreSQL viene in genere distribuito come database back-end per applicazioni multi-Tier. NetApp ONTAP è una scelta eccellente per l'esecuzione di database PostgreSQL per la sua affidabilità, prestazioni elevate ed efficienza di gestione dei dati.
@@ -88,12 +92,14 @@ NOTE: Questa documentazione sostituisce il report tecnico precedentemente pubbli
 
 
 
+[[sap-hana]]
 == SAP HANA
 
 link:https://docs.netapp.com/us-en/netapp-solutions-sap/["Soluzioni per i database SAP HANA su ONTAP"^] Le Best practice per la configurazione, la gestione e l'automazione delle soluzioni SAP sono disponibili nella pagina soluzioni SAP di NetApp.
 
 
 
+[[epic]]
 == EPIC
 
 link:https://docs.netapp.com/us-en/ontap-apps-dbs/epic/epic-overview.html["Best practice di EPIC su ONTAP"^] Una guida per comprendere le Best practice per implementare Epic on-premise e nel cloud, rispettando al contempo gli standard di configurazione per una corretta implementazione su ONTAP.

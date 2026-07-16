@@ -15,6 +15,7 @@ Oltre all'esecuzione di operazioni e funzioni di protezione on-box, la protezion
 
 
 
+[[commonly-used-protocols-and-ports]]
 == Protocolli e porte di uso comune
 
 [cols="27%,26%,47%"]
@@ -148,6 +149,7 @@ Oltre all'esecuzione di operazioni e funzioni di protezione on-box, la protezion
 |===
 
 
+[[netapp-internal-ports]]
 == Porte interne NetApp
 
 [cols="47%,53%"]

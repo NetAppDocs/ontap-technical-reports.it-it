@@ -18,6 +18,7 @@ Le nostre soluzioni di storage dei dati specifiche del settore, potenziate da pa
 
 
 
+[[eda]]
 == EDA
 
 link:https://www.netapp.com/pdf.html?item=/media/19368-tr-4617.pdf["Best practice per l'automazione della progettazione elettronica in ONTAP"^]
@@ -25,6 +26,7 @@ Scopri le procedure consigliate e i suggerimenti per l'implementazione con NetAp
 
 
 
+[[healthcare]]
 == Settore sanitario
 
 link:https://www.netapp.com/pdf.html?item=/media/17137-tr3928pdf.pdf["Best practice NetApp per Epic"^]

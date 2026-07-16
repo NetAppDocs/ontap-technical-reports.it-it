@@ -23,6 +23,7 @@ Questi report tecnici si espandono nella link:https://docs.netapp.com/us-en/onta
 ====
 
 
+[[hardening-guides]]
 == Guide per la protezione avanzata
 
 link:./ontap-security-hardening/security-hardening-overview.html["TR-4569: Guida alla protezione avanzata per NetApp ONTAP"] Scoprite come configurare NetApp ONTAP per aiutare le organizzazioni a soddisfare gli obiettivi di protezione prescritti per la riservatezza, l'integrità e la disponibilità del sistema informativo.

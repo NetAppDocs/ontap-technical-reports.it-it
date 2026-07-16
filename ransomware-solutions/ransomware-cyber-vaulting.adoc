@@ -13,6 +13,7 @@ L'approccio di NetApp a un cyber-vault è un'architettura di riferimento apposit
 
 
 
+[[cyber-vaulting-with-snaplock-compliance-and-a-logical-air-gap]]
 == Il vaulting dei computer informatici con SnapLock Compliance e un'air gap logico
 
 Un trend in crescita è quello di distruggere le copie di backup e, in alcuni casi, persino crittografarle. Questo è il motivo per cui molti nel settore della sicurezza informatica consigliano di utilizzare i backup air gap come parte di una strategia globale di resilienza informatica.
@@ -29,6 +30,7 @@ NetApp ha rilasciato la funzione SnapLock più di 10 anni fa per soddisfare i re
 
 
 
+[[tamperproof-snapshots]]
 == Snapshot a prova di manomissione
 
 Sfruttando SnapLock Compliance come air gap logico, è garantita la massima protezione per impedire agli hacker di eliminare le copie di backup, è necessario spostare le snapshot tramite SnapVault in un volume secondario abilitato per SnapLock. Di conseguenza, molti clienti implementano questa configurazione su storage secondario in tutta la rete. Ciò consente tempi di ripristino più lunghi rispetto al ripristino di Snapshot di un volume primario sullo storage primario.

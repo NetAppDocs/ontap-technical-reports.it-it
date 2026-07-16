@@ -24,6 +24,7 @@ Sebbene gli account orfani rappresentino un problema di sicurezza significativo,
 
 
 
+[[list-local-accounts]]
 == Elenca account locali
 
 Per elencare gli account locali, eseguire il `security login show` comando.
@@ -47,6 +48,7 @@ autosupport      console     password  autosupport      no     no
 ----
 
 
+[[set-the-diagnostic-diag-account-password]]
 == Impostare la password dell'account diagnostico (diag)
 
 Con il sistema di archiviazione viene fornito un account diagnostico denominato `diag` . È possibile utilizzare l' `diag` account per eseguire operazioni di risoluzione dei problemi in `systemshell`. L' `diag` account è l'unico account che può essere utilizzato per accedere alla shell di sistema tramite il `diag` comando privilegiato `systemshell`.

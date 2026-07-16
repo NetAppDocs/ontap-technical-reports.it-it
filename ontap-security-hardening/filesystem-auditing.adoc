@@ -24,6 +24,7 @@ La sicurezza richiede convalida. ONTAP fornisce un numero maggiore di eventi e d
 
 
 
+[[create-an-audit-configuration]]
 == Creare una configurazione di controllo
 
 È necessario attivare il controllo CIFS per generare eventi di controllo. Utilizzare il `vserver audit create` comando per creare una configurazione di controllo. Per impostazione predefinita, il registro di controllo utilizza un metodo di rotazione basato sulle dimensioni. È possibile utilizzare un'opzione di rotazione basata sul tempo se specificata nel campo parametri di rotazione. I dettagli aggiuntivi della configurazione della rotazione del registro audit includono il programma di rotazione, i limiti di rotazione, i giorni di rotazione della settimana e le dimensioni della rotazione. Nel testo seguente viene fornita una configurazione di esempio che illustra una configurazione di controllo utilizzando una rotazione mensile basata sull'ora programmata per tutti i giorni della settimana alle 12:30.
@@ -34,6 +35,7 @@ cluster1::> vserver audit create -vserver vs1 -destination /audit_log -rotate-sc
 ----
 
 
+[[cifs-audit-events]]
 == Eventi di audit CIFS
 
 Gli eventi di audit CIFS sono i seguenti:
@@ -50,12 +52,14 @@ NOTE: Questa funzionalità si basa sulla funzione di audit del sistema, che cons
 
 
 
+[[effect-of-rest-apis-on-nas-auditing]]
 == Effetto delle API REST sull'audit NAS
 
 ONTAP include la possibilità per gli account degli amministratori di accedere e manipolare i file SMB/CIFS o NFS utilizzando le API REST. Anche se le API REST possono essere eseguite solo dagli amministratori di ONTAP, i comandi delle API REST ignorano il log di audit del NAS del sistema. Inoltre, gli amministratori di ONTAP possono ignorare le autorizzazioni dei file quando utilizzano le API REST. Tuttavia, le azioni dell'amministratore con le API REST sui file vengono acquisite nel registro della cronologia dei comandi di sistema.
 
 
 
+[[create-no-access-rest-api-role]]
 === Creare un ruolo API REST senza accesso
 
 Puoi impedire agli amministratori di ONTAP di utilizzare le API REST per l'accesso al file creando un ruolo API REST che non ha accesso ai volumi ONTAP via REST. Per assegnare questo ruolo, completare i passaggi seguenti.

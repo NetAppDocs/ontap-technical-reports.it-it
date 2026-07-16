@@ -15,6 +15,7 @@ NetApp AFX è stato progettato pensando alle performance e alla scalabilità, in
 
 
 
+[[per-node-performance]]
 == Prestazioni per nodo
 
 Ciascun nodo di storage NetApp AFX fornisce una specifica quantità di throughput per le operazioni di lettura e scrittura. Con l'aggiunta di nodi al cluster, le prestazioni aumentano linearmente, come descritto nella sezione "Scalabilità lineare delle prestazioni dei nodi" di questo documento.
@@ -34,6 +35,7 @@ NOTE: Per le stime di performance più aggiornate, contatta il tuo team di vendi
 
 
 
+[[per-shelf-performance]]
 == prestazioni per shelf
 
 Ogni shelf contiene moduli shelf ad alte prestazioni con 16 porte Ethernet da 100 GB che sfruttano la comunicazione RoCEv2 per un'interazione di archiviazione ad alta larghezza di banda con i nodi di calcolo nel cluster. Come qualsiasi risorsa fisica, questi shelf hanno dei limiti massimi raggiungibili, soprattutto perché NetApp AFX può presentare più nodi che puntano allo stesso set di dischi. La tabella seguente mostra le prestazioni massime stimate in lettura e scrittura per un singolo shelf per le unità TLC e QLC. Per ulteriori informazioni sulle differenze tra TLC e QLC, vedere link:afx-hardware.html#tlc-vs-qlc["TLC vs. QLC"].
@@ -51,6 +53,7 @@ NOTE: Per le stime di performance più aggiornate, contatta il tuo team di vendi
 
 
 
+[[performance-density]]
 == densità delle performance
 
 Nell'architettura ONTAP disaggregata, il disaccoppiamento dei nodi di storage dagli shelf consente a un maggior numero di nodi di indirizzare il traffico verso un numero inferiore di shelf, contribuendo così a ridurre l'ingombro complessivo del data center necessario per ottenere le massime performance con la sola capacità di cui hai bisogno.
@@ -71,6 +74,7 @@ image:image33.png["Immagine"]
 
 
 
+[[node-to-shelf-ratios]]
 == Rapporto nodo-scaffale
 
 I nodi ONTAP unificati richiedono almeno un set di dischi per nodo e possono avere più unità di archiviazione collegate a un singolo nodo. Di conseguenza, possono verificarsi colli di bottiglia prestazionali nel singolo nodo che potrebbe non essere in grado di saturare i propri dischi.
@@ -81,6 +85,7 @@ A partire da ONTAP 9.19.1, il rapporto di saturazione node:shelf è di circa 4:1
 
 
 
+[[benchmark-results]]
 == Risultati del benchmark
 
 La sezione seguente illustra i risultati dei benchmark ottenuti utilizzando un cluster NetApp AFX con i seguenti parametri di configurazione.
@@ -109,6 +114,7 @@ image:image35.png["x_Immagine 5"]
 
 
 
+[[aggressive-read-ahead]]
 == Lettura anticipata aggressiva
 
 Nei carichi di lavoro di streaming multimediale, un film in 4K viene spesso suddiviso in decine di migliaia di file, ciascuno di dimensioni tipiche comprese tra 50 MB e 250 MB. Ogni file rappresenta un fotogramma e l'applicazione legge un fotogramma intero in una singola richiesta. Per mantenere uno streaming fluido e ininterrotto, senza buffering visibile, la lettura di questi fotogrammi deve completarsi senza perdite.
@@ -123,6 +129,7 @@ Sebbene la lettura sequenziale tra file sia progettata principalmente per carich
 
 
 
+[[considerations-and-caveats]]
 === Considerazioni e avvertenze
 
 * Cache buffer condivisa – la lettura anticipata aggressiva utilizza la stessa cache buffer degli altri volumi sul nodo. L'abilitazione di questa funzione potrebbe influire sulle performance di lettura degli altri volumi su quel nodo.
@@ -132,6 +139,7 @@ Sebbene la lettura sequenziale tra file sia progettata principalmente per carich
 
 
 
+[[nfsv4-x-performance-enhancements]]
 == Miglioramenti delle performance di NFSv4.x
 
 NFS versione 3 è stata un punto di riferimento per le applicazioni NFS per decenni, fin dal 1995, anno della sua prima pubblicazione ufficiale. La sua combinazione di prestazioni e resilienza ha reso difficile considerare un passaggio a versioni più recenti di NFS, e a ragione.
@@ -149,6 +157,7 @@ Nonostante NFSv4.x esista da oltre 20 anni, non c'è ancora stata un'adozione su
 
 
 
+[[nfsv4-x-improvements-in-ontap-9-18-1-using-afx]]
 === Miglioramenti a NFSv4.x in ONTAP 9.18.1 utilizzando AFX
 
 Alcune modifiche architetturali apportate a ONTAP hanno fornito un notevole incremento di prestazioni a NFS in generale e hanno compiuto seri progressi nel miglioramento delle prestazioni di NFSv4.x in generale.
@@ -183,6 +192,7 @@ Tutte queste modifiche, insieme ai cambiamenti architetturali introdotti in AFX,
 
 
 
+[[sequential-io-results]]
 === Risultati I/O sequenziali
 
 Una delle aree in cui si sono registrati modesti miglioramenti delle prestazioni è stata quella relativa all'I/O sequenziale (ovvero, I/O prevedibile ed eseguito consecutivamente). Nei test di prestazioni standard con fio, AFX con ONTAP 9.18.1 ha migliorato le prestazioni di lettura sequenziale di quasi il 30% e le prestazioni di scrittura sequenziale del 10%.
@@ -193,6 +203,7 @@ image:image36.png["Immagine"]
 
 
 
+[[metadata-heavy-workload-results]]
 === Risultati di un carico di lavoro ricco di metadati
 
 Ancora più impressionanti sono i miglioramenti in uno dei principali punti critici per le prestazioni di NFSv4.x – metadati. Si tratta di IO casuali, solitamente nell'ordine dei 4K, utilizzati per gestire i proprietari e gli attributi dei file, creare ed elencare i file e così via. A causa della gestione dello stato di NFSv4.x, questo tipo di operazioni tende a richiedere un maggiore utilizzo della CPU e latenza, riducendo di conseguenza le prestazioni complessive possibili.

@@ -15,12 +15,14 @@ La sezione seguente descrive in dettaglio l'hardware del cluster NetApp AFX. Per
 
 
 
+[[supported-hardware]]
 == Hardware supportato
 
 Per le informazioni più recenti sull'hardware supportato per NetApp AFX, consultare link:https://hwu.netapp.com["https://hwu.netapp.com"^].
 
 
 
+[[nodes]]
 == Nodi
 
 NetApp AFX nodi si basano sul modello AFF A1K fornito per i cluster ONTAP unificati. Questi nodi non dispongono di dischi integrati per l'archiviazione e sono concepiti per essere modulari, consentendo di aggiungere e rimuovere facilmente nodi in base ai requisiti di prestazioni. Ogni nodo utilizza 2U di spazio rack e le prestazioni aumentano linearmente man mano che vengono aggiunti a un cluster AFX.
@@ -31,6 +33,7 @@ image:image42.png["Immagine"]
 
 
 
+[[hardware-slots]]
 === Slot hardware
 
 NetApp I nodi AFX 1K utilizzano le seguenti assegnazioni di slot.
@@ -42,6 +45,7 @@ NetApp I nodi AFX 1K utilizzano le seguenti assegnazioni di slot.
 
 
 
+[[shelves]]
 == Shelf di espansione
 
 NetApp AFX shelves utilizzano gli stessi chassis che i sistemi AFF utilizzano. La principale differenza negli shelf AFX è nel modulo utilizzato. I moduli NSM140 offrono capacità di prestazioni migliorate e contribuiscono a rendere possibile ONTAP disaggregato. Alcune considerazioni chiave:
@@ -57,6 +61,7 @@ image:image43.png["Immagine"]
 
 
 
+[[switches]]
 == Switch
 
 NetApp AFX utilizza ancora switch di cluster backend per la comunicazione intracluster, come la replica del database del cluster, le operazioni sui dati remoti, le operazioni di storage e il mirroring NVRAM. Dal punto di vista funzionale, le uniche differenze tra ONTAP unificato e gli switch di cluster NetApp AFX sono:
@@ -72,6 +77,7 @@ image:image44.png["Immagine"]
 
 
 
+[[cluster-switch-connectivity]]
 === Connettività dello switch di cluster
 
 NetApp AFX sfrutta ampiamente gli switch di cluster backend per molti dei suoi principali concetti architetturali. Ad esempio, le interfacce del cluster, gli adattatori di storage, gli shelf di storage e le schede NVRAM si collegano tutte agli switch di cluster. Attualmente, tutte queste interfacce supportano solo la comunicazione a 100GB, mentre gli switch supportano 400GB. Di conseguenza, le interfacce a 100GB si collegano alle interfacce a 400GB dello switch tramite 4 cavi breakout da 100GB. Questo approccio riduce il numero di porte utilizzate sugli switch. Ad esempio, le 16 porte dei moduli shelf di storage da 100GB utilizzeranno solo 4 porte sugli switch, mentre le 8 porte totali sui nodi utilizzeranno 2 porte dello switch.
@@ -82,6 +88,7 @@ image:image45.png["Immagine"]
 
 
 
+[[disk-types-and-sizes]]
 == Tipi e dimensioni dei dischi
 
 NetApp AFX attualmente supporta solo SSD NVMe collegati nei seguenti formati:
@@ -94,6 +101,7 @@ NetApp AFX attualmente supporta solo SSD NVMe collegati nei seguenti formati:
 
 
 
+[[tlc-vs-qlc]]
 === TLC vs. QLC
 
 NetApp AFX può sfruttare sia i tipi di flash TLC che QLC. Le unità da 7,6 e 15,3 TB sono modelli TLC, mentre le unità superiori a 30,1 TB saranno QLC. Indipendentemente dal tipo di supporto, è possibile soddisfare gli standard prestazionali di certificazione NVIDIA SuperPod.
