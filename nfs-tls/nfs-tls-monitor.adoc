@@ -1,0 +1,66 @@
+---
+sidebar: sidebar 
+permalink: nfs-tls/nfs-tls-monitor.html 
+keywords: nfs, tls, monitor, counters, ems, events, statistics, observability 
+summary: 'NFS su TLS espone i contatori di Counter Manager sull"oggetto nfs_tls e quattro eventi EMS per monitorare lo stato della connessione e il comportamento di enforcement.' 
+---
+= Monitora NFS su TLS
+:toc: macro
+:hardbreaks:
+:toclevels: 1
+:allow-uri-read: 
+:toc: 
+:toclevels: 1
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+:toc-position: content
+
+
+[role="lead"]
+NFS su TLS espone i contatori di Counter Manager sull'oggetto  `nfs_tls` e quattro eventi EMS che puoi usare per monitorare lo stato della connessione e il comportamento di enforcement.
+
+
+
+[[counter-manager-counters]]
+== Counter Manager contatori
+
+Tutti i contatori di NFS-over-TLS Counter Manager risiedono nell'oggetto admin-scope `nfs_tls`. Visualizzali con `statistics show -object nfs_tls`. Usa `-counter <name>` per filtrare in base a un singolo contatore, o `-instance` per limitare l'ambito a una specifica SVM o riga di nodo.
+
+*Contatori identificatore/etichetta (stringa):*
+
+* `nfs_tls:instance_name`--nome dell'istanza (nome SVM costituente) per la riga.
+* `nfs_tls:instance_uuid`--UUID dell'istanza per la riga (identificativo SVM costituente).
+* `nfs_tls:vserver_id`--Etichetta identificativa SVM per una riga aggregata.
+* `nfs_tls:vserver_name`-- Etichetta del nome SVM per una riga aggregata.
+* `nfs_tls:node_name`--etichetta del nome del nodo per una riga aggregata.
+
+
+*Contatori del volume di connessione (rate):*
+
+* `nfs_tls:tls_total_connection_requests`--Numero totale di richieste di connessione NFS-over-TLS elaborate (successi + fallimenti).
+* `nfs_tls:tls_connection_success`--Connessioni NFS-over-TLS riuscite.
+* `nfs_tls:tls_disabled_connection_failures`--Connessioni rifiutate perché NFS su TLS è disabilitato sulla SVM.
+* `nfs_tls:tls_connection_handshake_failures`--connessioni non riuscite durante la stretta di mano TLS.
+* `nfs_tls:tls_configuration_not_found`--Tentativi di connessione rifiutati perché non esiste alcuna configurazione TLS per la coppia SVM/LIF.
+* `nfs_tls:tls_connection_mismatch`--connessioni non riuscite perché l'identificativo della connessione in memoria non corrispondeva alla connessione osservata durante il completamento della stretta di mano.
+
+
+*Contatore di latenza (media):*
+
+* `nfs_tls:tls_handshake_average_latency`--latenza media della stretta di mano TLS in microsecondi. Contatore base: `tls_connection_success`.
+
+
+
+
+[[event-management-system-ems-messages]]
+== Messaggi del sistema di gestione degli eventi (EMS)
+
+Quattro eventi EMS visibili al cliente vengono emessi dal server NFS sul percorso dei dati NFS-over-TLS. Visualizzali con  `event log show`.
+
+`Nblade.TLSConfigError`:: Gravità `ERR`, limitazione della frequenza 10 minuti. Attivato quando un client tenta NFS su TLS su un SVM/LIF che non ha una configurazione TLS. Campi registrati: indirizzo IP del client, nome SVM, indirizzo IP LIF. Per risolvere, abilita la configurazione con `vserver nfs tls interface enable`.
+`Nblade.TLSHandshakeFailed`:: Gravità `ERR`, durata limitata a 10 minuti. Viene attivato quando la stretta di mano TLS tra client e server non riesce. Campi registrati: nome SVM, indirizzo IP LIF, indirizzo IP client (remoto), UUID del certificato del server. Per risolvere, verifica la configurazione TLS sul LIF e controlla lo stato della rete. Se il problema persiste, contatta il Supporto NetApp.
+`Nblade.NfsTlsDisabled`:: Gravità `ALERT`, limitazione della frequenza 24 ore. Attivato quando un client tenta di utilizzare NFS su TLS su un SVM in cui la funzionalità è disabilitata. Campi registrati: nome SVM.
+`Nblade.nfsTLSAccessErr`:: Gravità `ERR`. Attivato quando un client corrispondente a una regola di policy di esportazione con `-allow-nfs-tls-only true` tenta di montare o accedere al percorso NFS senza TLS. Usa questo evento per confermare che i client non TLS vengono bloccati come previsto.
+

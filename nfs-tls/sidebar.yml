@@ -1,0 +1,20 @@
+---
+section: nfs-tls
+title: NFS su TLS
+entries:
+- title: Panoramica
+  url: "/nfs-tls/nfs-tls-overview.html"
+- title: Casi d'uso e carichi di lavoro
+  url: "/nfs-tls/nfs-tls-use-cases.html"
+- title: Architettura
+  url: "/nfs-tls/nfs-tls-architecture.html"
+- title: Configura NFS su TLS
+  url: "/nfs-tls/nfs-tls-configure.html"
+- title: Sicurezza
+  url: "/nfs-tls/nfs-tls-security.html"
+- title: Monitora
+  url: "/nfs-tls/nfs-tls-monitor.html"
+- title: Prestazioni
+  url: "/nfs-tls/nfs-tls-performance.html"
+- title: Interoperabilità e limiti
+  url: "/nfs-tls/nfs-tls-reference.html"

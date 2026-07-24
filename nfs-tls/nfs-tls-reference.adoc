@@ -1,0 +1,118 @@
+---
+sidebar: sidebar 
+permalink: nfs-tls/nfs-tls-reference.html 
+keywords: nfs, tls, interoperability, svm-dr, metrocluster, snapmirror, limits, connection limit, enforcement, recommendations 
+summary: NFS su TLS si integra con i controlli standard delle policy di esportazione ONTAP e si replica tramite SVM-DR e MetroCluster. Questa pagina tratta anche i limiti di connessione, il comportamento di applicazione e le raccomandazioni operative. 
+---
+= Interoperabilità e limiti
+:toc: macro
+:hardbreaks:
+:toclevels: 1
+:allow-uri-read: 
+:toc: 
+:toclevels: 1
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+:toc-position: content
+
+
+[role="lead"]
+NFS su TLS si integra con i controlli standard delle policy di esportazione di ONTAP, replica tramite SVM-DR e MetroCluster, e presenta una serie di limitazioni rigide della piattaforma e raccomandazioni operative che dovresti conoscere prima della distribuzione.
+
+
+
+[[interoperability]]
+== Interoperabilità
+
+
+
+[[supported-co-existing-features]]
+=== Funzionalità coesistenti supportate
+
+*Policy di esportazione, esportazioni qtree e percorsi di giunzione.* La regola export-policy acquisisce il campo  `-allow-nfs-tls-only`, che può richiedere TLS per ogni singola regola. Si integra con i controlli di sicurezza esistenti client-match, protocol, sola lettura/lettura-scrittura, superuser, anonymous, chown-mode, allow-suid e NTFS-UNIX. Le esportazioni qtree e i mount dei percorsi di giunzione ereditano il requisito TLS tramite lo stesso meccanismo di policy di esportazione. System Manager mostra l'impostazione  `-allow-nfs-tls-only` nel selettore di accesso NFS.
+
+La replica NFS su TLS e il supporto al DR sono riassunti nella tabella seguente. Per informazioni di base sul meccanismo di replica, vedi link:nfs-tls-architecture.html["Architettura"].
+
+[cols="2,3"]
+|===
+| Replicazione / DR | NFS su TLS nella versione 9.19.1 
+
+
+| SVM-DR | *Supportato.* La riga dell'interfaccia TLS viene replicata nell'ambito SVM (stato, nome del certificato e UUID, enforce-host-auth). Il  `-allow-nfs-tls-only` campo export-rule viene replicato con la policy di esportazione. 
+
+
+| MetroCluster (Replica a livello SVM) | *Supportato.* Stesso percorso di replica di SVM-DR. Il ciclo di vita del materiale del certificato sull'SVM di destinazione è gestito dal certificate manager. 
+
+
+| SnapMirror (replica del volume) | *Supportato.* Ortogonale al trasporto TLS lato client. 
+
+
+| Varianti ONTAP ospitate nel cloud | *Non supportato* in 9.19.1. 
+|===
+
+
+[[features-with-constraints]]
+=== Funzionalità con vincoli
+
+*Requisiti del client.* Il client NFS deve implementare TLS per ONC RPC secondo link:https://www.rfc-editor.org/rfc/rfc9289.html["RFC 9289"]. Su Linux, questo è fornito da un client NFS in-kernel che supporta l'opzione di montaggio  `xprtsec=tls` (o  `xprtsec=mtls`), utilizzata in combinazione con l'helper per la stretta di mano TLS in userspace  `tlshd` dal pacchetto  `ktls-utils`. Per la matrice definitiva dei client, incluse le versioni minime del kernel, le versioni dei pacchetti in userspace e le distribuzioni Linux supportate, consulta l'Interoperability Matrix Tool (IMT).
+
+
+
+[[limitations-and-caveats]]
+== Limitazioni e avvertenze
+
+* *Varianti ONTAP ospitate nel cloud.* Cloud Volumes ONTAP e altre varianti ONTAP ospitate nel cloud non sono supportate in ONTAP 9.19.1.
+* *NFS su accesso diretto alla memoria remota (RDMA).* NFS su RDMA e NFS su TLS si escludono a vicenda sulla stessa LIF.
+
+
+
+
+[[per-node-limits]]
+=== Limiti per nodo
+
+
+IMPORTANT: Attualmente non sono previsti limiti di connessione predefiniti per NFS-over-TLS in ONTAP. Per le informazioni più recenti sui limiti supportati, consulta link:https://hwu.netapp.com["Hardware Universe"].
+
+*PRATICA CONSIGLIATA:* Mantieni il numero di connessioni NFS-over-TLS per nodo al di sotto di 10.000 per conservare un margine di sicurezza in caso di mount storm e takeover HA.
+
+
+
+[[per-cluster-limits]]
+=== Limiti per cluster
+
+Non è previsto alcun limite aggregato separato a livello di cluster imposto nel codice.
+
+
+
+[[per-lif-and-per-object-limits]]
+=== Limiti per LIF e per oggetto
+
+* La tabella di configurazione è indicizzata sulla `(SVM, LIF)` tupla. Ogni LIF contiene zero o una riga di configurazione NFS-over-TLS.
+* Per ogni LIF abilitato per NFS-over-TLS è associato esattamente un certificato server. Il certificato viene specificato al  `vserver nfs tls interface enable` momento e può essere modificato con  `... modify -certificate-name`.
+* `-allow-nfs-tls-only` è un singolo valore booleano per ogni regola di export-policy. Questa funzionalità non aggiunge un limite massimo separato al numero di regole; si applicano i limiti massimi standard per policy e per SVM delle regole di esportazione.
+
+
+
+
+[[enforcement-behavior]]
+=== Comportamento di applicazione
+
+**`-allow-nfs-tls-only true` applicazione.** Quando questo campo è `true` presente in una regola di export-policy corrispondente, i tentativi di connessione NFS da client corrispondenti che non utilizzano TLS per ONC RPC secondo RFC 9289 vengono rifiutati durante la valutazione della regola di esportazione. Le connessioni TLS esistenti da tali client non sono interessate.
+
+**`-enforce-host-auth true` applicazione.** Quando `true` su un `(SVM, LIF)`, le strette di mano TLS la cui identità del certificato del client non corrisponde all'identità host configurata per il LIF vengono rifiutate durante la stretta di mano TLS. L'evento EMS `Nblade.TLSHandshakeFailed` (gravità `ERR`, con limitazione di frequenza una volta ogni 10 minuti per sorgente dell'evento) viene emesso per ogni stretta di mano non riuscita.
+
+**Limiti di frequenza EMS.** 
+`Nblade.TLSConfigError` e  `Nblade.TLSHandshakeFailed` sono limitati a una volta ogni 10 minuti per sorgente di eventi.  `Nblade.NfsTlsDisabled` è limitato a una volta ogni 24 ore per sorgente di eventi. Questi sono limiti intenzionali al volume del registro eventi durante condizioni di guasto prolungate. Durante un picco, viene registrata solo la prima occorrenza all'interno di ciascuna finestra di limite di frequenza.
+
+
+
+[[soft-limits-and-recommendations]]
+=== Limiti flessibili e raccomandazioni
+
+Quelle che seguono sono raccomandazioni, non valori massimi rigidi.
+
+* *Mantieni un margine di sicurezza inferiore a 10.000 connessioni NFS-over-TLS per nodo.* Non esiste un limite predefinito, ma mantieni il numero di connessioni NFS-over-TLS per nodo pari o inferiore a 10.000.
+* *Prevedi una nuova stretta di mano TLS completa dopo il takeover HA.* Le sessioni TLS hanno ambito TCP e non sopravvivono a un takeover. Ogni client si riconnetterà con una nuova stretta di mano TLS 1.3 sul nodo sopravvissuto o di destinazione, quindi prevedi una tempesta di mount. Mantenere il numero di connessioni ben al di sotto di 10.000 ti dà margine per assorbire quel picco.
+

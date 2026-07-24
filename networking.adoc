@@ -21,5 +21,24 @@ ONTAP offre diverse funzionalità e configurazioni di rete per soddisfare le app
 Questi report tecnici si espandono nella link:https://docs.netapp.com/us-en/ontap/network-management/index.html["Gestione della rete ONTAP"^]documentazione del prodotto.
 
 ====
+
+
+[[routing]]
+== Instradamento
+
 link:https://www.netapp.com/pdf.html?item=/media/79703-TR-4949.pdf["TR-4949: BGP/VIP con ONTAP nel data center"^]
 Scopri come implementare rapidamente una configurazione BGP di base in ONTAP.
+
+
+
+[[name-services]]
+== Servizi di nome
+
+link:https://www.netapp.com/pdf.html?item=/media/19370-tr-4523.pdf["TR-4523: Bilanciamento del carico DNS in ONTAP"^]
+Scopri come configurare ONTAP per l'utilizzo con metodologie di bilanciamento del carico DNS, tra cui DNS in ONTAP, vari metodi di configurazione e procedure consigliate.
+
+link:https://www.netapp.com/pdf.html?item=/media/16328-tr-4668.pdf["TR-4668: Guida alle Best practice per i name service"^]
+Scopri le procedure, i limiti e le considerazioni consigliate per l'implementazione di soluzioni NAS (Network-Attached Storage) come CIFS/SMB e NFS in ONTAP.
+
+link:https://www.netapp.com/pdf.html?item=/media/19423-tr-4835.pdf["TR-4835: Come configurare LDAP nella gestione delle identità NAS multiprotocollo di ONTAP"^]
+Scopri come configurare la gestione delle identità LDAP (Lightweight Directory Access Protocol) in ONTAP per NAS multiprotocollo.

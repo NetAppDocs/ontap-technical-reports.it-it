@@ -1,0 +1,59 @@
+---
+sidebar: sidebar 
+permalink: nfs-tls/nfs-tls-performance.html 
+keywords: nfs, tls, performance, cpu, offload, ktls, connectx, handshake latency 
+summary: 'TLS introduce un sovraccarico a livello di CPU, memoria e rete. L"accelerazione hardware sulle NIC CX6-Dx e CX7 riduce significativamente il costo della CPU a regime.' 
+---
+= Prestazioni
+:toc: macro
+:hardbreaks:
+:toclevels: 1
+:allow-uri-read: 
+:toc: 
+:toclevels: 1
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+:toc-position: content
+
+
+[role="lead"]
+TLS comporta costi aggiuntivi in tre dimensioni di risorse: CPU, memoria e rete.
+
+
+
+[[resource-cost-overview]]
+== Panoramica dei costi delle risorse
+
+La CPU è il costo principale. La stretta di mano TLS 1.3 è una spesa una tantum per connessione che copre la crittografia asimmetrica, l'analisi dei certificati e lo scambio di chiavi. Una volta stabilita la connessione, il sovraccarico a regime è la crittografia simmetrica dei record tramite AES-GCM o ChaCha20-Poly1305. Sulle piattaforme dotate di NIC Mellanox ConnectX-6 Dx (CX6-Dx) o ConnectX-7 (CX7), il NIC stesso esegue la crittografia e la decrittografia tramite offload kernel TLS (KTLS), riducendo notevolmente il costo della CPU a regime.
+
+L'impatto sulla *memoria* è basso. TLS aggiunge uno stato della sessione per connessione e una cache di configurazione TLS per nodo. La dimensione della cache è limitata; le voci vengono invecchiate in base al Time-To-Live (TTL) e aggiornate in background.
+
+L'overhead di rete è minimo. La strutturazione dei record TLS 1.3 aggiunge un overhead fisso per record e un tag di autenticazione. La stretta di mano aggiunge round-trip solo durante la fase di configurazione della connessione, non per ogni RPC.
+
+
+
+[[tls-performance-penalty]]
+== penalità sulle prestazioni TLS
+
+Esistono due percorsi distinti per NFS su TLS in ONTAP: il percorso di offload hardware e il percorso TLS software. Il percorso di offload hardware è disponibile sulle piattaforme con NIC CX6-Dx o CX7. Il percorso TLS software viene utilizzato sulle piattaforme senza NIC con funzionalità di offload.
+
+Sulle piattaforme con NIC che supportano l'offload, le prestazioni sono state osservate entro circa il 10% rispetto a NFS in chiaro su una gamma di carichi di lavoro. Sulle piattaforme senza NIC che supportano l'offload, il percorso TLS software è più sensibile al carico di lavoro e può mostrare riduzioni di throughput di circa il 30% rispetto a NFS in chiaro nel caso peggiore. Questi sono valori di caratterizzazione, non specifiche garantite. I tuoi risultati varieranno in base al tipo di carico di lavoro, alla dimensione dell'I/O e al numero di connessioni. Se mescoli traffico TLS e non TLS sullo stesso nodo, aspettati un certo impatto anche sul throughput non TLS.
+
+
+
+[[scaling-factors]]
+== Fattori di scala
+
+I seguenti fattori aumentano il costo complessivo della CPU TLS o la latenza della stretta di mano:
+
+*Frequenza di connessioni.* Ogni nuova connessione paga il costo della stretta di mano. I carichi di lavoro che aprono e chiudono frequentemente connessioni TCP al server NFS registrano un utilizzo aggregato della CPU TLS superiore rispetto ai carichi di lavoro con connessioni di lunga durata.
+
+*Si verificano picchi di mount dopo takeover o un evento di rete.* I carichi di lavoro in cui molti client si riconnettono simultaneamente, ad esempio dopo un takeover HA, pagano per intero il costo della stretta di mano TLS 1.3 per ogni connessione. Monitora `nfs_tls:tls_handshake_average_latency` e pianifica di conseguenza il margine di connessione.
+
+*Elevato numero di identità client distinte (mutual TLS).* Le implementazioni di mutual TLS (mTLS) scalano la CPU della stretta di mano in base al numero di certificati client univoci da convalidare.
+
+*mTLS vs. TLS solo lato server.* Abilitare l'autenticazione host (mTLS) aggiunge la convalida del certificato client lato server, rendendo ogni stretta di mano moderatamente più costosa rispetto al TLS solo lato server. Il costo per RPC a regime rimane invariato.
+
+*Modifiche alla configurazione TLS.* Le modifiche frequenti alla configurazione dell'interfaccia TLS—come la rotazione dei certificati o i cicli di abilitazione/disabilitazione—invalidano la cache della configurazione TLS per nodo e costringono a nuove ricerche verso l'host di gestione, aumentando temporaneamente la latenza della stretta di mano.
