@@ -1,12 +1,12 @@
 ---
 indexpage:
-  title: Report tecnici NetApp
-  summary: NetApp technical reports forniscono un contesto aggiuntivo per la pianificazione
+  title: Rapporti tecnici ONTAP
+  summary: I report tecnici ONTAP forniscono un contesto aggiuntivo per la pianificazione
     e l'ottimizzazione delle implementazioni all'interno di diversi ecosistemi o con
     diversi protocolli. Alcuni report tecnici ONTAP forniscono un contesto architetturale
     e pratiche consigliate per le funzionalità e le capacità di ONTAP.
   keywords: ONTAP 9, ONTAP, Technical Reports, TR
-  lead: NetApp technical reports forniscono un contesto aggiuntivo per la pianificazione
+  lead: I report tecnici ONTAP forniscono un contesto aggiuntivo per la pianificazione
     e l'ottimizzazione delle implementazioni all'interno di diversi ecosistemi o con
     diversi protocolli. Alcuni report tecnici ONTAP forniscono un contesto architetturale
     e pratiche consigliate per le funzionalità e le capacità di ONTAP.
@@ -62,7 +62,7 @@ indexpage:
     - title: NFS Kerberos in ONTAP
       url: nas.html
     - title: NFS su TLS
-      url: nfs-tls/
+      url: "/nfs-tls/nfs-tls-overview.html"
     - title: Report tecnici NAS aggiuntivi
       url: nas.html
   - title: SAN
