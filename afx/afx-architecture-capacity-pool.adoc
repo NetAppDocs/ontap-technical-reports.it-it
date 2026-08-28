@@ -1,0 +1,51 @@
+---
+sidebar: sidebar 
+permalink: afx/afx-architecture-capacity-pool.html 
+keywords: netapp afx, single capacity pool, storage availability zone, aggregates, capacity 
+summary: Scopri come la NetApp AFX Storage Availability Zone sostituisce gli aggregati fisici con un unico pool di capacità a livello di cluster. 
+---
+= Pool a capacità singola
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/afx/
+
+
+[role="lead"]
+NetApp AFX sostituisce gli aggregati fisici per nodo con un'unica Storage Availability Zone disponibile per l'intero cluster.
+
+
+
+[[no-more-physical-aggregates]]
+== Niente più aggregati fisici
+
+Unified ONTAP raggruppa i dischi in gruppi RAID e poi li combina in una struttura di capacità nota come aggregato. Questo aggregato è il modo in cui la capacità fisica viene presentata allo storage ed è il limite dello spazio disponibile per la creazione di volumi per fornire dati agli utenti finali. Ogni nodo deve avere almeno un aggregato assegnato e questi aggregati hanno un limite attuale di 800TB. Una volta raggiunto tale limite, non è più disponibile spazio per ulteriori scritture.
+
+Gli aggregati fisici possono anche presentare alcune sfide nella gestione della capacità, poiché gli amministratori dello storage a volte dovranno spostare manualmente i volumi per mantenere un equilibrio di capacità tra i nodi del cluster. Queste sfide possono anche essere amplificate quando si sfrutta un'architettura di volumi scale-out (come un volume FlexGroup). Gli aggregati possono anche variare in termini di dimensioni, numero di dischi, tipi di dischi, ecc., il che può anche creare alcune differenze di prestazioni quando si attraversano i nodi.
+
+*Aggregati in ONTAP unificato*
+
+image:image8.png["Immagine"]
+
+NetApp AFX riprende il concetto di aggregato fisico e lo virtualizza, lo rende gestito da ONTAP e poi sposta la gestione della capacità fisica da una metodologia per nodo a una per cluster tramite la nuova Storage Availability Zone. Questo pool unico di capacità offre un approccio "ciò che vedi è ciò che ottieni" alla gestione dello spazio.
+
+*Zona di disponibilità storage NetApp AFX*
+
+image:image9.png["Immagine"]
+
+
+
+[[data-written-to-any-and-all-disks-in-the-availability-zone]]
+== Dati scritti su qualsiasi (e tutti) disco nella zona di disponibilità
+
+NetApp AFX elimina il concetto di proprietà del disco e sposta la struttura dell'aggregato fisico verso un approccio virtualizzato gestito da ONTAP, in cui la capacità acquistata per il cluster è interamente disponibile per i nodi collegati al cluster. Con AFX, tutti i nodi hanno la possibilità di scrivere su qualsiasi e tutti i dischi nella Storage Availability Zone, indipendentemente dalla proprietà nodo:volume. I nodi mantengono comunque un concetto di proprietà del volume, poiché le scritture seguono ancora un percorso attraverso la NVRAM, ma quei dati possono essere memorizzati in qualsiasi punto della capacità disponibile. Ciò significa che un numero maggiore di dischi può partecipare a un singolo carico di lavoro, il che offre vantaggi in termini di prestazioni.
+
+*Come i dati vengono inseriti in una Storage Availability Zone*
+
+image:image11.png["Immagine"]
+
+[cols="1,1"]
+|===
+
+
+| link:afx-architecture-node-disk.html["Precedente: Relazioni nodo-disco"] | link:afx-architecture-nvram-ha.html["Successivo: NVRAM replicata e comportamento di failover HA"] 
+|===

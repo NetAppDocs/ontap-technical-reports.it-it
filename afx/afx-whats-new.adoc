@@ -11,7 +11,7 @@ summary: Questa pagina contiene gli ultimi aggiornamenti per NetApp AFX e verrà
 
 
 [role="lead"]
-Questa sezione contiene gli ultimi aggiornamenti per NetApp AFX e verrà aggiornata a ogni nuova versione. Consultatela periodicamente per nuove informazioni e leggete anche le note di rilascio della versione.
+Questa sezione contiene gli ultimi aggiornamenti per NetApp AFX e verrà aggiornata a ogni nuova versione. Torna a visitarla periodicamente per nuove informazioni, ma consulta anche link:https://docs.netapp.com/us-en/ontap-afx/release-notes/whats-new-9191.html["Note di rilascio di ONTAP 9.19.1 AFX"^].
 
 
 
@@ -20,16 +20,16 @@ Questa sezione contiene gli ultimi aggiornamenti per NetApp AFX e verrà aggiorn
 
 Ultima versione:
 
-ONTAP 9.19.1RC1 (a partire da maggio 2026)
+ONTAP 9.19.1GA (a partire da agosto 2026)
 
 Nuove funzionalità in NetApp AFX:
 
-* Deduplicazione globale
-* Efficienza dinamica di archiviazione
-* Lettura anticipata avanzata
-* supporto per 32 nodi
-* Supporto per 32 PB
-* 512 volumi costituenti per FlexGroup volume
+* link:afx-architecture-storage-efficiency.html#deduplication-domains["Deduplicazione globale"] (vedi anche link:https://docs.netapp.com/us-en/ontap-afx/administer/additional-ontap-svm.html#global-deduplication["Amministrazione SVM AFX"^])
+* link:https://docs.netapp.com/us-en/ontap-afx/release-notes/whats-new-9191.html["Efficienza dinamica di archiviazione"^]
+* link:afx-performance.html#aggressive-read-ahead["Lettura anticipata avanzata"] (Lettura sequenziale tra file; vedi anche link:https://docs.netapp.com/us-en/ontap-afx/administer/additional-ontap-svm.html#cross-file-sequential-read["Amministrazione SVM AFX"^])
+* link:afx-architecture-cluster-scale.html#cluster-scale-and-expansion["supporto per 32 nodi"] (vedi anche link:afx-limits.html["Massimi e limiti"])
+* link:afx-limits.html["Supporto per 32 PB"]
+* link:afx-limits.html["512 volumi costituenti per FlexGroup volume"]
 
 
 
@@ -41,5 +41,14 @@ Nuove funzionalità in NetApp AFX:
 | Versione | Data | Cronologia delle versioni del documento 
 
 
+| Versione 1.1 | Agosto 2026 | Aggiornato questo report tecnico per ONTAP 9.19.1GA. Copre le nuove funzionalità di AFX, la scalabilità a 32 nodi e 32PB, le prestazioni e l'hardware di AFX 1K e AFX 2K, il dimensionamento degli switch e degli shelf del cluster, i limiti della piattaforma aggiornati, una pagina con suggerimenti per i benchmark delle prestazioni e ulteriori link alla documentazione del prodotto. 
+
+
 | Versione 1.0 | Giugno 2026 | Prima versione 
+|===
+[cols="1,1"]
+|===
+
+
+| link:afx-learn-about.html["Precedente"] | link:afx-architecture.html["A seguire: Architettura"] 
 |===

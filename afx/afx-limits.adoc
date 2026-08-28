@@ -34,7 +34,7 @@ Per i limiti più recenti, vedere link:http://hwu.netapp.com/["Hardware Universe
 * 800 TB
 
  a| 
-* N/A
+* Non applicabile (nessun aggregato fisico)
 
 
 
@@ -44,7 +44,7 @@ Per i limiti più recenti, vedere link:http://hwu.netapp.com/["Hardware Universe
 
  a| 
 * 8 (9.17.1)
-* 32 (9.19.1RC1)
+* 32 (9.19.1GA)
 
 
 
@@ -57,7 +57,7 @@ Per i limiti più recenti, vedere link:http://hwu.netapp.com/["Hardware Universe
 * 3PB (9.18.1RC1)
 * 16PB (rilascio 9.18.1GA)
 * 20PB (9.19.1RC0)
-* 32PB (9.19.1RC1)
+* 32PB (9.19.1GA)
 
 
 
@@ -69,7 +69,7 @@ Per i limiti più recenti, vedere link:http://hwu.netapp.com/["Hardware Universe
  a| 
 * 12 per cluster (9.18.1GA)
 * 17 per cluster (9.19.1RC0)
-* 25 per cluster (9.19.1RC1) (nessuna limitazione per le coppie HA)
+* 27 per cluster (9.19.1GA) (nessuna limitazione per le coppie HA)
 
 
 
@@ -81,7 +81,7 @@ Per i limiti più recenti, vedere link:http://hwu.netapp.com/["Hardware Universe
  a| 
 * 288 per cluster (in base ai limiti di conteggio degli shelf; nessuna limitazione per le coppie HA)
 * 408 per cluster (9.19.1RC0)
-* 600 per cluster (9.19.1RC1)
+* 648 per cluster (9.19.1GA)
 
 
 
@@ -92,7 +92,18 @@ Per i limiti più recenti, vedere link:http://hwu.netapp.com/["Hardware Universe
 
  a| 
 * 300TB (FlexVol)
-* 60PB (FlexGroup)*
+* 60PB (FlexGroup - prima del 9.19.1)*
+* ~153PB (FlexGroup - 9.19.1 e versioni successive)*
+
+
+
+
+| Conteggio massimo dei costituenti FlexGroup  a| 
+* 200
+
+ a| 
+* 200 (9.18.1 e precedenti)
+* 512 (9.19.1GA)
 
 
 
@@ -104,6 +115,7 @@ Per i limiti più recenti, vedere link:http://hwu.netapp.com/["Hardware Universe
  a| 
 * 2 miliardi (FlexVol)
 * 400 miliardi (FlexGroup)
+* 1 trilione (FlexGroup - 9.19.1GA e successivi)
 
 
 
@@ -164,16 +176,6 @@ Per i limiti più recenti, vedere link:http://hwu.netapp.com/["Hardware Universe
 
 
 
-| Numero massimo di costituenti – FlexGroup  a| 
-* 200
-
- a| 
-* 200
-* 512 in 9.19.1 RC1
-
-
-
-
 | Numero massimo di LIF intercluster  a| 
 * 8
 
@@ -208,4 +210,13 @@ Per i limiti più recenti, vedere link:http://hwu.netapp.com/["Hardware Universe
 * 400
 
 
+|===
+[role="small"]
+_*FlexGroup la dimensione massima sarà limitata a 32PB di spazio fisico._
+
+[cols="1,1"]
+|===
+
+
+| link:afx-hardware.html["Precedente"] | link:afx-related-info.html["Successivamente: Informazioni correlate"] 
 |===

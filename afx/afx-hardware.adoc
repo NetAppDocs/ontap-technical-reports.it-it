@@ -25,11 +25,15 @@ Per le informazioni più recenti sull'hardware supportato per NetApp AFX, consul
 [[nodes]]
 == Nodi
 
-NetApp AFX nodi si basano sul modello AFF A1K fornito per i cluster ONTAP unificati. Questi nodi non dispongono di dischi integrati per l'archiviazione e sono concepiti per essere modulari, consentendo di aggiungere e rimuovere facilmente nodi in base ai requisiti di prestazioni. Ogni nodo utilizza 2U di spazio rack e le prestazioni aumentano linearmente man mano che vengono aggiunti a un cluster AFX.
+NetApp AFX include i nodi AFX 1K (basato su AFF A1K) e AFX 2K. Questi nodi non hanno dischi integrati per l'archiviazione e sono pensati per essere modulari, così puoi aggiungere o rimuovere facilmente nodi in base alle esigenze di prestazioni. Ogni nodo occupa 2U di spazio rack e le prestazioni aumentano linearmente man mano che aggiungi nodi a un cluster AFX.
 
 *NetApp AFX 1K dettagli del nodo*
 
 image:image42.png["Immagine"]
+
+*NetApp AFX 2K dettagli del nodo*
+
+image:image46.png["Immagine"]
 
 
 
@@ -41,6 +45,13 @@ NetApp I nodi AFX 1K utilizzano le seguenti assegnazioni di slot.
 * Lo slot 1 è dedicato alla replica HA
 * Lo slot 7 è dedicato alla replica del cluster
 * Gli slot 10 e 11 sono dedicati alla comunicazione degli shelf di storage
+
+
+NetApp I nodi AFX 2K utilizzano le seguenti assegnazioni di slot.
+
+* Lo slot 1 è dedicato alla replica HA
+* Lo slot 2 è dedicato alla replica del cluster
+* Gli slot 8B e 10A sono dedicati alla comunicazione degli shelf di storage
 
 
 
@@ -80,11 +91,75 @@ image:image44.png["Immagine"]
 [[cluster-switch-connectivity]]
 === Connettività dello switch di cluster
 
-NetApp AFX sfrutta ampiamente gli switch di cluster backend per molti dei suoi principali concetti architetturali. Ad esempio, le interfacce del cluster, gli adattatori di storage, gli shelf di storage e le schede NVRAM si collegano tutte agli switch di cluster. Attualmente, tutte queste interfacce supportano solo la comunicazione a 100GB, mentre gli switch supportano 400GB. Di conseguenza, le interfacce a 100GB si collegano alle interfacce a 400GB dello switch tramite 4 cavi breakout da 100GB. Questo approccio riduce il numero di porte utilizzate sugli switch. Ad esempio, le 16 porte dei moduli shelf di storage da 100GB utilizzeranno solo 4 porte sugli switch, mentre le 8 porte totali sui nodi utilizzeranno 2 porte dello switch.
+NetApp AFX sfrutta ampiamente gli switch di cluster backend per molti dei suoi principali concetti architetturali. Ad esempio, le interfacce del cluster, gli adattatori di storage, gli alloggiamenti di storage e le schede NVRAM si collegano tutti agli switch di cluster. Gli switch di cluster supportano 400GB. Le porte di rete del cluster backend supportano solo connessioni da 100GB agli switch di cluster sulla piattaforma AFX 1K e supportano connessioni da 400GB su AFX 2K. Di conseguenza, le connessioni dei nodi backend di AFX 1K utilizzano 4 cavi breakout da 100GB per ridurre il numero di porte utilizzate sugli switch. AFX 2K utilizza una connessione 1:1 da 400GB agli switch, con 6 porte per nodo (2 HA, 2 cluster, 2 storage). I moduli degli alloggiamenti di storage utilizzano ancora interfacce da 100GB; ad esempio, 16 porte da 100GB per i moduli degli alloggiamenti di storage utilizzano solo 4 porte sugli switch, mentre le 8 porte totali sui nodi AFX 1K utilizzano 2 porte dello switch.
 
 *NetApp Cablaggio switch AFX*
 
 image:image45.png["Immagine"]
+
+
+
+[[switch-selection-guidance]]
+=== Guida alla selezione dello switch
+
+Somma le porte 400GbE richieste su ciascuno switch, poi seleziona la classe di switch più piccola che copre quel totale. NetApp AFX usa una coppia di cluster switch; dimensiona ciascuno switch in modo indipendente. Due porte su ciascuno switch sono riservate per ISL (9332: porte 31–32; 9364: porte 63–64), il che lascia 30 porte utilizzabili sul 9332 e 62 porte utilizzabili sul 9364.
+
+Numero di porte per switch:
+
+* AFX 1K: 1 porta 400GbE per nodo (quattro porte nodo da 100GB su un breakout 4 x 100GB)
+* AFX 2K: 3 porte 400GbE per nodo per switch (6 porte per nodo a 1:1 400GB: 2 HA, 2 cluster, 2 storage)
+* Ripiani: 2 porte 400GbE per ripiano (otto porte da 100GB per switch su 4 x 100GB breakout)
+
+
+|===
+| Porte 400GbE combinate richieste (per switch) | Switch 
+
+
+| Si adatta a 32 porte (30 utilizzabili dopo ISL) | Cisco Nexus 9332D-GX2B (1U, 32 x 400GbE) 
+
+
+| Compatibile con 64 porte (62 utilizzabili dopo ISL) | Cisco Nexus 9364D-GX2A (2U, 64 x 400GbE) 
+
+
+| Più di 64 porte | Cisco Nexus 9808, o come specificato in link:https://hwu.netapp.com["Hardware Universe"^] 
+|===
+
+
+==== cluster a 32 nodi
+
+Un cluster a 32 nodi (il numero massimo di nodi attuale; vedi link:afx-limits.html["Massimi e limiti"]) consuma 32 × porte 400GbE per switch su AFX 1K e 96 × porte 400GbE per switch su AFX 2K (32 × 3), prima degli shelf.
+
+|===
+| Switch | AFX 1K (32 nodi) | AFX 2K (32 nodi) 
+
+
+| Cisco Nexus 9332D-GX2B | Non supportato (32 porte nodo superano 30 porte utilizzabili) | Non supportato 
+
+
+| Cisco Nexus 9364D-GX2A | 32 nodi e 8–12 ripiani (4:1 a 8:3) | Non supportato (96 porte nodo superano 62 porte utilizzabili) 
+
+
+| Cisco Nexus 9808 | 32 nodi e 8–12 ripiani (4:1 a 8:3) | 32 nodi e 8–12 ripiani (4:1 a 8:3) 
+|===
+
+
+==== Numero massimo di nodi per switch
+
+Dimensiona con un rapporto nodo-ripiano di almeno 4:1 e al massimo 8:3 (vedi link:afx-performance.html#node-to-shelf-ratios["Rapporto nodo-scaffale"]), numero pari di nodi (coppie HA) e almeno 2 ripiani. Le seguenti combinazioni sono il numero massimo di nodi che ciascuno switch può supportare in tale intervallo.
+
+|===
+| Switch | AFX 1K (max nodi + shelf) | AFX 2K (max nodi + shelf) 
+
+
+| Cisco Nexus 9332D-GX2B | 20 nodi + 5 ripiani (4:1; 8:3 non si adatta alle porte rimanenti) | 8 nodi + 2–3 shelf 
+
+
+| Cisco Nexus 9364D-GX2A | 32 nodi + 8–12 shelf | 16 nodi + 4–6 shelf 
+
+
+| Cisco Nexus 9808 | 32 nodi + 8–12 shelf | 32 nodi + 8–12 shelf 
+|===
+Per i modelli di switch e i limiti più recenti supportati, vedi link:https://hwu.netapp.com["Hardware Universe"^] e il link:https://docs.netapp.com/us-en/ontap-afx/install-setup/afx-cable-overview.html["Documentazione cablaggio AFX"^].
 
 
 
@@ -93,7 +168,6 @@ image:image45.png["Immagine"]
 
 NetApp AFX attualmente supporta solo SSD NVMe collegati nei seguenti formati:
 
-* 7,6 TB
 * 15,3 TB
 * 30,1 TB
 * 60,6 TB
@@ -104,10 +178,17 @@ NetApp AFX attualmente supporta solo SSD NVMe collegati nei seguenti formati:
 [[tlc-vs-qlc]]
 === TLC vs. QLC
 
-NetApp AFX può sfruttare sia i tipi di flash TLC che QLC. Le unità da 7,6 e 15,3 TB sono modelli TLC, mentre le unità superiori a 30,1 TB saranno QLC. Indipendentemente dal tipo di supporto, è possibile soddisfare gli standard prestazionali di certificazione NVIDIA SuperPod.
+NetApp AFX può utilizzare sia i tipi di flash TLC che QLC. I drive da 15.3TB sono modelli TLC, mentre i drive superiori a 30.1TB saranno QLC. Indipendentemente dal tipo di supporto, è possibile soddisfare gli standard di performance della certificazione NVIDIA SuperPod.
 
 Tutte le unità utilizzate con NetApp AFX sono unità ad alte prestazioni e sia QLC che TLC offrono prestazioni pressoché identiche in lettura. QLC è leggermente inferiore in scrittura rispetto a TLC e può subire un livellamento dell'usura leggermente maggiore con carichi di lavoro ad alta intensità di scrittura.
 
 Per i dati sulle prestazioni, vedere link:afx-performance.html#per-shelf-performance["prestazioni per shelf"].
 
 Quando si sceglie il tipo di unità da utilizzare, è importante considerare i carichi di lavoro che lo storage dovrà ospitare e i compromessi tra prestazioni e densità di capacità.
+
+[cols="1,1"]
+|===
+
+
+| link:afx-capabilities.html["Precedente"] | link:afx-limits.html["Successivo: Massimi e limiti"] 
+|===

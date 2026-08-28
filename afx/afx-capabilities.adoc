@@ -33,8 +33,8 @@ Lo stack di rete in NetApp AFX è identico a quello unified ONTAP.
 
 Alcune differenze chiave tra le reti includono:
 
-* Le porte di rete del cluster backend ora supportano solo connessioni da 100GB agli switch del cluster.
-* Poiché gli switch del cluster hanno una capacità di 400 GB, le connessioni dei nodi backend utilizzano 4 cavi breakout da 100 GB per ridurre il numero di porte utilizzate sugli switch.
+* Le porte di rete del cluster backend supportano solo connessioni da 100GB agli switch del cluster sulla piattaforma AFX 1K e supportano connessioni da 400GB sulla piattaforma AFX 2K.
+* Poiché gli switch del cluster hanno una capacità di 400GB, le connessioni dei nodi backend utilizzano 4 cavi breakout da 100GB sull'AFX 1K per ridurre il numero di porte utilizzate sugli switch. L'AFX 2K utilizzerà una connessione 1:1 da 400GB con gli switch.
 * NVRAM è ora replicata tra le coppie HA attraverso la rete del cluster backend tramite una nuova configurazione VLAN HA sugli switch.
 * Una nuova rete DCN viene aggiunta per impostazione predefinita per l'AI Data Engine. Questi indirizzi IP vengono generati automaticamente e possono essere modificati secondo necessità.
 
@@ -101,4 +101,11 @@ Unified ONTAP supporta diversi tipi di volume, tra cui:
 
 NetApp AFX offre supporto completo per ciascuna di queste tipologie di volume, nonché piena interoperabilità per i volumi FlexCache con sistemi ONTAP unificati.
 
-Per ulteriori informazioni su come i volumi FlexGroup traggono vantaggio dall'architettura AFX, vedere link:afx-architecture.html#flexgroup-volume-management-improvements["Miglioramenti nella gestione dei volumi FlexGroup"].
+Per ulteriori informazioni su come i volumi FlexGroup traggono vantaggio dall'architettura AFX, vedere link:afx-architecture-flexgroup.html#flexgroup-volume-management-improvements["Miglioramenti nella gestione dei volumi FlexGroup"].
+
+[cols="1,1"]
+|===
+
+
+| link:afx-management.html["Precedente"] | link:afx-hardware.html["Successivo: Hardware"] 
+|===

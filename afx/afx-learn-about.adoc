@@ -144,3 +144,10 @@ Un nodo di calcolo in NetApp AFX si riferisce al nodo storage controller (e i du
 === Zona di disponibilità dello storage
 
 Una Storage Availability Zone (SAZ) è l'unico pool di capacità in un NetApp AFX cluster, dove tutti i dischi sono condivisi tra tutti i nodi. La SAZ abilita funzionalità quali capacità condivisa, prestazioni migliorate, deduplicazione globale e altro ancora.
+
+[cols="1,1"]
+|===
+
+
+|  | link:afx-whats-new.html["Prossimamente: Novità"] 
+|===

@@ -1,0 +1,44 @@
+---
+sidebar: sidebar 
+permalink: afx/afx-architecture-node-disk.html 
+keywords: netapp afx, node-to-disk relationships, disk ownership, storage availability zone 
+summary: Scopri come NetApp AFX offre a ogni nodo di archiviazione visibilità su ogni disco ed elimina la proprietà dei dischi. 
+---
+= Relazioni nodo-disco
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/afx/
+
+
+[role="lead"]
+NetApp AFX modifica la relazione tra nodi di storage e dischi collegando tutti i nodi e gli shelf tramite la stessa rete di backend.
+
+Nell'architettura unificata ONTAP, le operazioni di lettura e scrittura vengono indirizzate a un sottoinsieme specifico di dischi. Quindi, anche se si dispone di 24 shelf di dischi in un cluster a 24 nodi (uno shelf per nodo), in un dato momento ciascun nodo può accedere direttamente solo a uno shelf di dischi, il che limita la capacità e le performance disponibili nel cluster.
+
+image:image5.png["Immagine"]
+
+Inoltre, poiché NVRAM è collegata direttamente tra le coppie HA, i nodi devono trovarsi fisicamente uno accanto all'altro e sono più strettamente accoppiati come destinazioni di failover. Ad esempio, quando un nodo effettua un failover sul suo nodo partner, gli unici dischi a cui ha accesso fisicamente sono i dischi nel dominio della coppia HA.
+
+*Unified ONTAP cluster durante il failover HA*
+
+image:image6.png["Immagine"]
+
+In NetApp AFX, si verificano alcuni importanti cambiamenti nel modo in cui i dischi vengono presentati ai nodi di calcolo.
+
+
+
+[[all-disks-are-visible-to-all-storage-nodes-no-disk-ownership]]
+== Tutti i dischi sono visibili a tutti i nodi di storage--nessuna proprietà dei dischi
+
+In NetApp AFX, nodi e chassis sono tutti collegati allo stesso switch backend, il che consente a ONTAP di estendere il dominio di visibilità complessivo dei dischi all'intero stack. Di conseguenza, nessun nodo possiede dischi specifici. Piuttosto, tutti i dischi partecipano a un unico pool di capacità chiamato Storage Availability Zone, che offre una gestione della capacità più semplice e un maggiore potenziale di prestazioni (più dischi disponibili significano maggiori prestazioni disponibili).
+
+*Zona di disponibilità storage NetApp AFX*
+
+image:image7.png["Immagine"]
+
+[cols="1,1"]
+|===
+
+
+| link:afx-architecture.html["Precedente: Architettura"] | link:afx-architecture-capacity-pool.html["Successivo: Single capacity pool"] 
+|===

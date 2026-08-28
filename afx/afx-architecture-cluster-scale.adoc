@@ -1,0 +1,69 @@
+---
+sidebar: sidebar 
+permalink: afx/afx-architecture-cluster-scale.html 
+keywords: netapp afx, cluster scale, node addition, node removal, 32 nodes, 32PB 
+summary: 'Scopri come NetApp AFX automatizza l"aggiunta e la rimozione dei nodi e scala i cluster fino a 32 nodi e 32PB.' 
+---
+= scalabilità del cluster
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/afx/
+
+
+[role="lead"]
+L'architettura NetApp AFX semplifica l'aggiunta e la rimozione dei nodi e consente di scalare il cluster senza lasciare inutilizzata capacità o performance.
+
+
+
+[[node-additions-and-removals]]
+== Aggiunta e rimozione di nodi
+
+Sia ONTAP unificato che NetApp AFX consentono di aggiungere e rimuovere nodi dal cluster. Tuttavia, a causa di alcune differenze architetturali, la procedura per l'aggiunta e la rimozione dei nodi risulta leggermente diversa.
+
+
+
+[[node-additionremoval-in-unified-ontap]]
+=== Aggiunta/rimozione di nodi in ONTAP unificato
+
+Abbiamo già appreso che ONTAP unificato ha una proprietà diretta tra nodo e disco e che tutti i nodi devono avere alcuni dischi e almeno un aggregate collegato. Tenendo presente ciò, le seguenti considerazioni valgono per le aggiunte e le rimozioni.
+
+* L'aggiunta di nodi in unified ONTAP non richiede passaggi aggiuntivi, ma per garantire prestazioni bilanciate su tutti i nodi (inclusi i nuovi nodi), è necessario spostare i volumi sui nuovi nodi. Ciò richiede un'analisi preliminare dei volumi esistenti e dei relativi carichi di lavoro, la decisione su quali volumi spostare e, infine, lo spostamento effettivo dei volumi, che, ancora una volta, richiederebbe una copia di tali dati attraverso la rete del cluster di backend.
+* La rimozione dei nodi in ONTAP unificato richiederebbe l'evacuazione manuale dei volumi esistenti sul nodo, il che significa che è necessario identificare quali nodi possono ospitare quali volumi per mantenere prestazioni uniformi e che si deve disporre di sufficiente capacità libera per fornire una destinazione a cui spostare tali volumi. Se la capacità libera rappresenta una sfida, potrebbero essere necessari ulteriori spostamenti di volumi per ridistribuire i carichi di lavoro all'interno del cluster. La rimozione dei nodi comporta anche la rimozione delle coppie HA, quindi il lavoro richiesto è raddoppiato. Poiché i nodi possiedono i dischi, sarà inoltre necessaria una reinizializzazione completa dei dischi per tali nodi. Ciascuno di questi aspetti aggiunge tempo e impegno a quella che dovrebbe essere un'operazione relativamente semplice.
+
+
+
+
+[[node-additionremoval-in-netapp-afx]]
+=== Aggiunta/rimozione di nodi in NetApp AFX
+
+Abbiamo inoltre appreso che NetApp AFX non sfrutta la proprietà standard dei nodi rispetto ai dischi e non utilizza aggregati fisici per presentare la capacità al cluster. Per questo motivo, l'aggiunta e la rimozione dei nodi si comportano in modo leggermente diverso.
+
+* L'aggiunta di nodi in NetApp AFX non richiederà la stessa analisi preliminare dei volumi, né l'intervento amministrativo per garantire che ciascun nodo abbia un bilanciamento uniforme dei volumi. Invece, ONTAP bilancia automaticamente il numero di volumi tra i nodi appena aggiunti per mantenere profili di performance relativamente uniformi. ONTAP sposterà automaticamente i volumi tra i nodi senza copiare nulla, riducendo il tempo, la capacità e lo sforzo necessari per aggiungere nodi a un cluster.
+* La rimozione dei nodi in NetApp AFX non richiede quasi nessun – se non nessun – intervento manuale. Quando un nodo viene contrassegnato per la rimozione, ONTAP sposta automaticamente i volumi tra i nodi (di nuovo, senza copiarli) per evacuare i nodi da rimuovere. E poiché non ci sono dischi di proprietà dei nodi, non è necessario reinizializzare i dischi dopo la rimozione dei nodi. Questo rende i nodi in AFX modulari per natura e facili da scalare verso l’alto o verso il basso.
+
+
+
+
+[[cluster-scale-and-expansion]]
+== Scala ed espansione del cluster
+
+I cluster ONTAP unificati supportano fino a 24 nodi e ogni nodo aggiunto deve essere dotato di dischi (sia per funzionalità del sistema che per i servizi dati). È possibile aggiungere shelf di dischi al cluster, ma questi sono sempre connessi a una singola coppia HA e appartengono solo a un singolo nodo, anche se il cluster è composto da 24 nodi. Ciò significa che la capacità viene aggiunta a un cluster anche quando è richiesta solo la performance, e tale aumento delle performance è per lo più relegato a uno specifico set di dischi di proprietà dei nuovi nodi. Di conseguenza, si potrebbe finire con una capacità in eccesso che non è necessariamente necessaria.
+
+*Unified ONTAP – considerazioni aggiuntive sulla scalabilità*
+
+image:image30.png["Immagine"]
+
+NetApp AFX supporta una scalabilità maggiore per i cluster. A partire dalla versione 9.19.1, i cluster AFX possono raggiungere 32 nodi in un singolo cluster. E poiché tutti i nodi possono vedere e accedere a tutti i dischi, possono condividere le performance e la capacità (fino a 32PB a partire da ONTAP 9.19.1) di tali unità, in modo che non vi siano mai risorse inutilizzate. Lo spostamento dei volumi non richiede copie, quindi ONTAP è in grado di spostare automaticamente i volumi sui nodi appena aggiunti per garantire un utilizzo uniforme dei nodi, mentre la capacità viene distribuita uniformemente tramite la Storage Availability Zone.
+
+*NetApp AFX – considerazioni aggiuntive sulla scala*
+
+image:image31.png["Immagine"]
+
+Per informazioni sulla dimensione massima del cluster, consulta la pagina link:afx-limits.html["Limiti"].
+
+[cols="1,1"]
+|===
+
+
+| link:afx-architecture-volume-moves.html["Precedente: Spostamenti di volume"] | link:afx-architecture-root-volume.html["Successivamente: Modifiche al root volume"] 
+|===

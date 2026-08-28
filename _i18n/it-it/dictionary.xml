@@ -1885,9 +1885,6 @@ ONTAP è una potente piattaforma per la gestione dei dati con funzionalità nati
   <block id="ec8691da9bf60fda22f12e08033d054b" category="cell">Dimensioni dell'unità</block>
   <block id="ac42a71dfe464f09e55a57f84ceb163f" category="cell">Capacità raw approssimativa (Unificata)</block>
   <block id="46cc5fb7e0299e674d5da41e0dad3a1f" category="cell">Capacità raw approssimativa (AFX)</block>
-  <block id="c7d332a0c322abaf8181c5babf32fd81" category="cell">7,6 TB</block>
-  <block id="e50bccab556ac30cde3b134fb81a2530" category="cell">~547,2TB</block>
-  <block id="08dedfbf48e1600e5cfd9c8c2745fec6" category="cell">~608TB (+60,8TB)</block>
   <block id="1f04a7c587f50d269f44d43229c966ac" category="cell">15,3 TB</block>
   <block id="9a2d1eca7e54938f79761d06b7caaf18" category="cell">~1101,6TB</block>
   <block id="5e741ceec539284f7a96b67008f0e517" category="cell">~1224TB (+122,4TB)</block>
@@ -1906,23 +1903,13 @@ ONTAP è una potente piattaforma per la gestione dei dati con funzionalità nati
   <block id="6f9f45d520cffb99bb950d8fda5dbdba" category="list-text">Deduplicazione basata sul volume -&gt; Confine del volume</block>
   <block id="438a3758b0006aebd9a250021848cc7c" category="list-text">Deduplicazione cross-volume -&gt; Confine aggregato</block>
   <block id="21b0b029300c61135ad9721104b8348a" category="paragraph"><block ref="21b0b029300c61135ad9721104b8348a" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="f89efbc018eb553bd85f13f9d3ff23d7" category="paragraph">La tabella seguente mostra il comportamento della capacità per i dati duplicati in diversi scenari in ONTAP unificato. Poiché le copie dei file si estendono su nodi e aggregati (e quindi su domini di deduplicazione), il risparmio di spazio si riduce.</block>
   <block id="54861efdd06fc309e1c9a420feff98eb" category="cell">Scenario</block>
-  <block id="77d8eb15db31182d5d16adaae1167a58" category="cell">Spazio utilizzato</block>
   <block id="f891059e8c06b24c2303442e1ea0b502" category="cell">Quattro copie dello stesso file da 10GB, stesso volume (deduplicazione del volume)</block>
   <block id="4ac1352d5b927390a1b2f14dac0647d9" category="cell">10 GB</block>
-  <block id="c11f0e78ef3de243c83f7ec7deb5ec59" category="cell">Quattro copie dello stesso file da 10GB, su volumi diversi, stesso aggregato (deduplicazione tra volumi abilitata)</block>
-  <block id="e5368f4f57a5e8656e84b995331e8fc1" category="cell">Quattro copie dello stesso file da 10GB, 4 volumi diversi, 4 aggregati diversi (deduplicazione tra volumi abilitata)</block>
   <block id="006d8b5945ff5ea00e335cd43159f15a" category="cell">40 GB</block>
   <block id="554c7e5aa7d4f0b74f57389da62e73c1" category="paragraph">Poiché NetApp AFX rimuove gli aggregati fisici e sposta la gestione della capacità nella nuova Storage Availability Zone, anche i confini del dominio di deduplicazione cambiano. In AFX, il dominio di deduplicazione si trova a livello di volume (come in ONTAP unificato) e di nodo (anziché di aggregato) prima della versione 9.19.1.</block>
   <block id="079395b0c979d0b54fc2b1c99f54e40e" category="paragraph">A partire da ONTAP 9.19.1, AFX supporta un dominio di deduplicazione globale a livello di Storage Availability Zone, quindi tutti i blocchi duplicati nel pool di storage del cluster vengono trattati allo stesso modo.</block>
   <block id="f83df156391f38ff73d1a49f6a8425e6" category="paragraph"><block ref="f83df156391f38ff73d1a49f6a8425e6" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="e156c20f9a8ac4def7069dda32e8320e" category="paragraph">La tabella seguente mostra il comportamento della capacità per i dati duplicati in diversi scenari in NetApp AFX.</block>
-  <block id="a9cd3bbc2e51a6e1347445b84d798f2a" category="cell">10GB (9.18.1) 10GB (9.19.1)</block>
-  <block id="df90a1a2cc2054e32c9c28d5c25e62cf" category="cell">Quattro copie dello stesso file da 10GB, su volumi diversi, sullo stesso nodo (deduplicazione tra volumi abilitata)</block>
-  <block id="0b3bf068e64e34843d3d704e013cb2b2" category="cell">Quattro copie dello stesso file da 10GB, 4 volumi diversi, 4 nodi diversi (deduplicazione tra volumi abilitata)</block>
-  <block id="8869b48ff17dcbd09bde895bd5027ed2" category="cell">40GB (9.18.1) 10GB (9.19.1)</block>
-  <block id="6e5fc7251e1276f061a3ac94294d4ce6" category="section-title">Funzionalità rimosse/non supportate</block>
   <block id="c1da2d4d510103b46e423190aacd1d6b" category="paragraph">NetApp AFX è progettato per carichi di lavoro NAS e a oggetti dalle performance elevate, in particolare (ma non esclusivamente) quelli nel campo dell'addestramento e dell'inferenza dell'IA. Con la progettazione di NetApp AFX, sono state prese alcune decisioni per disabilitare alcune delle funzionalità di ONTAP.</block>
   <block id="763ebb6b2480e502c5034139361bcc1d" category="list-text">A causa dell'attenzione rivolta alle dalle performance elevate di NAS e ai carichi di lavoro a oggetti, i carichi di lavoro a blocchi sono stati rimossi dalla soluzione NetApp AFX. Non è previsto il supporto per i protocolli dati FCP, iSCSI o NVMe e non sono previsti piani per l'aggiunta di protocolli a blocchi.</block>
   <block id="ee62ec9079a51f3f2d61fb5c219e4c5b" category="list-text">Disaggregato è sinonimo di de-aggregato, il che significa che gli aggregati (almeno come concetto di amministrazione dello storage fisico) sono stati rimossi. La rimozione dell'aggregato fisico non solo semplifica la gestione della capacità in ONTAP, ma fornisce anche il meccanismo per consentire un unico pool di capacità.</block>
@@ -1931,9 +1918,7 @@ ONTAP è una potente piattaforma per la gestione dei dati con funzionalità nati
   <block id="144508c60f3cca56510b134fc12e757f" category="list-text">La rimozione di alcune funzionalità comporta anche modifiche all'interfaccia a riga di comando (CLI), all'interfaccia grafica (GUI) e alle API REST, quindi tutti i comandi o le chiamate API relativi a funzionalità non più supportate verranno rimossi.</block>
   <block id="900a913e531c8157d7a2f4a97608dc94" category="list-text">ZAPI al momento non è disponibile per NetApp AFX.</block>
   <block id="e89ad37d68f36cce38303bc48e8c2fe6" category="list-text">Offload di copia NFS per virtualizzazione (FlexGroup volumi con sola distribuzione dati granulare)</block>
-  <block id="f8c9693eb34a8916c9e613f8afca2ef1" category="section-title">Modifiche alla gestione di ONTAP</block>
   <block id="cea3622035a3726dec586cdf9fabcb7a" category="paragraph">In generale, la gestione NetApp AFX non modifica i meccanismi utilizzati per gestire un cluster. Gli amministratori possono ancora utilizzare la CLI, la GUI e le API REST per accedere e configurare un cluster. Tuttavia, NetApp AFX ha offerto l'opportunità di migliorare alcune delle modalità di esecuzione delle operazioni di gestione dello storage.</block>
-  <block id="e025f27af7a0ab530c0c79e51c8ddc21" category="section-title">gestione della capacità semplificata</block>
   <block id="85e6f6e2e02603e4a6c37196e99d68e7" category="paragraph">La NetApp AFX Storage Availability Zone riduce gli endpoint di gestione, passando da un approccio basato su nodi e aggregati a un singolo pool di capacità disponibile per l'intero cluster. Man mano che i volumi aumentano o diminuiscono, ONTAP preleva e restituisce automaticamente capacità dalla Storage Availability Zone.</block>
   <block id="ddeb7090eb04d100bcabff49f47b2bef" category="paragraph">Grazie a ciò, gli amministratori dello storage non devono più preoccuparsi di individuare e gestire lo spazio libero su un massimo di 24 nodi e potenzialmente centinaia di aggregati. Invece, esiste un solo punto in cui la capacità viene gestita e visualizzata.</block>
   <block id="68ab8227a681f41895474e422eb3d350" category="paragraph"><block ref="68ab8227a681f41895474e422eb3d350" category="inline-image-macro-rx" type="image"></block></block>
@@ -1948,8 +1933,6 @@ ONTAP è una potente piattaforma per la gestione dei dati con funzionalità nati
   <block id="1f22cd8cc995516df6a340339e98aa43" category="paragraph">NetApp AFX presenta la capacità in un'unica Storage Availability Zone, che rispecchia più fedelmente il modo in cui i volumi FlexGroup sono progettati per funzionare. Invece di più volumi costituenti distribuiti su più aggregati disparati di dimensioni potenzialmente diverse, tutti i volumi risiedono nello stesso pool di capacità, il che semplifica notevolmente la gestione complessiva dell'utilizzo di un volume FlexGroup.</block>
   <block id="49328713bd4daf43cf93136d33988aec" category="paragraph">Inoltre, AFX abilita per impostazione predefinita il bilanciamento avanzato della capacità per i volumi FlexGroup, il che contribuisce a distribuire meglio i file di grandi dimensioni all'interno del volume. Ora, i costituenti del volume FlexGroup non sono più un concetto da gestire, ma svolgono il loro lavoro in modo automatico e silenzioso in background.</block>
   <block id="b04c6be3a0c2715cf298c6858aafdec2" category="paragraph"><block ref="b04c6be3a0c2715cf298c6858aafdec2" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="591b7e4a83822f3477d36ac1390ed210" category="section-title">Attività automatizzate di amministrazione dello storage</block>
-  <block id="e5acbb4916e4ad745f7ab261de87bba8" category="paragraph">Con Storage Availability Zone in NetApp AFX, tutta la capacità è condivisa tra tutti i nodi. Sebbene i nodi continuino a possedere volumi, ONTAP gestisce automaticamente l'utilizzo della capacità di ciascun nodo, prendendo in prestito e rilasciando capacità in base alle esigenze del nodo in un dato momento. Ciò significa che gli amministratori dello storage non devono più preoccuparsi di come bilanciare al meglio lo spazio utilizzabile.</block>
   <block id="b9bfd8cd96f3dc16633eb7ac3cf9d518" category="paragraph">Inoltre, la gestione dei gruppi RAID è automatizzata da ONTAP, che consente di aggiungere i dischi appena inseriti a gruppi RAID esistenti o nuovi senza l'intervento dell'amministratore. ONTAP gestisce anche lo spostamento dei volumi tra i nodi senza la necessità di copiare i dati.</block>
   <block id="913ef981ae568ab215ce9a179461e1e1" category="section-title">Movimenti di volume a copia zero</block>
   <block id="bc9a4f65b3b66945205ca7605583f7c8" category="paragraph">Unified ONTAP offre un metodo per spostare volumi tra nodi o aggregati senza interruzioni, al fine di gestire le performance e l'utilizzo della capacità nell'intero cluster.</block>
@@ -2021,19 +2004,14 @@ ONTAP è una potente piattaforma per la gestione dei dati con funzionalità nati
   <block id="f3e451363190c1f43ef5d709f51ce4e7" category="cell">70GB/s TLC 35GB/s QLC</block>
   <block id="56b8b83f998dd9761119047c9d76dbfe" category="section-title">densità delle performance</block>
   <block id="c1a2f8f6f3bfbadf11742b61cc98b0c4" category="paragraph">Nell'architettura ONTAP disaggregata, il disaccoppiamento dei nodi di storage dagli shelf consente a un maggior numero di nodi di indirizzare il traffico verso un numero inferiore di shelf, contribuendo così a ridurre l'ingombro complessivo del data center necessario per ottenere le massime performance con la sola capacità di cui hai bisogno.</block>
-  <block id="4ae4c8e1d2b552815258c78743bb204e" category="paragraph">Ad esempio, in un cluster ONTAP unificato, poiché ogni nodo possiede un proprio set di dischi, le performance sono indirizzate solo ai dischi di proprietà del nodo e, poiché solo un nodo può accedere a un set di dischi, non è detto che possa saturare i dischi disponibili e raggiungere le sue massime performance.</block>
   <block id="33f4eb7eed8d8b2113c48953bac67bf8" category="paragraph"><block ref="33f4eb7eed8d8b2113c48953bac67bf8" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="d5cb33c5c027f61f5d28891275974f9d" category="paragraph">NetApp AFX raggruppa tutti i dischi in un'unica Storage Availability Zone, consentendo a tutti i nodi di sfruttare tutti i dischi. E poiché i dischi e i nodi sono disaccoppiati, non saranno necessari tanti shelf per ottenere le stesse performance. Questo concentra le performance e massimizza il potenziale massimo di performance dello shelf.</block>
   <block id="99eb2edd23e124ad314a265478aad0a7" category="paragraph"><block ref="99eb2edd23e124ad314a265478aad0a7" category="inline-image-macro-rx" type="image"></block></block>
   <block id="c5403d6a6718b58910134e247573ddcd" category="section-title">Rapporto nodo-scaffale</block>
   <block id="5a9b6da3c89cc10b2605462a01ff5d1e" category="paragraph">I nodi ONTAP unificati richiedono almeno un set di dischi per nodo e possono avere più unità di archiviazione collegate a un singolo nodo. Di conseguenza, possono verificarsi colli di bottiglia prestazionali nel singolo nodo che potrebbe non essere in grado di saturare i propri dischi.</block>
   <block id="962bc0f988d9a6b087f2e852d024b921" category="paragraph">NetApp AFX mette a disposizione di tutti i nodi tutti gli alloggiamenti per dischi. Ogni alloggiamento contiene moduli con 16 x 100GB interfacce compatibili RoCE per aumentare la quantità totale di performance consentita per alloggiamento. Grazie a ciò, è possibile saturare un singolo alloggiamento con più nodi che leggeranno e scriveranno sullo stesso set di dischi.</block>
-  <block id="76ec7f81b3187ef46319086883f7fbd6" category="paragraph">A partire da ONTAP 9.19.1, il rapporto di saturazione node:shelf è di circa 4:1.</block>
   <block id="81517b0fa3a8d75c3583bca55033c957" category="section-title">Risultati del benchmark</block>
   <block id="5fb3d68ef18b7e2fc36d57ce8a8e106a" category="paragraph">La sezione seguente illustra i risultati dei benchmark ottenuti utilizzando un cluster NetApp AFX con i seguenti parametri di configurazione.</block>
   <block id="3e6a751b39e6b30cc5ad600e2e6371be" category="list-text">4 nodi, 4 interfacce dati</block>
-  <block id="b827d6860b20dc1f1de306f24773c085" category="list-text">2 ripiani (unità da 7,6TB)</block>
-  <block id="ea7f38fbe84ac28be0f7c90cca730a69" category="list-text">ONTAP 9.19.1</block>
   <block id="85d0f94acd6137c52384e071c0beb76b" category="list-text">NFSv4.2 (pNFS, trunking di sessione)</block>
   <block id="e9db3004828d9514fafc57881dfbdbd2" category="list-text">Volume FlexGroup</block>
   <block id="4c4ae09914e5fd587c43d091395a2882" category="inline-link-macro">ElBencho</block>
@@ -2112,8 +2090,6 @@ ONTAP è una potente piattaforma per la gestione dei dati con funzionalità nati
   <block id="fa7e3ce056e445f916459f4372867737" category="list-text">Le reti di gestione possono essere segmentate dalle reti dati.</block>
   <block id="0444184d88145af9b161901b5b6ba1e9" category="list-text">Le reti dati dei client non subiscono modifiche, a parte la nuova aggiunta del supporto di rete da 400GB.</block>
   <block id="9b9a79176e66304af399df0747b11958" category="paragraph">Alcune differenze chiave tra le reti includono:</block>
-  <block id="d6e99a721e3959d61475fb8a779af6da" category="list-text">Le porte di rete del cluster backend ora supportano solo connessioni da 100GB agli switch del cluster.</block>
-  <block id="7e4a61956036e6a0f962729225a087fd" category="list-text">Poiché gli switch del cluster hanno una capacità di 400 GB, le connessioni dei nodi backend utilizzano 4 cavi breakout da 100 GB per ridurre il numero di porte utilizzate sugli switch.</block>
   <block id="3642ca6533d5185a15902437ef4ed2cb" category="list-text">NVRAM è ora replicata tra le coppie HA attraverso la rete del cluster backend tramite una nuova configurazione VLAN HA sugli switch.</block>
   <block id="5af24813aa4e491fa55cdff2a9e543b1" category="list-text">Una nuova rete DCN viene aggiunta per impostazione predefinita per l'AI Data Engine. Questi indirizzi IP vengono generati automaticamente e possono essere modificati secondo necessità.</block>
   <block id="2d6547f7462502cd7177c73060bb9b5b" category="paragraph">NetApp AFX utilizza ONTAP, il che significa che si avvale della stessa sicurezza di ONTAP. Tutti i cryptomod sono identici, pertanto anche le certificazioni di sicurezza saranno identiche una volta completati i processi di certificazione. NetApp AFX sfrutta inoltre lo stesso supporto per i cifrari di sicurezza di ONTAP.</block>
@@ -2149,7 +2125,6 @@ ONTAP è una potente piattaforma per la gestione dei dati con funzionalità nati
   <block id="b2a10addfa20e797512c93a082680656" category="section-title">Hardware supportato</block>
   <block id="30cf7a36a073e8f6f943d72fb5d6ba32" category="paragraph">Per le informazioni più recenti sull'hardware supportato per NetApp AFX, consultare <block ref="fbd1b799f21dab00963646892e0a8bc0" category="inline-link-macro-rx"></block>.</block>
   <block id="187c6ad3a74cc93ac6c2229d398e383e" category="section-title">Nodi</block>
-  <block id="3cf2439f2c058990ff372e335184dd99" category="paragraph">NetApp AFX nodi si basano sul modello AFF A1K fornito per i cluster ONTAP unificati. Questi nodi non dispongono di dischi integrati per l'archiviazione e sono concepiti per essere modulari, consentendo di aggiungere e rimuovere facilmente nodi in base ai requisiti di prestazioni. Ogni nodo utilizza 2U di spazio rack e le prestazioni aumentano linearmente man mano che vengono aggiunti a un cluster AFX.</block>
   <block id="d5e794e7dbae5aaa599a71bcdb41beef" category="paragraph"><block ref="d5e794e7dbae5aaa599a71bcdb41beef" category="inline-image-macro-rx" type="image"></block></block>
   <block id="40a737e5041c4ace9449f041a4a18b80" category="section-title">Slot hardware</block>
   <block id="92d6e217184c21d30e8aeb113e46244e" category="paragraph">NetApp I nodi AFX 1K utilizzano le seguenti assegnazioni di slot.</block>
@@ -2170,14 +2145,12 @@ ONTAP è una potente piattaforma per la gestione dei dati con funzionalità nati
   <block id="dccb27e8b03cb56df2a6877ed19a9fd8" category="list-text">Per ulteriori informazioni, vedere il <block ref="90cb3a4603072e0b41362ef1057cf320" category="inline-link-macro-rx"></block>.</block>
   <block id="73ed82219e935d8e1007e1c3f266cba7" category="paragraph"><block ref="73ed82219e935d8e1007e1c3f266cba7" category="inline-image-macro-rx" type="image"></block></block>
   <block id="ebc44233941122337b29386177d91130" category="section-title">Connettività dello switch di cluster</block>
-  <block id="47db3bf9cf495bcc67c8e360c1e98aa9" category="paragraph">NetApp AFX sfrutta ampiamente gli switch di cluster backend per molti dei suoi principali concetti architetturali. Ad esempio, le interfacce del cluster, gli adattatori di storage, gli shelf di storage e le schede NVRAM si collegano tutte agli switch di cluster. Attualmente, tutte queste interfacce supportano solo la comunicazione a 100GB, mentre gli switch supportano 400GB. Di conseguenza, le interfacce a 100GB si collegano alle interfacce a 400GB dello switch tramite 4 cavi breakout da 100GB. Questo approccio riduce il numero di porte utilizzate sugli switch. Ad esempio, le 16 porte dei moduli shelf di storage da 100GB utilizzeranno solo 4 porte sugli switch, mentre le 8 porte totali sui nodi utilizzeranno 2 porte dello switch.</block>
   <block id="57b5f0954762dfdb314fe646634d976a" category="paragraph"><block ref="57b5f0954762dfdb314fe646634d976a" category="inline-image-macro-rx" type="image"></block></block>
   <block id="8c5ddc935447794865d4cbffec8a3d20" category="section-title">Tipi e dimensioni dei dischi</block>
   <block id="97f14179dd02ff11f07602385544cf86" category="paragraph">NetApp AFX attualmente supporta solo SSD NVMe collegati nei seguenti formati:</block>
   <block id="ce5fba88cb69cd2186756f8faf58b8d9" category="list-text">30,1 TB</block>
   <block id="e86d671ba5d15a1c611be884ea7cf55a" category="list-text">60,6 TB</block>
   <block id="1d19d1aa0e80c186229626ee1f0041e4" category="section-title">TLC vs. QLC</block>
-  <block id="7a2e1ddf0e6216bfff611dd9ae70ce57" category="paragraph">NetApp AFX può sfruttare sia i tipi di flash TLC che QLC. Le unità da 7,6 e 15,3 TB sono modelli TLC, mentre le unità superiori a 30,1 TB saranno QLC. Indipendentemente dal tipo di supporto, è possibile soddisfare gli standard prestazionali di certificazione NVIDIA SuperPod.</block>
   <block id="3490c43d24f428db31d4011fa273ef4a" category="paragraph">Tutte le unità utilizzate con NetApp AFX sono unità ad alte prestazioni e sia QLC che TLC offrono prestazioni pressoché identiche in lettura. QLC è leggermente inferiore in scrittura rispetto a TLC e può subire un livellamento dell'usura leggermente maggiore con carichi di lavoro ad alta intensità di scrittura.</block>
   <block id="e9c6d4b89f2fd8f80f0238667ae15952" category="paragraph">Quando si sceglie il tipo di unità da utilizzare, è importante considerare i carichi di lavoro che lo storage dovrà ospitare e i compromessi tra prestazioni e densità di capacità.</block>
   <block id="760b833cb870c3441ec6b8c08f6ec02b" category="paragraph">La sezione seguente illustra i valori massimi e minimi di un NetApp AFX cluster rispetto a ONTAP unificato.</block>
@@ -2189,11 +2162,9 @@ ONTAP è una potente piattaforma per la gestione dei dati con funzionalità nati
   <block id="8487699fb65ed58bf886a609cc850b23" category="list-text">30.000</block>
   <block id="f64bc191156dac76ffce8622c16cb21d" category="cell">Dimensione aggregata</block>
   <block id="b1e8908d89a1ad733767a64e964d99a1" category="list-text">800 TB</block>
-  <block id="382b0f5185773fa0f67a8ed8056c7759" category="list-text">N/A</block>
   <block id="f143d990b31f7ac5e79358104cb48aff" category="cell">Conteggio dei nodi</block>
   <block id="1ff1de774005f8da13f42943881c655f" category="list-text">24</block>
   <block id="aa1d200574a94cfcb3d0759a739c4dd9" category="list-text">8 (9.17.1)</block>
-  <block id="2d971449b9b517e5d9b06c0774a86eb5" category="list-text">32 (9.19.1RC1)</block>
   <block id="a720679b3b1209f744e43750ba9fde85" category="cell">Capacità totale</block>
   <block id="5404442a7ea7dc52ed099fdd23e4199c" category="inline-link-macro">hwu.netapp.com</block>
   <block id="682e0c17b99d72fabde958b4e8c0d999" category="list-text">Dipende dal nodo e dall'unità. Vedi <block ref="523b424ce9b7195ce25d27d4cc912219" category="inline-link-macro-rx"></block> per i dettagli.</block>
@@ -2201,23 +2172,19 @@ ONTAP è una potente piattaforma per la gestione dei dati con funzionalità nati
   <block id="704a0d93f7b6ca8da6cbce9ed5971f0e" category="list-text">3PB (9.18.1RC1)</block>
   <block id="bd73788e2d7ae873811b5f0a7396e233" category="list-text">16PB (rilascio 9.18.1GA)</block>
   <block id="f97ef3dbbb7841f0aa42a42747c2a0ee" category="list-text">20PB (9.19.1RC0)</block>
-  <block id="653c5fed5c5f4dcbffe13c96221408cd" category="list-text">32PB (9.19.1RC1)</block>
   <block id="b7766a901d78384091033386c4093325" category="cell">Numero di shelf supportati</block>
   <block id="91706301a0c706cc2b6ed119849431ab" category="list-text">8 per coppia HA</block>
   <block id="2b74c007e56a8be14949b63b9c86ef6d" category="list-text">192 per cluster</block>
   <block id="140cff9a338f00caa42bc917c0418ca5" category="list-text">12 per cluster (9.18.1GA)</block>
   <block id="8f913e0a31e7129dc8f1303d1c3bbb6e" category="list-text">17 per cluster (9.19.1RC0)</block>
-  <block id="ce3356bb97f3c0c67abc10dbbe67295d" category="list-text">25 per cluster (9.19.1RC1) (nessuna limitazione per le coppie HA)</block>
   <block id="cba50d32905010ba6b646887e5e895fb" category="cell">Numero totale di unità supportate</block>
   <block id="0776e87be9974c41478d5bd51d257edd" category="list-text">240 per coppia HA</block>
   <block id="1e55cbc137a2331e70c391fc4fd9c60e" category="list-text">2880 (24 nodi)</block>
   <block id="10f58cba14d2923711530ca627a44630" category="list-text">288 per cluster (in base ai limiti di conteggio degli shelf; nessuna limitazione per le coppie HA)</block>
   <block id="4ae417e18c2dbaa126c383d02921071f" category="list-text">408 per cluster (9.19.1RC0)</block>
-  <block id="68c6eeaf09540ebb55999b818976f02b" category="list-text">600 per cluster (9.19.1RC1)</block>
   <block id="6bb41960470a19d97556b9240ac0b3ff" category="cell">Dimensione del volume</block>
   <block id="8998a6f31a494ea1f237e3fa701e0ed9" category="list-text">300TB (FlexVol)</block>
   <block id="b10a65115e7a646fec0fd28107237725" category="list-text">60PB (FlexGroup)</block>
-  <block id="0bab89c96b68baae41f5285b98af3ac5" category="list-text">60PB (FlexGroup)*</block>
   <block id="c211a42bcb266c4a94bd61b00651fb1c" category="cell">Numero massimo di file per volume</block>
   <block id="b693a2bd240e09ce2afb4bc4488dc1a4" category="list-text">2 miliardi (FlexVol)</block>
   <block id="9337be44c241fe6070fdf7a59195811d" category="list-text">400 miliardi (FlexGroup)</block>
@@ -2233,9 +2200,7 @@ ONTAP è una potente piattaforma per la gestione dei dati con funzionalità nati
   <block id="b7639b383cb3a4cab77aa12f58aa915b" category="cell">Numero massimo di blocchi per nodo</block>
   <block id="1ec14607f84befa006cafa9013c8912f" category="list-text">3 milioni</block>
   <block id="6849c78228c7cd366db4c21c9938140f" category="cell">Numero massimo di interfacce dati (cluster)</block>
-  <block id="c903af30d83599be98f0662224f2c47d" category="cell">Numero massimo di costituenti – FlexGroup</block>
   <block id="3644a684f98ea8fe223c713b77189a77" category="list-text">200</block>
-  <block id="b6eddf963db615d515417f95e5dc2fa9" category="list-text">512 in 9.19.1 RC1</block>
   <block id="a3dffa639f016fdda26bbc66ef4e8297" category="cell">Numero massimo di LIF intercluster</block>
   <block id="bc7755ec4d34c6846a5772829cb17914" category="cell">Numero massimo di spazi IP</block>
   <block id="10a7cdd970fe135cf4f7bb55c0e3b59f" category="list-text">512</block>
@@ -2244,9 +2209,7 @@ ONTAP è una potente piattaforma per la gestione dei dati con funzionalità nati
   <block id="f687535718e53d023297c10d45c01270" category="cell">Numero massimo di FlexCache (nodo)</block>
   <block id="18d8042386b79e2c279fd162df0205c8" category="list-text">400</block>
   <block id="53de1c7cdb80f3c7e5a41e6540841720" category="section-title">Quali sono le novità dell'ultima versione di NetApp ONTAP per AFX?</block>
-  <block id="0acc25e6e7239d394aedd7b0e37728b5" category="paragraph">Questa sezione contiene gli ultimi aggiornamenti per NetApp AFX e verrà aggiornata a ogni nuova versione. Consultatela periodicamente per nuove informazioni e leggete anche le note di rilascio della versione.</block>
   <block id="bff2eea4246a1f0ecb68fc0c8a335f25" category="paragraph">Ultima versione:</block>
-  <block id="7dd300df1c1cbba0e8f3f2216e700979" category="paragraph">ONTAP 9.19.1RC1 (a partire da maggio 2026)</block>
   <block id="27c085bde15f2bb253b0aee8a5f084c2" category="paragraph">Nuove funzionalità in NetApp AFX:</block>
   <block id="d2faa14ab70288d07188a62b2f1242e8" category="list-text">Deduplicazione globale</block>
   <block id="1f72924400244c635421d0b144e597e4" category="list-text">Efficienza dinamica di archiviazione</block>
@@ -2278,10 +2241,7 @@ ONTAP è una potente piattaforma per la gestione dei dati con funzionalità nati
   <block id="5f009470c525619904fd84251f905a7e" category="paragraph">*Confronto approssimativo della capacità raw, 84 unità – Unified ONTAP e NetApp AFX*</block>
   <block id="d8ed1a209c750a3dc71890cc94412b31" category="paragraph">*Ricostruzione del disco in NetApp AFX*</block>
   <block id="dc1b0acbe90560cc5a5e94e6e90708ba" category="paragraph">*Domini di deduplicazione unificati ONTAP*</block>
-  <block id="b12d1303cded0366ad3fa9aa6d34be4a" category="paragraph">*Comportamenti di deduplicazione in diversi scenari per file identici da 10GB – ONTAP unificato*</block>
   <block id="7b5e9f2c0d06f5a691b8531801c6399b" category="paragraph">*NetApp AFX – Dominio di deduplicazione globale (ONTAP 9.19.1)*</block>
-  <block id="a040d8510d49a488312dd741d89e9ca6" category="paragraph">*Comportamenti di deduplicazione in diversi scenari per file identici da 10 GB – NetApp AFX*</block>
-  <block id="186cb1a33e8e53960ebea64a2e6d0b69" category="list-text">Gli spostamenti di volumi basati su copie non sono più necessari nemmeno in NetApp AFX, grazie alla nuova architettura di capacità. Per ulteriori informazioni, consultare <block ref="b59888323cfca50660660414893d5a3c" category="inline-xref-macro-rx"></block>.</block>
   <block id="f80e34d35179b16c68ce3cb79ad36d9e" category="paragraph">Ad esempio, nella CLI di ONTAP unificato, se si desidera visualizzare le informazioni sulla capacità fisica totale di un cluster, si utilizza il comando "`aggregate show-space`", che visualizza tutte le voci aggregate. In NetApp AFX, si utilizza "`cluster space show`", che mostra solo la singola Storage Availability Zone.</block>
   <block id="42afd96b757f8f9bd0f24bdf70f4bf70" category="paragraph">*Confronto affiancato dei comandi CLI di capacità in ONTAP unificato e NetApp AFX*</block>
   <block id="bdc937cba7fe46550f14e60dabe07eec" category="paragraph">*System Manager viste della capacità – Unified ONTAP*</block>
@@ -2316,7 +2276,6 @@ ONTAP è una potente piattaforma per la gestione dei dati con funzionalità nati
   <block id="ad5caac66af524a44d92b4cc1c8ad87f" category="summary">Questa pagina illustra i valori massimi e minimi di un NetApp AFX cluster rispetto a ONTAP unificato.</block>
   <block id="ea629c640de47abfbd9731f1383d108a" category="doc">Massimi e limiti</block>
   <block id="0fc87a3629114127c8f973f35e3c57ba" category="paragraph">*NetApp AFX valori massimi e minimi*</block>
-  <block id="5b8dee0cb73a41462c6285f68c17d093" category="summary">Sebbene vi siano alcune differenze architetturali piuttosto significative nel modo in cui lo storage viene presentato in NetApp AFX, il set di funzionalità e la modalità di gestione di ONTAP sono praticamente invariati.</block>
   <block id="cb981099a03b9edaa33f39b7fc686d56" category="doc">Strumenti di gestione</block>
   <block id="02a6e2c6554c926b5858f18226afa7f4" category="paragraph">Le uniche differenze reali nella NetApp AFX CLI riguardano ciò che è stato aggiunto e ciò che è stato rimosso (come descritto nella sezione "" di questo documento). Se una funzionalità (come gli aggregati o Metrocluster) è stata rimossa, il comando CLI corrispondente non sarà più disponibile.</block>
   <block id="971d55389f6a3f4ab4d365e1d96ca63d" category="paragraph">*Confronto affiancato delle pagine di destinazione unificate di ONTAP e NetApp AFX System Manager*</block>
@@ -2326,8 +2285,6 @@ ONTAP è una potente piattaforma per la gestione dei dati con funzionalità nati
   <block id="f5e64500886f685b50bab074f7baaf8b" category="paragraph">*NetApp vista del cablaggio AFX*</block>
   <block id="0ba14e1ce49ecde8fd2a51e3f76b6ee2" category="paragraph">NetApp AFX si impegna inoltre a mantenere la maggior parte delle chiamate API REST di ONTAP, il che significa che se hai creato una suite di strumenti di automazione basati su API REST, dovrebbero essere ancora utilizzabili nella maggior parte dei casi. Le principali eccezioni includono aggregati, Metrocluster, SAN e alcuni contatori di prestazioni. La documentazione completa delle API REST è disponibile all'interno del System Manager del cluster NetApp AFX, navigando su https://clus_mgmt_ip/docs/api.</block>
   <block id="10f8b4caccad4d5001f788be83e36b4a" category="summary">NetApp AFX è stato progettato pensando alle prestazioni e alla scalabilità, in particolare per carichi di lavoro che richiedono un'elevata throughput di lettura e scrittura.</block>
-  <block id="26fb7c096cf7c88b9c31d41be766163e" category="paragraph">Ciascun nodo di storage NetApp AFX fornisce una specifica quantità di throughput per le operazioni di lettura e scrittura. Con l'aggiunta di nodi al cluster, le prestazioni aumentano linearmente, come descritto nella sezione "Scalabilità lineare delle prestazioni dei nodi" di questo documento.</block>
-  <block id="f72f669b81d6cf52d23dfe312609010f" category="paragraph">Attualmente, i tipi di nodo sono <block ref="9cf787ca68118452f94875110bf7c0d8" category="inline-link-macro-rx"></block> e forniscono throughput per letture e scritture approssimativamente pari ai valori riportati di seguito. Con la disponibilità di hardware più recente per NetApp AFX, questi limiti potrebbero cambiare. NOTA: Le prestazioni massime sono state raggiunte utilizzando più client che leggono e scrivono più file, come mostrato nella sezione "Risultati del benchmark" di seguito.</block>
   <block id="1966077bb0e25c1b863a791297107edf" category="paragraph">*Stime delle prestazioni per nodo*</block>
   <block id="b1091795c1256c094d3449a2a2bc6deb" category="paragraph">*Stime delle prestazioni per shelf*</block>
   <block id="450baef0095326f9d30e6c8ca1f65004" category="paragraph">Questo concetto di "densità delle prestazioni" consente agli amministratori dello storage di ottenere il massimo dall'hardware a loro disposizione senza mai dover effettuare un provisioning in eccesso del proprio ambiente di storage.</block>
@@ -2341,7 +2298,6 @@ ONTAP è una potente piattaforma per la gestione dei dati con funzionalità nati
   <block id="1eef8946d0cbeaecb21b2a938827040e" category="paragraph">Una delle aree in cui si sono registrati modesti miglioramenti delle prestazioni è stata quella relativa all'I/O sequenziale (ovvero, I/O prevedibile ed eseguito consecutivamente). Nei test di prestazioni standard con fio, AFX con ONTAP 9.18.1 ha migliorato le prestazioni di lettura sequenziale di quasi il 30% e le prestazioni di scrittura sequenziale del 10%.</block>
   <block id="458a3f89edcc08eb6255ebe8b1d42393" category="paragraph">*NetApp AFX – prestazioni IO sequenziali NFSv4.1 in ONTAP 9.18.1*</block>
   <block id="bddd597f0eec2113f06b93b0277da19f" category="paragraph">Ancora più impressionanti sono i miglioramenti in uno dei principali punti critici per le prestazioni di NFSv4.x – metadati. Si tratta di IO casuali, solitamente nell'ordine dei 4K, utilizzati per gestire i proprietari e gli attributi dei file, creare ed elencare i file e così via. A causa della gestione dello stato di NFSv4.x, questo tipo di operazioni tende a richiedere un maggiore utilizzo della CPU e latenza, riducendo di conseguenza le prestazioni complessive possibili.</block>
-  <block id="8d3bd41fd952027a466e35605cbd651b" category="paragraph">*NetApp AFX – Prestazioni IO dei metadati NFSv4.1 in ONTAP 9.18.1*</block>
   <block id="739f428040feee735e00029f2f74aaad" category="summary">Questa pagina contiene gli ultimi aggiornamenti per NetApp AFX e verrà aggiornata a ogni nuova versione.</block>
   <block id="89bef61b77bccd688eb4c742aab2b38b" category="doc">Novità in NetApp AFX</block>
   <block id="f5cb5bdaaa412361fa89cf3912168e46" category="summary">IPsec offre un'alternativa alla crittografia NFS o SMB ed è l'unica opzione di crittografia in transito per il traffico iSCSI.</block>
@@ -2351,7 +2307,6 @@ ONTAP è una potente piattaforma per la gestione dei dati con funzionalità nati
   <block id="2d242bb36ec91b32005f9296ff03a912" category="sidebar">Architettura</block>
   <block id="fe4dbcab9b910577e5035e97ac068dae" category="sidebar">Gestione</block>
   <block id="3c02a379965ab0dfcd77b1c484450433" category="sidebar">Hardware</block>
-  <block id="8f1489908bad45f32b26cd4889b15ee5" category="paragraph">Per ulteriori informazioni su come i volumi FlexGroup traggono vantaggio dall'architettura AFX, vedere <block ref="1cec0d1b278569accc3f4a62eef15ba5" category="inline-link-macro-rx"></block>.</block>
   <block id="3b694df11e6b19386eb830eb2e4f1789" category="paragraph">Per i dati sulle prestazioni, vedere <block ref="77269db3bbc523c64a6951fea568b858" category="inline-link-macro-rx"></block>.</block>
   <block id="766623d3580d9065fc0a0d4ec5735932" category="paragraph">Ogni shelf contiene moduli shelf ad alte prestazioni con 16 porte Ethernet da 100 GB che sfruttano la comunicazione RoCEv2 per un'interazione di archiviazione ad alta larghezza di banda con i nodi di calcolo nel cluster. Come qualsiasi risorsa fisica, questi shelf hanno dei limiti massimi raggiungibili, soprattutto perché NetApp AFX può presentare più nodi che puntano allo stesso set di dischi. La tabella seguente mostra le prestazioni massime stimate in lettura e scrittura per un singolo shelf per le unità TLC e QLC. Per ulteriori informazioni sulle differenze tra TLC e QLC, vedere <block ref="6bb0fbcc06f13ae4b085b96edf84ff05" category="inline-link-macro-rx"></block>.</block>
   <block id="1acada88d3bde4f0f20b477fc6b57ea4" category="paragraph"><block ref="ce43ad346de589cf0a1fba5f344a1b6d" category="inline-link-macro-rx"></block> MetroCluster è una soluzione storage a disponibilità continua per ONTAP in esecuzione su sistemi FAS e AFF. MetroCluster IP è l'ultima evoluzione che utilizza una fabric dello storage basata su Ethernet. MetroCluster IP offre una configurazione altamente ridondante per soddisfare le esigenze delle applicazioni aziendali più critiche. MetroCluster IP è incluso in ONTAP e fornisce connettività NAS e SAN per client e server che utilizzano lo storage ONTAP.</block>
@@ -2675,4 +2630,373 @@ ONTAP è una potente piattaforma per la gestione dei dati con funzionalità nati
   <block id="49f0664f282179029e2131d30362f45d" category="summary">NFS su TLS funziona con i controlli standard delle policy di esportazione ONTAP e si replica tramite SVM-DR e MetroCluster. Questa pagina tratta anche i limiti di connessione, il comportamento di applicazione e le raccomandazioni operative.</block>
   <block id="7ec1eb1e8c27af2d560415def72f2dcf" category="sidebar">I report tecnici ONTAP forniscono un contesto aggiuntivo per la pianificazione e l'ottimizzazione delle implementazioni all'interno di diversi ecosistemi o con diversi protocolli. Alcuni report tecnici ONTAP forniscono un contesto architetturale e pratiche consigliate per le funzionalità e le capacità di ONTAP.</block>
   <block id="9678a7dcb872318bf33163b8a1ba5331" category="sidebar">Rapporti tecnici ONTAP</block>
+  <block id="54ec3a53c78919e9407a57725c4375f5" category="summary">Scopri come la NetApp AFX Storage Availability Zone sostituisce gli aggregati fisici con un unico pool di capacità a livello di cluster.</block>
+  <block id="5b62d0d4bed05d1bafa800b03e4547d3" category="doc">Pool a capacità singola</block>
+  <block id="a4f3bbb6371419955168ca5b4cd75e14" category="paragraph">NetApp AFX sostituisce gli aggregati fisici per nodo con un'unica Storage Availability Zone disponibile per l'intero cluster.</block>
+  <block id="86e42f283c0e7ce37049767109379be0" category="inline-link-macro">Precedente: Relazioni nodo-disco</block>
+  <block id="d817615aa101085b02d44d8e0e823dab" category="cell"><block ref="d817615aa101085b02d44d8e0e823dab" category="inline-link-macro-rx"></block></block>
+  <block id="034209d6ad41d67b2159d052ccbde0ac" category="inline-link-macro">Successivo: NVRAM replicata e comportamento di failover HA</block>
+  <block id="76a2767d019330ede157390b01693459" category="cell"><block ref="76a2767d019330ede157390b01693459" category="inline-link-macro-rx"></block></block>
+  <block id="35a27f61604d63f66f775a8d3a5cf7bb" category="summary">Scopri come NetApp AFX automatizza l'aggiunta e la rimozione dei nodi e scala i cluster fino a 32 nodi e 32PB.</block>
+  <block id="ae899ba07529811c7eb33a8faf905a65" category="doc">scalabilità del cluster</block>
+  <block id="cb8b98fa7e8e25975fc798c7628775e0" category="paragraph">L'architettura NetApp AFX semplifica l'aggiunta e la rimozione dei nodi e consente di scalare il cluster senza lasciare inutilizzata capacità o performance.</block>
+  <block id="b7a95c6586d57b909e3a9973bf21cccf" category="inline-link-macro">Limiti</block>
+  <block id="38f629ab9fe0b506cd64c3679d525d5f" category="paragraph">Per informazioni sulla dimensione massima del cluster, consulta la pagina <block ref="c597c96a42848ebf6c6969387954bb8c" category="inline-link-macro-rx"></block>.</block>
+  <block id="ef9bd54df79e70b96e893ceea0e91312" category="inline-link-macro">Precedente: Spostamenti di volume</block>
+  <block id="275364c276ec6dee70887af6a23e8646" category="cell"><block ref="275364c276ec6dee70887af6a23e8646" category="inline-link-macro-rx"></block></block>
+  <block id="83e46be7bd44842ce98500496847f4e9" category="inline-link-macro">Successivamente: Modifiche al root volume</block>
+  <block id="f45ea40223ebf36e876aea4789d0f6e6" category="cell"><block ref="f45ea40223ebf36e876aea4789d0f6e6" category="inline-link-macro-rx"></block></block>
+  <block id="bdf25c1c2e469d9758120a0feaa5077f" category="summary">Esamina le funzionalità di ONTAP che sono state modificate, rimosse o non sono più supportate in NetApp AFX.</block>
+  <block id="d44875ca8fb1c667438d95cce89a36ee" category="doc">Modifiche al supporto delle funzionalità ONTAP</block>
+  <block id="b1f694e14956be77cf0eb60222e47b2e" category="paragraph">La progettazione NAS e a oggetti dalle performance elevate di NetApp AFX modifica la disponibilità di alcune funzionalità e interfacce di ONTAP.</block>
+  <block id="d9c1eb9a581bfd14111cf720df3b0bd1" category="section-title">Funzionalità ONTAP che sono state rimosse o non sono supportate con AFX</block>
+  <block id="99a80b04ef8bf63bea43cd149e59adbf" category="list-text">Gli spostamenti di volumi basati su copie non sono più necessari nemmeno in NetApp AFX, grazie alla nuova architettura di capacità. Per ulteriori informazioni, vedi <block ref="67d639395579b09d4abdd20aa5044b2b" category="inline-link-macro-rx"></block>.</block>
+  <block id="d443d100383bd891012ba5ae6150e013" category="inline-link-macro">Precedente: Efficienza dello storage</block>
+  <block id="73b0e97ca39870a70df4b1b35fb121d8" category="cell"><block ref="73b0e97ca39870a70df4b1b35fb121d8" category="inline-link-macro-rx"></block></block>
+  <block id="ca3dd1aae2ac5cb886e1abbbb46ac5af" category="inline-link-macro">Prossimamente: FlexGroup management improvements</block>
+  <block id="da72eaace59bda00e6361751697f2b33" category="cell"><block ref="da72eaace59bda00e6361751697f2b33" category="inline-link-macro-rx"></block></block>
+  <block id="119a20db3f697b02ddf97b1bfd537d67" category="summary">Scopri come l'architettura di capacità AFX di NetApp semplifica la gestione dei volumi FlexGroup.</block>
+  <block id="3d830d7683c4e74c2b7ecd36620bcf4b" category="doc">Miglioramenti della gestione FlexGroup</block>
+  <block id="5e524a6da6f5836187e2e4234fb6dfdc" category="paragraph">La singola Storage Availability Zone in NetApp AFX riduce la gestione dell'infrastruttura necessaria per i volumi FlexGroup.</block>
+  <block id="4d578ffaea0ce093a4e0d2cec263621b" category="inline-link-macro">Precedente: Modifiche al supporto delle funzionalità ONTAP</block>
+  <block id="d8b374be0f7350f520f08d920c2f1093" category="cell"><block ref="d8b374be0f7350f520f08d920c2f1093" category="inline-link-macro-rx"></block></block>
+  <block id="9a753cf01d3b3f2bb2f15562165d32e7" category="inline-link-macro">Successivo: spostamento dei volumi</block>
+  <block id="7abf5c59ca6e65fb40670023985184ea" category="cell"><block ref="7abf5c59ca6e65fb40670023985184ea" category="inline-link-macro-rx"></block></block>
+  <block id="4dc535c56d16702ba00c65f6478d0650" category="summary">Scopri come NetApp AFX scala in modo indipendente la potenza di calcolo e la capacità, offrendo al contempo prestazioni lineari per nodo.</block>
+  <block id="053494bc00de2cfc0a58dac6f7ecd62a" category="doc">Scala lineare indipendente</block>
+  <block id="c0103995b715b075de77d3d88f0a7823" category="paragraph">L'architettura disaggregata NetApp AFX consente alle risorse di capacità e di calcolo di scalare in modo indipendente e alle prestazioni dei nodi di scalare linearmente.</block>
+  <block id="754a4d69adc2453532670dbd9ea7919b" category="inline-link-macro">Precedente: NVRAM replicata e comportamento di failover HA</block>
+  <block id="1233129ad521178a7ad957f65c6d3385" category="cell"><block ref="1233129ad521178a7ad957f65c6d3385" category="inline-link-macro-rx"></block></block>
+  <block id="eaf442a512c0b53f5715f821d53759c7" category="inline-link-macro">Successivamente: modifiche al RAID</block>
+  <block id="9a1dcb233d45db9b07d3f4710eab115e" category="cell"><block ref="9a1dcb233d45db9b07d3f4710eab115e" category="inline-link-macro-rx"></block></block>
+  <block id="91d6f5fb3e5146f5b7221ed5d7986852" category="summary">Scopri come NetApp AFX offre a ogni nodo di archiviazione visibilità su ogni disco ed elimina la proprietà dei dischi.</block>
+  <block id="587320e7812070c931a48fb6902c7228" category="paragraph">NetApp AFX modifica la relazione tra nodi di storage e dischi collegando tutti i nodi e gli shelf tramite la stessa rete di backend.</block>
+  <block id="318618fcbea375e247481fae79c73332" category="inline-link-macro">Precedente: Architettura</block>
+  <block id="cd4ad3137c754ae686247606a9bc885b" category="cell"><block ref="cd4ad3137c754ae686247606a9bc885b" category="inline-link-macro-rx"></block></block>
+  <block id="7d72a470f2b577a7f2db02929884441d" category="inline-link-macro">Successivo: Single capacity pool</block>
+  <block id="eac6ef923fde32ac1d0eb49a4c9f05c9" category="cell"><block ref="eac6ef923fde32ac1d0eb49a4c9f05c9" category="inline-link-macro-rx"></block></block>
+  <block id="2a6602ab0eee68a3164c8c540af46c04" category="summary">Scopri come NetApp AFX replica NVRAM sulla rete backend e ribilancia i volumi durante il failover in alta disponibilità.</block>
+  <block id="b3c2e58648b286918bfb5b684cca6455" category="doc">NVRAM replicata e comportamento di failover HA</block>
+  <block id="bfdeb0e5f702a4920fd204738452bc06" category="paragraph">NetApp AFX sposta la replica della NVRAM sulla rete del cluster di backend e utilizza la mobilità dei volumi a copia zero per ribilanciare il carico di lavoro dopo un guasto di un nodo.</block>
+  <block id="6e56008c0110dbadbb126ca11335947e" category="inline-link-macro">Precedente: Single capacity pool</block>
+  <block id="96962307687d46b7df1a01d684c98a2e" category="cell"><block ref="96962307687d46b7df1a01d684c98a2e" category="inline-link-macro-rx"></block></block>
+  <block id="52bc7f01b9b93a6808e4b063730047ff" category="inline-link-macro">Successivo: scala lineare indipendente</block>
+  <block id="8eb3844c69ac6c6f04a39bc94048aee5" category="cell"><block ref="8eb3844c69ac6c6f04a39bc94048aee5" category="inline-link-macro-rx"></block></block>
+  <block id="c03c9e469b184306b8aff7a4af160441" category="summary">Scopri come i gruppi RAID più grandi in NetApp AFX migliorano la capacità utilizzabile e consentono una ricostruzione più rapida dei dischi.</block>
+  <block id="5bf47d0e9a8df629d21fe0ec95cc52ff" category="doc">Modifiche RAID</block>
+  <block id="e2438134c785460001ab9afde2fa97fd" category="paragraph">NetApp AFX utilizza gruppi RAID-TEC più grandi con un numero inferiore di unità a parità proporzionale e distribuisce il lavoro di ricostruzione del disco su tutto il cluster.</block>
+  <block id="6dcb05cff5b2040c9e618d652ac9eedc" category="inline-link-macro">Precedente: Scala lineare indipendente</block>
+  <block id="c19d471797837b55c5a8c87550208759" category="cell"><block ref="c19d471797837b55c5a8c87550208759" category="inline-link-macro-rx"></block></block>
+  <block id="b89599897f78689775ab1f045cdf8c55" category="inline-link-macro">Successivamente: Efficienza dello storage</block>
+  <block id="1fee783e025135691dff26e8af6c8b77" category="cell"><block ref="1fee783e025135691dff26e8af6c8b77" category="inline-link-macro-rx"></block></block>
+  <block id="ba9f78a3da2c98ca4695295f6c157185" category="summary">Scopri come NetApp AFX virtualizza i volumi root e sposta le immagini di avvio e i database del cluster sui supporti di avvio integrati.</block>
+  <block id="8d4bebb36186ffde1221d7b4f9c5c365" category="paragraph">NetApp AFX elimina gli aggregati root fisici e utilizza i supporti di avvio NVMe integrati per le immagini di avvio e i database del cluster replicati.</block>
+  <block id="7c1f1842a4939f57630fb77edbe0255c" category="inline-link-macro">Precedente: Scala del cluster</block>
+  <block id="34a918752a6c315d982082421b2fde1d" category="cell"><block ref="34a918752a6c315d982082421b2fde1d" category="inline-link-macro-rx"></block></block>
+  <block id="e2c8766ef4eae8d561615b7e9955e166" category="inline-link-macro">Avanti: Prestazioni</block>
+  <block id="8e85322458e72e50123dc2d9aec2a6f7" category="cell"><block ref="8e85322458e72e50123dc2d9aec2a6f7" category="inline-link-macro-rx"></block></block>
+  <block id="d16fdbe48808d05fea5cacba0fee173d" category="summary">Scopri come sono cambiati i domini di deduplicazione AFX di NetApp e come ONTAP 9.19.1 offre la deduplicazione globale.</block>
+  <block id="fd18465573ec21a6218982055981f6b1" category="doc">efficienza di storage</block>
+  <block id="632d15e65f675c6a9228c8adc414c3ba" category="paragraph">NetApp AFX modifica i limiti di deduplicazione e, a partire da ONTAP 9.19.1, supporta un dominio di deduplicazione globale nell'intera Storage Availability Zone.</block>
+  <block id="bd7fe8049cfb5e245ef178ee07140836" category="paragraph">La tabella seguente confronta il comportamento della capacità per i dati duplicati in diversi scenari. Quando le copie dei file si estendono su nodi e aggregati (e quindi su domini di deduplicazione) in unified ONTAP, il risparmio di spazio si riduce. In AFX prima della 9.19.1, succede la stessa cosa quando le copie si estendono su nodi. A partire dalla 9.19.1, la deduplicazione globale applica lo stesso risparmio all'intera Storage Availability Zone.</block>
+  <block id="d05de44df7f24e70badd0a4c55e8c62d" category="paragraph">*Comportamenti di deduplicazione per file identici da 10 GB – ONTAP unificato e NetApp AFX*</block>
+  <block id="fbf77664391482a8ca45a51f12160ca3" category="cell">AFX 9.18.1</block>
+  <block id="a3d5ec4aa274797fb21c40a4b87c7e15" category="cell">AFX 9.19.1</block>
+  <block id="9b800715ba731f258d6ce5f88197f4f1" category="cell">Quattro copie dello stesso file da 10 GB, volumi diversi, stesso aggregato (unified ONTAP) o stesso nodo (AFX); deduplicazione tra volumi abilitata</block>
+  <block id="7bbb2341e1f68cb884a4a4ad8242a8f0" category="cell">Quattro copie dello stesso file da 10GB, 4 volumi diversi, 4 aggregati diversi (unified ONTAP) o 4 nodi diversi (AFX); deduplicazione tra volumi abilitata</block>
+  <block id="ae8dfab71ce3a08ecd350daf50301a27" category="inline-link-macro">Precedente: modifiche RAID</block>
+  <block id="594fde184554ada70dfbd1fb2884299e" category="cell"><block ref="594fde184554ada70dfbd1fb2884299e" category="inline-link-macro-rx"></block></block>
+  <block id="fe2fb055835b763bb3584b749af596cf" category="inline-link-macro">Successivamente: modifiche al supporto delle funzionalità ONTAP</block>
+  <block id="b93654fe68cc1bb2e693e7a2952ebb7e" category="cell"><block ref="b93654fe68cc1bb2e693e7a2952ebb7e" category="inline-link-macro-rx"></block></block>
+  <block id="57b706c0d0923b58e55e65858cc5cdab" category="summary">Scopri come NetApp AFX utilizza le migrazioni di volume a copia zero per l'amministrazione automatizzata e il bilanciamento delle prestazioni.</block>
+  <block id="2b8498e54f96836a89b5c416ba8bad40" category="doc">Spostamenti di volume</block>
+  <block id="25606fd8c2368bc5e6a80aa5e10185b5" category="paragraph">NetApp AFX trasferisce la proprietà dei volumi tra i nodi senza copiare i dati dei volumi, consentendo un'automazione rapida e un bilanciamento basato sulle performance.</block>
+  <block id="47db773889e8d2ca15bd4b7ce4ac5cf4" category="section-title">Come la Storage Availability Zone cambia il comportamento dei volumi</block>
+  <block id="2ff3d332293bba6e6af1d78768da00e1" category="paragraph">Con la Storage Availability Zone in NetApp AFX, tutta la capacità è condivisa tra tutti i nodi. Anche se i nodi continuano a possedere i volumi, ONTAP gestisce automaticamente l'utilizzo della capacità di ciascun nodo prendendo in prestito e rilasciando capacità in base a ciò di cui ogni nodo ha bisogno in un dato momento. Questo significa che gli amministratori dello storage non devono più preoccuparsi di come bilanciare al meglio lo spazio utilizzabile. Questo nuovo approccio offre anche un metodo per spostare i volumi più liberamente tra i nodi.</block>
+  <block id="98509ec30ea1920baaae7ad6eb9f9bed" category="inline-link-macro">Precedente: FlexGroup management improvements</block>
+  <block id="a42aebcd3b48a9a1305117441cb1fe8d" category="cell"><block ref="a42aebcd3b48a9a1305117441cb1fe8d" category="inline-link-macro-rx"></block></block>
+  <block id="07930f7010aa1de69598bec74b3daf77" category="inline-link-macro">Successivo: scala del cluster</block>
+  <block id="ec11e6004a5f7abbd80806f4c4115a4f" category="cell"><block ref="ec11e6004a5f7abbd80806f4c4115a4f" category="inline-link-macro-rx"></block></block>
+  <block id="a7c0c15a9a2c0523912a320ce0b0af0a" category="section-title">Argomenti di architettura</block>
+  <block id="2346bf7ba872c3618b6862ef695ee8b1" category="list-text"><block ref="2346bf7ba872c3618b6862ef695ee8b1" category="inline-link-macro-rx"></block></block>
+  <block id="28f072f460023ec8338c485644593c04" category="list-text"><block ref="28f072f460023ec8338c485644593c04" category="inline-link-macro-rx"></block></block>
+  <block id="c5ea8c1dc56e62486c1aa4cb5b682791" category="list-text"><block ref="c5ea8c1dc56e62486c1aa4cb5b682791" category="inline-link-macro-rx"></block></block>
+  <block id="130a460851e994bcd23b6be769fe15c8" category="list-text"><block ref="130a460851e994bcd23b6be769fe15c8" category="inline-link-macro-rx"></block></block>
+  <block id="32c8ddf6b92bcc8e121c78599ec04948" category="list-text"><block ref="32c8ddf6b92bcc8e121c78599ec04948" category="inline-link-macro-rx"></block></block>
+  <block id="2dce81bf3acf389dfb7ee3ffbd5aab33" category="list-text"><block ref="2dce81bf3acf389dfb7ee3ffbd5aab33" category="inline-link-macro-rx"></block></block>
+  <block id="aea6aabdefeda8105b1398fa70bfbf04" category="list-text"><block ref="aea6aabdefeda8105b1398fa70bfbf04" category="inline-link-macro-rx"></block></block>
+  <block id="3973e59e5869bd8620f6f32b16590bcc" category="list-text"><block ref="3973e59e5869bd8620f6f32b16590bcc" category="inline-link-macro-rx"></block></block>
+  <block id="2af265af0e7f234f6363b058835ffe29" category="list-text"><block ref="2af265af0e7f234f6363b058835ffe29" category="inline-link-macro-rx"></block></block>
+  <block id="7cee51cb451ff7308783158ac1db2ef3" category="list-text"><block ref="7cee51cb451ff7308783158ac1db2ef3" category="inline-link-macro-rx"></block></block>
+  <block id="58a82ec8a761904e904facb5e64b4aee" category="list-text"><block ref="58a82ec8a761904e904facb5e64b4aee" category="inline-link-macro-rx"></block></block>
+  <block id="dd1f775e443ff3b9a89270713580a51b" category="inline-link-macro">Precedente</block>
+  <block id="0404fcd632cc3442dd58b5d1c07b7d2d" category="cell"><block ref="0404fcd632cc3442dd58b5d1c07b7d2d" category="inline-link-macro-rx"></block></block>
+  <block id="69be2c2dc375e8c3d4ef57e211abb8c3" category="inline-link-macro">Successivo: Relazioni nodo-disco</block>
+  <block id="7060b1d86f6e9d5a96964c27019caa21" category="cell"><block ref="7060b1d86f6e9d5a96964c27019caa21" category="inline-link-macro-rx"></block></block>
+  <block id="5a5a13b2fe196be4a679b058d5c7ade4" category="list-text">Le porte di rete del cluster backend supportano solo connessioni da 100GB agli switch del cluster sulla piattaforma AFX 1K e supportano connessioni da 400GB sulla piattaforma AFX 2K.</block>
+  <block id="bf46d6b9c6a47122718c8db45552f64e" category="list-text">Poiché gli switch del cluster hanno una capacità di 400GB, le connessioni dei nodi backend utilizzano 4 cavi breakout da 100GB sull'AFX 1K per ridurre il numero di porte utilizzate sugli switch. L'AFX 2K utilizzerà una connessione 1:1 da 400GB con gli switch.</block>
+  <block id="7a3c3c12c21a09ed089a89d765c810f2" category="paragraph">Per ulteriori informazioni su come i volumi FlexGroup traggono vantaggio dall'architettura AFX, vedere <block ref="0e113d6569e7ae4c8fb5353fd9b2254b" category="inline-link-macro-rx"></block>.</block>
+  <block id="1c25a0b7f7b732ad965a5a7b1ff34e2e" category="cell"><block ref="1c25a0b7f7b732ad965a5a7b1ff34e2e" category="inline-link-macro-rx"></block></block>
+  <block id="3a87a2791dcee25eb67a005e13b677b5" category="inline-link-macro">Successivo: Hardware</block>
+  <block id="5b243f25b6ba73e0773a6c9b112a3628" category="cell"><block ref="5b243f25b6ba73e0773a6c9b112a3628" category="inline-link-macro-rx"></block></block>
+  <block id="b1e7b5b40850fffdf0de6d8a90d75650" category="paragraph">NetApp AFX include i nodi AFX 1K (basato su AFF A1K) e AFX 2K. Questi nodi non hanno dischi integrati per l'archiviazione e sono pensati per essere modulari, così puoi aggiungere o rimuovere facilmente nodi in base alle esigenze di prestazioni. Ogni nodo occupa 2U di spazio rack e le prestazioni aumentano linearmente man mano che aggiungi nodi a un cluster AFX.</block>
+  <block id="bb103e44d966373afdac269aa1c682af" category="paragraph">*NetApp AFX 2K dettagli del nodo*</block>
+  <block id="594cf2fe6e4a6d11de793e30d812248a" category="paragraph"><block ref="594cf2fe6e4a6d11de793e30d812248a" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="83ce79303db612602efbf5b6a365c745" category="paragraph">NetApp I nodi AFX 2K utilizzano le seguenti assegnazioni di slot.</block>
+  <block id="64f41ef936eb5fed920f53aa4cf113a4" category="list-text">Lo slot 2 è dedicato alla replica del cluster</block>
+  <block id="25af6e8ed5efe01de53396a9f937ccdb" category="list-text">Gli slot 8B e 10A sono dedicati alla comunicazione degli shelf di storage</block>
+  <block id="974e7cae37d10728a5a0998fab60aca3" category="paragraph">NetApp AFX sfrutta ampiamente gli switch di cluster backend per molti dei suoi principali concetti architetturali. Ad esempio, le interfacce del cluster, gli adattatori di storage, gli alloggiamenti di storage e le schede NVRAM si collegano tutti agli switch di cluster. Gli switch di cluster supportano 400GB. Le porte di rete del cluster backend supportano solo connessioni da 100GB agli switch di cluster sulla piattaforma AFX 1K e supportano connessioni da 400GB su AFX 2K. Di conseguenza, le connessioni dei nodi backend di AFX 1K utilizzano 4 cavi breakout da 100GB per ridurre il numero di porte utilizzate sugli switch. AFX 2K utilizza una connessione 1:1 da 400GB agli switch, con 6 porte per nodo (2 HA, 2 cluster, 2 storage). I moduli degli alloggiamenti di storage utilizzano ancora interfacce da 100GB; ad esempio, 16 porte da 100GB per i moduli degli alloggiamenti di storage utilizzano solo 4 porte sugli switch, mentre le 8 porte totali sui nodi AFX 1K utilizzano 2 porte dello switch.</block>
+  <block id="b1852bcd6cc401fd02422858b178b7fa" category="section-title">Guida alla selezione dello switch</block>
+  <block id="d4f5bed7457dc9b068d850e8db3f6d63" category="paragraph">Somma le porte 400GbE richieste su ciascuno switch, poi seleziona la classe di switch più piccola che copre quel totale. NetApp AFX usa una coppia di cluster switch; dimensiona ciascuno switch in modo indipendente. Due porte su ciascuno switch sono riservate per ISL (9332: porte 31–32; 9364: porte 63–64), il che lascia 30 porte utilizzabili sul 9332 e 62 porte utilizzabili sul 9364.</block>
+  <block id="58a28b7aad0bcc38fea19c69aa3c2a2e" category="paragraph">Numero di porte per switch:</block>
+  <block id="2adc0cf0a09cf3acc80b491a2290f5d8" category="list-text">AFX 1K: 1 porta 400GbE per nodo (quattro porte nodo da 100GB su un breakout 4 x 100GB)</block>
+  <block id="9589d0606f143c001b80863253dd143e" category="list-text">AFX 2K: 3 porte 400GbE per nodo per switch (6 porte per nodo a 1:1 400GB: 2 HA, 2 cluster, 2 storage)</block>
+  <block id="ac6ce6a07231a222e16acb28790c8ff4" category="list-text">Ripiani: 2 porte 400GbE per ripiano (otto porte da 100GB per switch su 4 x 100GB breakout)</block>
+  <block id="c7a931e8021e8267cb0901bcc68cd37f" category="cell">Porte 400GbE combinate richieste (per switch)</block>
+  <block id="bbc155fb2b111bf61c4f5ff892915e6b" category="cell">Switch</block>
+  <block id="58596a213f53b4b05701bb140d62d7bf" category="cell">Si adatta a 32 porte (30 utilizzabili dopo ISL)</block>
+  <block id="42bcfd3a8dc048ea39f9d0c10ee2a96d" category="cell">Cisco Nexus 9332D-GX2B (1U, 32 x 400GbE)</block>
+  <block id="e70706dbefce23e201e90ad541e55ec0" category="cell">Compatibile con 64 porte (62 utilizzabili dopo ISL)</block>
+  <block id="efe7a5dcfac4e1f4c2b9191de735fbc6" category="cell">Cisco Nexus 9364D-GX2A (2U, 64 x 400GbE)</block>
+  <block id="1f12392c4497f9ac149fdbca42e0946e" category="cell">Più di 64 porte</block>
+  <block id="65a6ed729e513b4f5eaca8a428c7f976" category="cell">Cisco Nexus 9808, o come specificato in <block ref="9c839fcdfb8699a63c787254d7b1ae03" category="inline-link-macro-rx"></block></block>
+  <block id="2b18ac515c39f0ab341cce83909f328d" category="section-title">cluster a 32 nodi</block>
+  <block id="35ff71f05c8983f61171e984d415a7ed" category="paragraph">Un cluster a 32 nodi (il numero massimo di nodi attuale; vedi <block ref="8057bcb5fa3400871df7c7ff4e1295c3" category="inline-link-macro-rx"></block>) consuma 32 × porte 400GbE per switch su AFX 1K e 96 × porte 400GbE per switch su AFX 2K (32 × 3), prima degli shelf.</block>
+  <block id="4c047bf01cf13b78e6f56a60670958f1" category="cell">AFX 1K (32 nodi)</block>
+  <block id="a2b391a899b70755b0d3c1ab27a5f15c" category="cell">AFX 2K (32 nodi)</block>
+  <block id="1547422835eb79b97349e89baef85f3d" category="cell">Cisco Nexus 9332D-GX2B</block>
+  <block id="3b1b01d87ddad32bc6d72e58efb62311" category="cell">Non supportato (32 porte nodo superano 30 porte utilizzabili)</block>
+  <block id="aa7f77e663b832d5b0e544c5511e680c" category="cell">Non supportato</block>
+  <block id="0e7640c65f26c9e296a33421d0fb5c5a" category="cell">Cisco Nexus 9364D-GX2A</block>
+  <block id="9fdf6bcdac1a241a8955b169567b18c7" category="cell">32 nodi e 8–12 ripiani (4:1 a 8:3)</block>
+  <block id="47ddab6bcde53dbdfbb588f4d0dbea23" category="cell">Non supportato (96 porte nodo superano 62 porte utilizzabili)</block>
+  <block id="2082d0b73a4a04320b20b1e6d00e06cf" category="cell">Cisco Nexus 9808</block>
+  <block id="c2a28a26e08429569152ffb8f857d69b" category="section-title">Numero massimo di nodi per switch</block>
+  <block id="b1b0daa7dd3f9035ea61b91ae807da38" category="paragraph">Dimensiona con un rapporto nodo-ripiano di almeno 4:1 e al massimo 8:3 (vedi <block ref="d566b83810a4cfd2b2f84ca67b7cd031" category="inline-link-macro-rx"></block>), numero pari di nodi (coppie HA) e almeno 2 ripiani. Le seguenti combinazioni sono il numero massimo di nodi che ciascuno switch può supportare in tale intervallo.</block>
+  <block id="0b5ab51d843f0ee81c7f5fe35a5f64b2" category="cell">AFX 1K (max nodi + shelf)</block>
+  <block id="d2f25cdf72eac27cad1b62c3c67ff140" category="cell">AFX 2K (max nodi + shelf)</block>
+  <block id="355fa6f69d9dafbd500585872dae9b15" category="cell">20 nodi + 5 ripiani (4:1; 8:3 non si adatta alle porte rimanenti)</block>
+  <block id="30d0c7c8c635a2df51c71ea2096ec53f" category="cell">8 nodi + 2–3 shelf</block>
+  <block id="1a0864e3949ddbe49cb17af8623340b4" category="cell">32 nodi + 8–12 shelf</block>
+  <block id="fbae992ee12090fcc55ea2e8f900e1a3" category="cell">16 nodi + 4–6 shelf</block>
+  <block id="08cfb6e76db9f00c891e4c8c99638d27" category="inline-link-macro">Documentazione cablaggio AFX</block>
+  <block id="c6f00dd82fb88c73cc1affee15f11b29" category="paragraph">Per i modelli di switch e i limiti più recenti supportati, vedi <block ref="9c839fcdfb8699a63c787254d7b1ae03" category="inline-link-macro-rx"></block> e il <block ref="3844b91710934dea50da7fd25206c584" category="inline-link-macro-rx"></block>.</block>
+  <block id="4f3d3e12873b90a45449c984a4499e18" category="paragraph">NetApp AFX può utilizzare sia i tipi di flash TLC che QLC. I drive da 15.3TB sono modelli TLC, mentre i drive superiori a 30.1TB saranno QLC. Indipendentemente dal tipo di supporto, è possibile soddisfare gli standard di performance della certificazione NVIDIA SuperPod.</block>
+  <block id="90f92537bd0c62a6de58c704e5a16424" category="cell"><block ref="90f92537bd0c62a6de58c704e5a16424" category="inline-link-macro-rx"></block></block>
+  <block id="2364ed8d509e73107b12fdf99a8b6aab" category="inline-link-macro">Successivo: Massimi e limiti</block>
+  <block id="cb5f2c20c44d606279f07605e23d11c8" category="cell"><block ref="cb5f2c20c44d606279f07605e23d11c8" category="inline-link-macro-rx"></block></block>
+  <block id="640b166a939b1c27c7920eac1d149606" category="inline-link-macro">Prossimamente: Novità</block>
+  <block id="b67e20cba68163a77b85e37ab2daca79" category="cell"><block ref="b67e20cba68163a77b85e37ab2daca79" category="inline-link-macro-rx"></block></block>
+  <block id="ef91aa9567a75d03c6868af1847f4cf4" category="list-text">Non applicabile (nessun aggregato fisico)</block>
+  <block id="7bf8eae16212993845da05163b4a3fbf" category="list-text">32 (9.19.1GA)</block>
+  <block id="534994cf1c4bf0fba7ccadd5e842d86a" category="list-text">32PB (9.19.1GA)</block>
+  <block id="269c9c0d3e705486f10e28e428b6080f" category="list-text">27 per cluster (9.19.1GA) (nessuna limitazione per le coppie HA)</block>
+  <block id="bb556e89cd0b582b6e7abaaa250b8961" category="list-text">648 per cluster (9.19.1GA)</block>
+  <block id="7a44285c27460153ae068ccfea0bf40f" category="list-text">60PB (FlexGroup - prima del 9.19.1)*</block>
+  <block id="9802807ac5fc172e3d6a7b7aaefaa3d8" category="list-text">~153PB (FlexGroup - 9.19.1 e versioni successive)*</block>
+  <block id="cc53de6086b5b3e6671092062bcdba16" category="cell">Conteggio massimo dei costituenti FlexGroup</block>
+  <block id="3c294186314ab35c0d7a513c9743e589" category="list-text">200 (9.18.1 e precedenti)</block>
+  <block id="f16d7d2e9e222cbce8c5180fee54d0fe" category="list-text">512 (9.19.1GA)</block>
+  <block id="e1dcf33eac0351976a8e0dcf1fd8cf14" category="list-text">1 trilione (FlexGroup - 9.19.1GA e successivi)</block>
+  <block id="63bfcf3c1ee1a84b0d38e2c985739ae2" category="paragraph">_*FlexGroup la dimensione massima sarà limitata a 32PB di spazio fisico._</block>
+  <block id="2f91c35cdb90a816b70d0668ede0cd99" category="cell"><block ref="2f91c35cdb90a816b70d0668ede0cd99" category="inline-link-macro-rx"></block></block>
+  <block id="cde1ec9e62df2f2b0c4fb223c37ae19c" category="inline-link-macro">Successivamente: Informazioni correlate</block>
+  <block id="88390b84e73c339334f1a311fbe4d28e" category="cell"><block ref="88390b84e73c339334f1a311fbe4d28e" category="inline-link-macro-rx"></block></block>
+  <block id="2d73217bea28d4de29e8e928630f3f60" category="summary">Scopri come la NetApp AFX Storage Availability Zone semplifica la gestione della capacità mentre i familiari strumenti di gestione ONTAP restano disponibili.</block>
+  <block id="1d19e21de0f93b11f5ceb8b535a3afc2" category="section-title">Gestione della capacità</block>
+  <block id="f45fb7f03c0353830151a48537118dcd" category="cell"><block ref="f45fb7f03c0353830151a48537118dcd" category="inline-link-macro-rx"></block></block>
+  <block id="713b4d97097e92b47726a7fa3107b349" category="inline-link-macro">Successivo: Funzionalità</block>
+  <block id="12e5eb49b71ce1d7c8f1f883315e2959" category="cell"><block ref="12e5eb49b71ce1d7c8f1f883315e2959" category="inline-link-macro-rx"></block></block>
+  <block id="cec7b7e2ab4af23bbd75323c75bebcc4" category="summary">Linee guida per la riproduzione dei risultati del benchmark delle prestazioni di NetApp AFX, incluse policy di esportazione, volume, mount, client e considerazioni di rete.</block>
+  <block id="6ff9b18d98108ed1c5a4254ed3405e00" category="doc">Suggerimenti per il benchmark delle prestazioni</block>
+  <block id="177918529f1c5d3552752f3eb8edbb64" category="paragraph">Questa pagina fornisce indicazioni di configurazione per riprodurre i risultati del benchmark delle prestazioni NetApp AFX descritti in <block ref="b2c1492c06c7c9ee371bcee573757b69" category="inline-link-macro-rx"></block>. Si tratta di considerazioni generali e linee guida di configurazione, non di una procedura di test completa.</block>
+  <block id="7bdd095938f2004676adf47872b70a5e" category="paragraph">Per informazioni di base sul protocollo NFS e sulle pratiche consigliate, vedi <block ref="fe159189c16fecab70e72088e682cdf8" category="inline-link-macro-rx"></block> e <block ref="149ea492f7c2980c5c032947943ca75e" category="inline-link-macro-rx"></block>.</block>
+  <block id="5925ba0cbc49e94745f350c8780ae064" category="inline-link-macro">Benchmarking/ONTAP</block>
+  <block id="75307cbd9ef346491b81810e4479f088" category="paragraph">Gli script di benchmark NAS per la creazione dei volumi, la gestione delle LIF e l’ottimizzazione dei client sono disponibili nel <block ref="ea4557b8c8c815e13e677664ec890a7c" category="inline-link-macro-rx"></block> repository.</block>
+  <block id="3801370f7bfbe71c465f219b785fd20c" category="section-title">Considerazioni sui test di prestazione</block>
+  <block id="b31ba42fb3f58a5e0ac8bb461406d2b5" category="paragraph">I test di performance hanno generalmente lo scopo di individuare i limiti di ciò che un sistema può raggiungere in specifici scenari di carico di lavoro. Nella maggior parte dei casi, non è necessario modificare le impostazioni predefinite di ONTAP per ottenere buone prestazioni con la maggior parte dei carichi di lavoro, ma in alcuni casi potresti voler regolare alcune configurazioni per ottimizzare il sistema.</block>
+  <block id="3274910f8cfb095a5c3536d03b8df615" category="section-title">Configurazione della policy di esportazione NFS</block>
+  <block id="5f56aa3b1ab835caa4ce8def49f87ea7" category="inline-link-macro">Documentazione sulle export policy di ONTAP</block>
+  <block id="4566712322643c725ef6313681397c0a" category="paragraph">Le policy di esportazione in ONTAP determinano come viene controllato l'accesso alle esportazioni NFS. Ogni volume richiede che venga impostata una policy di esportazione, con regole configurate nella policy. Se non vengono configurate regole in una policy, questa sarà considerata come "nessun accesso". Per ulteriori informazioni, vedi <block ref="7b4599762d97449c645b029177af4af3" category="inline-link-macro-rx"></block> e la <block ref="20c6f5809d863de31db3333a15db9979" category="inline-link-macro-rx"></block>.</block>
+  <block id="c73f8c5ef08e689c2b2e150defc33f61" category="paragraph">Per il benchmarking delle prestazioni, probabilmente sei meno interessato alle autorizzazioni dei client utilizzati per i test e preferisci evitare eventuali errori relativi alle autorizzazioni. Di conseguenza, è consigliato assicurarsi che qualsiasi policy di esportazione sia impostata su accesso completamente libero per il volume di dati, ma solo per i client utilizzati per accedere ai dataset. Inoltre, la policy vsroot *deve* consentire l'accesso in lettura nella policy per l'attraversamento del percorso.</block>
+  <block id="6a80a4c2171b59d9740f458bd0da3947" category="paragraph">*Policy vsroot (utilizza la policy "default")*</block>
+  <block id="5a4449d62b92fbf6acfd231a7ef07c87" category="paragraph">*policy del volume di dati*</block>
+  <block id="9e8275c080542c5273f7995e41a4c9f3" category="section-title">Configurazione del server NFS</block>
+  <block id="c40f417a4b50a0e7189d7c0bd5adee6b" category="paragraph">Le seguenti opzioni del server NFS sono state utilizzate per i benchmark interni sulle prestazioni di AFX. Altre opzioni del server NFS possono essere abilitate (ad esempio, il supporto ACL NFSv4), ma sono al di fuori dell'ambito di questi suggerimenti per i benchmark. Per il contesto delle prestazioni di NFSv4.1, pNFS e session trunking su AFX, vedi <block ref="149ea492f7c2980c5c032947943ca75e" category="inline-link-macro-rx"></block>.</block>
+  <block id="054b4f3ea543c990f6b125f41af6ebf7" category="cell">Opzione</block>
+  <block id="97ed5558fd729d9bf1d64d92c02eddaa" category="cell">v4.1</block>
+  <block id="00d23a76e43b46dae9ec7aa9dcbebb32" category="cell">Abilitato</block>
+  <block id="c54a41b01595bd7042188e1a80fd2682" category="cell">v4-id-domain</block>
+  <block id="6c183afb93887f22f1842b4585a81ebc" category="cell">[domain name]*</block>
+  <block id="a116cf49a8ff6aa090241b64884e6942" category="cell">v4.1-pnfs</block>
+  <block id="50105299a2f7c1ad846c43bc3bced9c6" category="cell">v4.1-trunking</block>
+  <block id="a0c2c60367f265eacb646fc2041a4fe5" category="cell">tcp-max-transfer-size</block>
+  <block id="4a1d32eb84d870d67d7c850ddfb7beb8" category="cell">262144</block>
+  <block id="eee0c632459952d672023b9db092728a" category="cell">v3-64bit-identifiers</block>
+  <block id="56302496859aa52d9f73380e79a26f7a" category="cell">identificatori v4-64bit</block>
+  <block id="43a03299a3c3fed3d8ce7b820f3aca81" category="cell">v3</block>
+  <block id="ce67994e6891e678798c27b16c343bd7" category="cell">v4.1-read-delegation</block>
+  <block id="5d36701ad2e987a0e9313d08124b560d" category="cell">v4.1-write-delegation</block>
+  <block id="b0348bc4253e8d0e18e59f7e3850bdfc" category="cell">rdma</block>
+  <block id="e3addd10d40b4f4228ed5b4a7ddfe0ae" category="cell">Abilitato (facoltativo)</block>
+  <block id="09333b4449856fb5771c0079b9d1c6a0" category="cell">v4.0</block>
+  <block id="476880932672ebfbc14bef388763ee31" category="cell">v3-hide-snapshot</block>
+  <block id="eb6c1a5ecd1e17d4cd46fa5c9d415816" category="cell">mount-rootonly</block>
+  <block id="77743dec92afc92eca95c255fd9333d7" category="cell">nfs-rootonly</block>
+  <block id="5cedb06da5dca9f183b28ed7a5a82fc6" category="paragraph">*Il dominio ID NFSv4 può assumere qualsiasi valore, purché corrisponda a quello impostato sui client NFS.</block>
+  <block id="5b65ff668d1e0a6e3b4016e301fda5c3" category="paragraph">Per verificare il dominio ID NFSv4 sul client:</block>
+  <block id="e3fd345c9e667112f0dfe54c7eb79a0d" category="admonition">Se questi comandi non funzionano, probabilmente non hai installato i pacchetti NFS necessari per utilizzare NFSv4.x. Ad esempio, nfs-common per i sistemi basati su Debian/Ubuntu.</block>
+  <block id="8ff2ecac95178be729a4e7fe9f064c39" category="inline-link-macro">ONTAP/NAS/configure-nfs-server.sh</block>
+  <block id="f4a4770ca66fce1941049c5854a84c20" category="paragraph">Il seguente comando CLI applica la configurazione del server NFS utilizzata per i benchmark interni delle prestazioni. Uno script che si connette al cluster tramite SSH e applica questa configurazione è disponibile all'indirizzo <block ref="7c43567e166a23ca339d9fd4339ccf5c" category="inline-link-macro-rx"></block>.</block>
+  <block id="4c4156e9025146d3d82a3c20f83ac0b1" category="inline-link-macro">Documentazione ONTAP NFS su RDMA</block>
+  <block id="72d0a2907910de9336f247555ac20520" category="admonition">RDMA riduce la latenza e aumenta il throughput per la maggior parte dei carichi di lavoro, di circa il 10-30%. Per NFS su RDMA, vedi <block ref="50b4b0365a5cdeb0b8e0ea0dcc899ed5" category="inline-link-macro-rx"></block>.</block>
+  <block id="305160d35c5eb375133b99844c5c9c60" category="section-title">Configurazione del volume</block>
+  <block id="abded65ae84d33076e0d3bf6d99d9db6" category="paragraph">La sezione seguente illustra le considerazioni relative alla creazione e alla configurazione dei volumi e mostra quali opzioni usare durante la creazione iniziale. Per informazioni su come funzionano i volumi FlexGroup in AFX, vedi <block ref="0e113d6569e7ae4c8fb5353fd9b2254b" category="inline-link-macro-rx"></block>, <block ref="ef53c970d92e82c57ca14cdc790a3fce" category="inline-link-macro-rx"></block> e <block ref="aa86589b7ac63727c91bf2f5e5311f75" category="inline-link-macro-rx"></block>.</block>
+  <block id="51ac4bf63a0c6a9cefa7ba69b4154ef1" category="cell">Impostazione</block>
+  <block id="fc18634852d4299cd5f8c7ad55ddefbe" category="cell">Tipo di volume</block>
+  <block id="54452390cac5f65f3bcec580ba079531" category="cell">FlexGroup</block>
+  <block id="0ce32b6cab662379b54e961f5a61cdba" category="cell">Metodo di creazione</block>
+  <block id="91af5705f16502125e8b2187e64202c0" category="cell">CLI</block>
+  <block id="45dd6cd8597376faaab6161227310e91" category="paragraph">Impostazioni predefinite modificate:</block>
+  <block id="dbea6952136b5cb500e8bbb34857355c" category="list-text">policy di Snapshot disabilitata</block>
+  <block id="365c580fef8c5322a510415e8c760e48" category="list-text">Numero massimo di file aumentato</block>
+  <block id="f508eb85e03eaf943d8b6bdc85899129" category="list-text">Maxdirsize aumentato</block>
+  <block id="a09233cbfa81d67531617b9aa1756129" category="list-text">Dimensioni grandi abilitate</block>
+  <block id="53f15368a8c0a123d3f24364d12c6539" category="list-text">Ridimensionamento automatico abilitato</block>
+  <block id="e0199db5509b9ce286e3ecb672d95caa" category="list-text">Permessi UNIX 777</block>
+  <block id="56fac638b295ff68579d34399250421c" category="list-text">File System Analytics disabilitato</block>
+  <block id="834388998a2abd3e49af34aaefc25a9f" category="list-text">Accesso Snapdir falso</block>
+  <block id="bf639544d424861bec8b5a411b7f2b8c" category="section-title">Considerazioni speciali -- volumi FlexGroup</block>
+  <block id="1e5201d5f7c70ae195e075e145d178e0" category="paragraph">Se il carico di lavoro crea molti file di grandi dimensioni (&gt;1GB) in una singola cartella, modifica il flusso di lavoro del volume in dati:</block>
+  <block id="9cbbfd3974d6bbe6ee952f095cb41573" category="paragraph">Se il carico di lavoro è costituito da datastore VMware ospitati su un FlexGroup volume, disabilita l'opzione <block ref="7617fb157efcfcd230d531be7d153280" prefix=" " category="inline-code"></block> (Distribuzione dati granulare). GDD non è supportato con l'offload di copia NFS per la virtualizzazione su AFX; vedi <block ref="1825109c6e1c67edd90c86967a6829bb" category="inline-link-macro-rx"></block>.</block>
+  <block id="91ae20d4b622fdb80be8b49624bfa0af" category="section-title">Perché gli snapshot sono disabilitati</block>
+  <block id="f43c920585c66b5223d91100cd6e67a9" category="paragraph">In generale, gli snapshot in ONTAP non sono dannosi per le prestazioni complessive del sistema. Per informazioni su come funzionano gli snapshot e la replica su AFX, vedi <block ref="04b3a1d46e853e0e0c761ef86804f847" category="inline-link-macro-rx"></block>. Tuttavia, durante i benchmark, disabiliteremmo gli snapshot per due motivi:</block>
+  <block id="b970e465b23a0492ca92f811a974fc66" category="list-text">Controllo granulare sull'ambiente: puoi creare snapshot quando vuoi, per controllare meglio gli scenari in cui vengono creati e per misurare più facilmente il loro impatto.</block>
+  <block id="ab1395a5252dadab5aa4404d0bd86880" category="list-text">Flusso continuo di dati: molti benchmark generano una grande quantità di dati che vengono poi eliminati, aumentando rapidamente le dimensioni di eventuali snapshot esistenti sul volume. Per evitare problemi di allocazione dello spazio, disabilitiamo gli snapshot.</block>
+  <block id="85703f10d0af6259cfd165ba47b833f9" category="admonition">L'accesso a Snapdir è inoltre disabilitato per impedire scansioni indesiderate del filesystem attraverso gli snapshot.</block>
+  <block id="f18f8a29d3e2281d374f43c78cf8f0f1" category="section-title">Opzioni di montaggio</block>
+  <block id="31a7d8e54c6d3fd9456ac4fe54ca6ae9" category="paragraph">Le opzioni di montaggio, in generale, variano a seconda dei casi d'uso. Questa sezione cerca di mostrare un elenco di opzioni di montaggio generali utilizzate nei nostri test interni sulle prestazioni. Se il server NFS è configurato correttamente come mostrato in <block ref="3a662a12108befe526183fdf7b6968b5" category="inline-xref-macro-rx"></block>, allora non dovrai specificare le versioni NFS o le opzioni wsize/rsize.</block>
+  <block id="4ce404efd98f99e54601527d5fde56e5" category="paragraph">Opzioni di base (applicate a tutti i client/scenari):</block>
+  <block id="cb9acbb001659e7cf40c637f6e7da1d0" category="paragraph">*Session trunking (specifico del sistema operativo)*</block>
+  <block id="6f140a77a6794d506a135fcc9f3b0681" category="paragraph">Il trunking di sessione è elencato anche nella <block ref="b2c1492c06c7c9ee371bcee573757b69" category="inline-link-macro-rx"></block> configurazione <block ref="108fd47ee55441802d3323d3bf1c9ef4" prefix="(" category="inline-code"></block>). Per il contesto IO multipath NFSv4.x, vedi <block ref="149ea492f7c2980c5c032947943ca75e" category="inline-link-macro-rx"></block>.</block>
+  <block id="82a974e7c68c25388a605465179069a5" category="paragraph">*Opzioni specifiche RDMA*</block>
+  <block id="942c3ab8c8760062adf3c6a34ccb3c29" category="paragraph">Per NFS su RDMA, vedi <block ref="50b4b0365a5cdeb0b8e0ea0dcc899ed5" category="inline-link-macro-rx"></block>.</block>
+  <block id="e1c409146df75721fd62f7e8d42fdda6" category="section-title">Altre opzioni di montaggio</block>
+  <block id="5cd79824f38e8eb72335d877491592be" category="paragraph">Alcuni carichi di lavoro potrebbero trarre vantaggio da opzioni di montaggio speciali durante i test di benchmark. La tabella seguente mostra alcune di queste opzioni e i casi d'uso in cui si potrebbero ottenere miglioramenti delle prestazioni.</block>
+  <block id="3f0cedb1230534673abaed1c3643835c" category="paragraph">*Opzioni di montaggio NFS alternative e relativi casi d'uso*</block>
+  <block id="adff6803f909d46b9535860dbadb0e97" category="cell">Opzione di mount NFS</block>
+  <block id="f9468c81b3d59ac0030570c4f58e95f1" category="cell">Caso d'uso</block>
+  <block id="36b9c52aaf89a9c37a0aa321ef2c330c" category="cell"><block ref="708af9c7418504d54f0ccfcbcba3bbdb" prefix="" category="inline-code"></block></block>
+  <block id="2c0961b6f1195da74a2cdc7cdfc4073d" category="cell">Disabilita la coerenza della cache "close-to-open". Il client non convaliderà nuovamente gli attributi dei file memorizzati nella cache all'apertura di un file, affidandosi invece ai dati memorizzati nella cache anche se potrebbero essere obsoleti.</block>
+  <block id="c2f6b416d249fe707edad2922cd2c239" category="cell">Carichi di lavoro a client singolo con elevato utilizzo di lettura, in cui i file cambiano raramente (ad esempio, contenuti web statici, librerie software, archivi multimediali di sola lettura). Non adatto per scritture multi-client.</block>
+  <block id="b230114b7a2c7c8e6dabc3d12bbe7c7a" category="cell"><block ref="1244eff5724972713f8dc5692f7cbaf0" prefix="" category="inline-code"></block></block>
+  <block id="cf374058628fff698e4e63c733341fa2" category="cell">Abilita la coerenza della cache close-to-open (impostazione predefinita). Quando un file viene aperto, il client verifica con il server che la sua copia memorizzata nella cache sia ancora valida. Garantisce che un file chiuso su un client venga considerato aggiornato quando viene aperto su un altro.</block>
+  <block id="411409749b85ea25c4854fb0498d8412" category="cell">Carichi di lavoro multi-client ad accesso condiviso in cui la coerenza dei dati è importante (ad esempio, directory home condivise, ambienti di sviluppo collaborativo).</block>
+  <block id="de3a430a0fd8dcc7bbda50a4695448d7" category="cell"><block ref="e6691770bb764a8feb320eccb2b2da18" prefix="" category="inline-code"></block></block>
+  <block id="23005ee11714c12491ea3557b812d807" category="cell">Imposta tutti i timeout della cache degli attributi (acregmin, acregmax, acdirmin, acdirmax) su un singolo valore in secondi. Controlla per quanto tempo il client si fida dei metadati della cache di file/directory prima di convalidarli nuovamente con il server.</block>
+  <block id="6495dd90777a35ab7b87b43f88fe8784" category="cell">Semplifichi la configurazione quando vuoi una politica di caching uniforme. Valori elevati sono ideali per carichi di lavoro statici/a elevato utilizzo di lettura; valori bassi (ad esempio, actimeo=0) sono adatti a dati in rapida evoluzione che richiedono coerenza quasi in tempo reale.</block>
+  <block id="a004f3861b5b75ab66a8778c37c7ea80" category="cell"><block ref="f7a21f3d1e644dcd469b1baa6a4cacc2" prefix="" category="inline-code"></block></block>
+  <block id="faeb9fb1a76b0323b04b1b55137204a3" category="cell">Imposta il tempo minimo (in secondi) durante il quale il client memorizza nella cache gli attributi di un file normale prima di convalidarli nuovamente. Il valore predefinito è in genere 3s.</block>
+  <block id="126b837a7460a752b44b2df696a54756" category="cell">Carichi di lavoro con file di piccole dimensioni che vengono aggiornati frequentemente, dove vuoi ottimizzare la freschezza rispetto alle prestazioni (ad esempio, acquisizione di log, polling di file di configurazione).</block>
+  <block id="b5d87242492700be412fb597a8a2ce76" category="cell"><block ref="3e453c5d359221659f54f6f250f9f166" prefix="" category="inline-code"></block></block>
+  <block id="c1696edb90bb999af5938b36d7f7ccf1" category="cell">Imposta il tempo massimo (in secondi) per cui il client memorizza nella cache gli attributi di un file normale. Il valore predefinito è in genere 60s.</block>
+  <block id="bbbf238f466215fd6cc92010ab5cfe57" category="cell">Principalmente carichi di lavoro con file per lo più statici in cui l'estensione del valore massimo riduce il traffico di metadati (ad esempio, grandi set di dati di sola lettura, repository di pacchetti).</block>
+  <block id="dd5392f3ec819f77484027997ed5c1cd" category="cell"><block ref="260f1f72bacbc5f2b68df950afc23958" prefix="" category="inline-code"></block></block>
+  <block id="eb4fa8388824a0d75dae15a79ddbc0fa" category="cell">Imposta il tempo minimo (in secondi) durante il quale il client memorizza nella cache gli attributi di una directory prima di convalidarli nuovamente. Il valore predefinito è in genere 30s.</block>
+  <block id="339226bf4e598b49ad4641ca542d1d2e" category="cell">Carichi di lavoro con frequenti elenchi o creazioni di directory (ad esempio, sistemi di build, spool di posta con formato Maildir) in cui la freschezza delle directory è importante.</block>
+  <block id="f1aa67152cecac975090ff3f379eda69" category="cell"><block ref="05a317baef495c46ea575a2950d5449d" prefix="" category="inline-code"></block></block>
+  <block id="3ea06b7447a6d0854099dc1cd2ad53d3" category="cell">Imposta il tempo massimo (in secondi) per cui il client memorizza nella cache gli attributi di una directory. Il valore predefinito è in genere 60s.</block>
+  <block id="53513906f278f1ee95431f5b0b10cbf6" category="cell">Strutture di directory stabili che cambiano raramente: aumentare questo valore riduce le chiamate GETATTR (ad esempio, grandi alberi di directory statiche, archiviazione).</block>
+  <block id="661b3770ca932214a3ad23e96f738c4a" category="cell"><block ref="b6844ec7fe8c0c8bbd8a647d246991b0" prefix="" category="inline-code"></block></block>
+  <block id="da892c9bfe68bc026691fd20fb48dea0" category="cell">Specifica l'indirizzo IP del client da pubblicizzare al server NFS per la comunicazione di callback (NFSv4/v4.1+). Il server utilizza questo indirizzo per inviare i richiami di delega e altri callback.</block>
+  <block id="bfc9b5330351ad08be56ab2759e2a955" category="cell">Client multi-homed o ambienti con reti complesse (ad esempio, client con più schede di rete, reti VPN/overlay o NAT) in cui l'indirizzo rilevato automaticamente potrebbe essere errato.</block>
+  <block id="713962bc493f4348d64390ec7e44d602" category="cell"><block ref="bb0fc0de24da5f7976510a315e4b7120" prefix="" category="inline-code"></block></block>
+  <block id="18cac1f212baf6258acbd5943b5bf2b7" category="cell">Crea più connessioni TCP (fino al numero specificato) al server NFS per un singolo mount, consentendo I/O parallelo su connessioni separate.</block>
+  <block id="620c0f065224e5334c228a0a3185a2dc" category="cell">Carichi di lavoro a throughput elevato e ad alta intensità di I/O che sono limitati da un singolo flusso TCP (ad esempio, trasferimenti di file di grandi dimensioni, calcolo HPC/scientifico, editing video, backup di database, big data analytics). Particolarmente utile su reti a elevata larghezza di banda (10 GbE+).</block>
+  <block id="b8473bf1fa830073ba48bb57003266eb" category="cell"><block ref="47ec90a7a49e890c835fb230dc011f5c" prefix="" category="inline-code"></block></block>
+  <block id="66a6a3194567ee5b50fecb72898792fb" category="inline-link-macro">TR-4616: NFS Kerberos in ONTAP con Active Directory</block>
+  <block id="52200ed2b61831ddc5859fce0a6e364c" category="cell">Specifica quale variante di sicurezza Kerberos utilizzare con il mount. Richiede la configurazione di Kerberos per funzionare correttamente. Vedi <block ref="4a66ae146d32b0d4abd903b7823fcf51" category="inline-link-macro-rx"></block> per dettagli.</block>
+  <block id="75c2074ac8362be3355fd04385c98d66" category="cell">Proteggere i mount NFS ha un impatto negativo sulle prestazioni.</block>
+  <block id="64af77d3bfba52235087fbfc96d55f88" category="section-title">Configurazione client</block>
+  <block id="b994442bc28a0e32cd91fe29abf10c8d" category="inline-link-macro">Benchmarking/client</block>
+  <block id="cc3cc4afb7e859403a8ed33a4260f782" category="paragraph">La configurazione del client utilizzata per i benchmark interni, inclusi gli script di ottimizzazione della scheda di rete e del sistema operativo, è descritta nel <block ref="2c47e3dc9a4959f8f5dac7c646cf3465" category="inline-link-macro-rx"></block> repository. Di seguito trovi alcune considerazioni aggiuntive sulla configurazione. Questo elenco non è esaustivo e verrà modificato nel tempo per includere altri casi d'uso/scenari.</block>
+  <block id="6ae7bd00b98aa923c7d36cefdd80326e" category="section-title">NFS readahead</block>
+  <block id="607b855a35212c598910666cc7dda46f" category="inline-link-macro">readahead aggressivo</block>
+  <block id="8112d84240fa6f8e21893e9c98f49d63" category="paragraph">La lettura anticipata NFS del client (vedi sotto) è un'impostazione del punto di montaggio di Linux. È separata dalla <block ref="143f27a7c12673e3fb9c144a2899dbf7" category="inline-link-macro-rx"></block> (Cross File Sequential Read) a livello di volume ONTAP su AFX.</block>
+  <block id="59a566ddffebf7bf94ee9bde3f24b6c5" category="inline-link-macro">Best practice per la prelettura NFS in Linux per Azure NetApp Files</block>
+  <block id="5165f88d995e916b5fe585606c70416d" category="paragraph">Da: <block ref="edb70bd91039b7d0dabb722ab97705d6" category="inline-link-macro-rx"></block></block>
+  <block id="1955ed138d1ee63904dd9957d45e5dc6" category="paragraph">NFS read-ahead richiede in anticipo i blocchi da un file rispetto alle richieste di I/O dell'applicazione. È progettato per migliorare il throughput di lettura sequenziale del client. Fino a poco tempo fa, tutte le distribuzioni Linux moderne impostavano il valore di read-ahead a un valore equivalente a 15 volte l'rsize del filesystem montato.</block>
+  <block id="d70c3dad64882584e02840745c8edc16" category="paragraph">RHEL 8.3 e Ubuntu 18.04 hanno introdotto modifiche che potrebbero influire negativamente sulle prestazioni di lettura sequenziale del client. A differenza delle versioni precedenti, queste distribuzioni impostano il valore predefinito di read-ahead a 128 KiB indipendentemente dall'opzione di mount rsize utilizzata. L'aggiornamento da versioni con un valore di read-ahead maggiore a versioni con il valore predefinito di 128 KiB ha comportato un calo delle prestazioni di lettura sequenziale. Tuttavia, i valori di read-ahead possono essere aumentati sia dinamicamente che in modo persistente. Ad esempio, i test con SAS GRID hanno rilevato che il valore di lettura di 15.360 KiB è ottimale rispetto a 3.840 KiB, 960 KiB e 128 KiB. Non sono stati eseguiti test sufficienti oltre i 15.360 KiB per determinarne l'impatto positivo o negativo.</block>
+  <block id="c8bf3e9d4fef57451990db6bd7613f4d" category="paragraph">La prelettura NFS è definita nel punto di montaggio per un filesystem NFS. Per visualizzare il valore corrente, esegui una ricerca del percorso di montaggio in <block ref="cc94ef2e56589d69ad062409591f07aa" prefix=" " category="inline-code"></block> e usa il numero del dispositivo per visualizzare <block ref="8ddc39f6c3fa20a177a45c37c2451919" prefix=" " category="inline-code"></block>:</block>
+  <block id="eaea2b38189d2221189c78f331ea0960" category="paragraph">Uno script di utilità per la visualizzazione o l'impostazione dinamica della prelettura è fornito in <block ref="edb70bd91039b7d0dabb722ab97705d6" category="inline-link-macro-rx"></block>.</block>
+  <block id="5dd57c2a315d3af44c2eb40eefc47111" category="section-title">Configurazione di rete</block>
+  <block id="05090df9b75fd62e9b8ef9109205f8a7" category="inline-link-macro">Hardware: Switch</block>
+  <block id="a2713f1e6c4ed7347c36a84f73589a57" category="paragraph">La sezione seguente fornisce alcune linee guida generali per la rete client e di storage. Queste si basano sui benchmark interni che abbiamo effettuato. Per le differenze di rete AFX, vedi <block ref="812f168fd0e789e42bc1c1766dfccd86" category="inline-link-macro-rx"></block> e <block ref="2fee07da6587f4aea66f56bff3db83d5" category="inline-link-macro-rx"></block>.</block>
+  <block id="c3f5a4f819db48e7d17bc4a3094de169" category="section-title">Considerazioni sulla rete di archiviazione</block>
+  <block id="681d4a315977585c52b03b23fc2502fa" category="list-text">Almeno un indirizzo IP dati per nodo, per ogni SVM (più per nodo è meglio)</block>
+  <block id="b5e41a4426e808c09884fc66c0c12ae8" category="list-text">Massimo 16 indirizzi IP per nodo, per SVM</block>
+  <block id="50173ab29387149e795dff88a864dafb" category="list-text">Tutte le interfacce dati sono instradabili verso tutti i client</block>
+  <block id="e4d77a44554985f77f43505af7fec244" category="list-text">Porte aggregate/raggruppate per nodo tramite LACP</block>
+  <block id="f5cf150f8aa95caf1f7a4a36c5294544" category="list-text">Dimensione MTU di 9000 (end to end)</block>
+  <block id="ce666dc94bda746495b8b36176b68d52" category="list-text">Controllo del flusso prioritario (PFC priority 3) abilitato quando usi RDMA</block>
+  <block id="6b0beef472a4e98ccc356b139a742818" category="list-text">Bilanciamento del carico round robin DNS configurato per includere tutti gli indirizzi IP delle interfacce dati</block>
+  <block id="8aa61d2edb84cc9fe02fd951ac48714b" category="section-title">Considerazioni sulla rete client</block>
+  <block id="1d1c6d217cf3b287ea2c13229b1e371f" category="list-text">Doppie NIC aggregate per RoCE (LACP)</block>
+  <block id="416cfacbff3a117f3ab3ec87077989fe" category="list-text">Buffer ad anello RX/TX impostati a 8192</block>
+  <block id="a5e84fb8b8190202b3270c64e3496a70" category="list-text">PFC e DSCP configurati per ciascuna NIC (quando si utilizza RDMA)</block>
+  <block id="0ef8ee337c535a29539b1ca5ed5e0042" category="list-text">Classe di traffico RoCE impostata tramite cma_roce_tos (quando usi RDMA)</block>
+  <block id="a604ab29abaa43e4991746a5fc3cc366" category="list-text">sunrpc.rdma_slot_table_entries impostato a 200</block>
+  <block id="2fd46baa6c8970ce51c49de7a941e8e0" category="section-title">Considerazioni aggiuntive sulle funzionalità di ONTAP</block>
+  <block id="23bf40f3100c3cfd4d56f508d3d26884" category="paragraph">Di seguito trovi le modifiche specifiche alla configurazione delle funzionalità ONTAP che non sono trattate in <block ref="5dc2e1ad2a883f0db54500769cfd226a" category="inline-xref-macro-rx"></block>, <block ref="f5fd2a9b3382d4184fe7ca04ef61be22" category="inline-xref-macro-rx"></block>, <block ref="a8ddbfd882ca51665186444a1d530986" category="inline-xref-macro-rx"></block>, <block ref="e0c0a42e8a03c89d49d7ac73af85b0aa" category="inline-xref-macro-rx"></block> o <block ref="fc1b185631f679e53d40e43d79cfb42d" category="inline-xref-macro-rx"></block>.</block>
+  <block id="170a02df89b5e5a117ddfedf354c7da4" category="section-title">Disabilita le efficienze di archiviazione</block>
+  <block id="2c5d6ac0c1a46198480daa79e26ad517" category="paragraph">In generale, le efficienze di archiviazione sono uno dei punti di forza per un carico di lavoro di produzione, perché possono generare grandi risparmi di spazio su una varietà di carichi di lavoro. Tuttavia, nei benchmark delle prestazioni, offrono meno valore (dato che molti carichi di lavoro simulati sono non comprimibili oppure sono carichi di lavoro a zero byte e sempre deduplicati). Di conseguenza, ti consigliamo di disabilitare tutte le efficienze di archiviazione durante l'esecuzione dei test di benchmark.</block>
+  <block id="65875c61e58078a0d0110c707950b5da" category="inline-link-macro">Efficienza dinamica dello storage in ONTAP 9.19.1</block>
+  <block id="4a2755c546e982dae4a309f25ba5bfa4" category="paragraph">Per sapere come funziona l'efficienza di archiviazione su AFX, inclusa la deduplicazione globale, vedi <block ref="f6a4e5f392dea02e52edfeb480e659cb" category="inline-link-macro-rx"></block>, <block ref="69ebea528f8de88780e77563f48d1438" category="inline-link-macro-rx"></block> e <block ref="7d95d1b44e971a8b31fa401962f874f9" category="inline-link-macro-rx"></block>.</block>
+  <block id="86a5638ccddbcd468185be2c3638f963" category="section-title">Lettura anticipata aggressiva</block>
+  <block id="af9f25116d000a48ae54c457b376b9b6" category="inline-link-macro">Lettura sequenziale tra file nell'amministrazione di AFX SVM</block>
+  <block id="c8757e14012ed4acc63f1cee91b0c093" category="paragraph">La prelettura aggressiva può aiutare a migliorare le prestazioni di lettura per carichi di lavoro specifici (come i file denominati in sequenza). La configurazione della funzionalità, le avvertenze e le statistiche sono trattate in <block ref="29c35f24ee23fab4f98d13d58967e75a" category="inline-link-macro-rx"></block>. Vedi anche <block ref="186dbfaf66584f1d95001292c50733bd" category="inline-link-macro-rx"></block>.</block>
+  <block id="ff81e3c45a6b4b5ed961ad4c9c2ec690" category="cell"><block ref="ff81e3c45a6b4b5ed961ad4c9c2ec690" category="inline-link-macro-rx"></block></block>
+  <block id="9a26c5e63ee339ac29e0fae94b7ecb02" category="inline-link-macro">Successivo: Gestione</block>
+  <block id="09dc531f35f47134129a1d79692f7f0d" category="cell"><block ref="09dc531f35f47134129a1d79692f7f0d" category="inline-link-macro-rx"></block></block>
+  <block id="0914c0ee63d323c745fa45db835613f4" category="paragraph">Ogni nodo di storage NetApp AFX fornisce una quantità specifica di throughput per le operazioni di lettura e scrittura. Man mano che vengono aggiunti nodi al cluster, le prestazioni aumentano linearmente, come descritto in <block ref="2bc60cd5be2806e2bf4a0a14b5838c8a" category="inline-link-macro-rx"></block>.</block>
+  <block id="23b43ede4557b73e6fa354124a73ba91" category="inline-link-macro">AFX 2K</block>
+  <block id="4790820e71d568645bb04f281809cab5" category="paragraph">Attualmente, i tipi di nodo sono <block ref="9cf787ca68118452f94875110bf7c0d8" category="inline-link-macro-rx"></block> e <block ref="a67c7f87cb090f0e7a2eb2e9e2ce04a7" category="inline-link-macro-rx"></block> e forniscono throughput per letture e scritture approssimativamente pari ai valori riportati di seguito*. Con la disponibilità di hardware più recente per NetApp AFX, questi limiti potrebbero cambiare.</block>
+  <block id="7243f720b1a11790b4333cc5b0935200" category="list-text">Valori prestazionali ottenuti utilizzando lo strumento di benchmark <block ref="451033c113f4cb2c96f7cf68d47e4bb7" category="inline-link-macro-rx"></block> e lettura/scrittura sequenziale.</block>
+  <block id="0afd336df6e2f35fa9136b405a81257e" category="admonition">Le prestazioni massime sono state raggiunte utilizzando più client che leggono e scrivono più file, come mostrato nella <block ref="b5e0ef07acc1f0284ac7885ebafed6e2" category="inline-link-macro-rx"></block> sezione seguente.</block>
+  <block id="830183f90a7d21bc3023a5a607dc46b7" category="cell">~17GB/s (+70% di aumento)</block>
+  <block id="913b914fe6c0068aa828d6146b79c0a5" category="paragraph">Ad esempio, in un cluster ONTAP unificato, ogni nodo dispone di un proprio set di dischi dedicati. Di conseguenza, le prestazioni sono indirizzate esclusivamente ai dischi di proprietà del nodo. Poiché solo un nodo può accedere a un set di dischi, le prestazioni sono limitate ai dischi a cui può accedere direttamente.</block>
+  <block id="82f771d84cb467c143d321be8dbc7f21" category="paragraph">NetApp AFX raggruppa tutti i dischi disponibili in un unico pool di capacità chiamato Storage Availability Zone (SAZ). Di conseguenza, tutti i nodi possono sfruttare tutti i dischi disponibili per lettura e scrittura. Poiché i dischi e i nodi sono disaccoppiati, non ti serviranno necessariamente tanti shelf per ottenere lo stesso (o migliore) throughput rispetto all'architettura unificata ONTAP. L'architettura disaggregata di NetApp AFX massimizza il potenziale di prestazioni di uno shelf di dischi.</block>
+  <block id="7f810f955c236680f67b2a1021577415" category="paragraph">A partire da ONTAP 9.19.1, il rapporto di saturazione nodo:shelf è di almeno 4:1 e 8:3 è possibile.</block>
+  <block id="eb50d5ff1b733e0ea8ecd75f8f287469" category="list-text">2 shelf</block>
+  <block id="55e02fe01c041de2df692e61c98d3d4c" category="list-text">ONTAP 9.19.1GA</block>
+  <block id="633e06a968c3d6bf3e6bcdb2e4e5e0d8" category="admonition">Vedi la sezione <block ref="3c132a78f1e5f9f536e14cc5956fa8f1" category="inline-link-macro-rx"></block> per indicazioni su come riprodurre questi risultati.</block>
+  <block id="4c67ea22e665230775a0cac794609c81" category="inline-link-macro">RFC-3530</block>
+  <block id="5ca4a464648228916bed3e4290c12670" category="inline-link-macro">RFC-7530</block>
+  <block id="2aea8188aa09e32f688c60c4c200cf7b" category="paragraph">Anche la sicurezza di NFSv3 presenta alcune lacune. Il protocollo richiede più porte firewall aperte per funzionare correttamente e gli ID numerici vengono inviati in chiaro sulla rete. Inoltre, NFS non dispone di un supporto ACL robusto e non include il controllo nativo di file e cartelle. A causa di queste limitazioni, NFSv4 è stato creato nel 2003 tramite <block ref="137ffaad1617b26215dd671ba64c17d0" category="inline-link-macro-rx"></block> (obsoleto nel 2015 da <block ref="d04016ec9c74ac358e156447074d1dc9" category="inline-link-macro-rx"></block>).</block>
+  <block id="0f9e52013f33fae4ae5e41b82a7a5bae" category="paragraph">*NetApp AFX – prestazioni di IO dei metadati NFSv4.1 in NetApp AFX*</block>
+  <block id="c85979dc9df0293013c870a3a6c3d3ea" category="inline-link-macro">Precedente: Modifiche al volume root</block>
+  <block id="912d5aab8dcb1cd097adc139fa840209" category="cell"><block ref="912d5aab8dcb1cd097adc139fa840209" category="inline-link-macro-rx"></block></block>
+  <block id="84ea3e0adf726b3a2dc9267da60f6105" category="inline-link-macro">Avanti: Suggerimenti per il benchmark delle prestazioni</block>
+  <block id="50647fb6d245be71630049c337547d50" category="cell"><block ref="50647fb6d245be71630049c337547d50" category="inline-link-macro-rx"></block></block>
+  <block id="67e3534cd0feec346d52509c43cc0189" category="inline-link-macro">Documentazione AFX</block>
+  <block id="aac324dd49176e0372c0960e9c0fc007" category="list-text"><block ref="aac324dd49176e0372c0960e9c0fc007" category="inline-link-macro-rx"></block></block>
+  <block id="b46cafb5f9677057bdc8d99d3dac0f2d" category="inline-link-macro">Novità di ONTAP 9.19.1 per i sistemi di storage AFX</block>
+  <block id="3cf6740992b2105d85fd83c427cf30e4" category="list-text"><block ref="3cf6740992b2105d85fd83c427cf30e4" category="inline-link-macro-rx"></block></block>
+  <block id="d6dc68843165a684e987738e53b08c30" category="cell"><block ref="d6dc68843165a684e987738e53b08c30" category="inline-link-macro-rx"></block></block>
+  <block id="d24862edb68c4a3a6f1a12cc75785b18" category="inline-link-macro">Note di rilascio di ONTAP 9.19.1 AFX</block>
+  <block id="fc76d3c0e9382c04e62e5d88900c3a49" category="paragraph">Questa sezione contiene gli ultimi aggiornamenti per NetApp AFX e verrà aggiornata a ogni nuova versione. Torna a visitarla periodicamente per nuove informazioni, ma consulta anche <block ref="ee1f402c892dac49546e6fbc1d5fbce2" category="inline-link-macro-rx"></block>.</block>
+  <block id="9aa1f45719bf858ed30c6b1c92007d1d" category="paragraph">ONTAP 9.19.1GA (a partire da agosto 2026)</block>
+  <block id="c49dda61c923792fa4c954cb9d9ae5e2" category="inline-link-macro">Amministrazione SVM AFX</block>
+  <block id="6cf1aa323e659d9411cbcb428fda6a9e" category="list-text"><block ref="a826e33851b9cd0c3eb6a6e5c38e66aa" category="inline-link-macro-rx"></block> (vedi anche <block ref="6817b90667db38df65a7c04862346459" category="inline-link-macro-rx"></block>)</block>
+  <block id="0d99023b8d28443eecf4e91f63c871e2" category="list-text"><block ref="0d99023b8d28443eecf4e91f63c871e2" category="inline-link-macro-rx"></block></block>
+  <block id="6cdccfce9fefe85e6a9e9af76d4741ca" category="list-text"><block ref="bf8af62a71ca6281d6ca195ace50f233" category="inline-link-macro-rx"></block> (Lettura sequenziale tra file; vedi anche <block ref="19edcd61cb92eab338aecb0e5018dfb1" category="inline-link-macro-rx"></block>)</block>
+  <block id="b33131f5b5ac21f0d5c9588497fc6515" category="list-text"><block ref="121852755e21d112047104d291a1bf20" category="inline-link-macro-rx"></block> (vedi anche <block ref="8057bcb5fa3400871df7c7ff4e1295c3" category="inline-link-macro-rx"></block>)</block>
+  <block id="28667deb0757cf6329fb42c1d5b62b74" category="list-text"><block ref="28667deb0757cf6329fb42c1d5b62b74" category="inline-link-macro-rx"></block></block>
+  <block id="0699502353a45b9f902c4dab6106e095" category="list-text"><block ref="0699502353a45b9f902c4dab6106e095" category="inline-link-macro-rx"></block></block>
+  <block id="e988e5fd54b0b79f1d8fa9ce06ad58d5" category="cell">Versione 1.1</block>
+  <block id="63cbcbd8d90445f614dcfd8f2e998868" category="cell">Agosto 2026</block>
+  <block id="9c184e36c045df25198fbfca88d490f6" category="cell">Aggiornato questo report tecnico per ONTAP 9.19.1GA. Copre le nuove funzionalità di AFX, la scalabilità a 32 nodi e 32PB, le prestazioni e l'hardware di AFX 1K e AFX 2K, il dimensionamento degli switch e degli shelf del cluster, i limiti della piattaforma aggiornati, una pagina con suggerimenti per i benchmark delle prestazioni e ulteriori link alla documentazione del prodotto.</block>
+  <block id="b12ef7cbb51744b90c455c58d40b1d46" category="cell"><block ref="b12ef7cbb51744b90c455c58d40b1d46" category="inline-link-macro-rx"></block></block>
+  <block id="ad54e6f7d665098e981d7e41732ce4c2" category="inline-link-macro">A seguire: Architettura</block>
+  <block id="c6c7c72c67d9841863b0652c4dedcecb" category="cell"><block ref="c6c7c72c67d9841863b0652c4dedcecb" category="inline-link-macro-rx"></block></block>
 </blocks>

@@ -1,0 +1,43 @@
+---
+sidebar: sidebar 
+permalink: afx/afx-architecture-independent-scale.html 
+keywords: netapp afx, independent scale, linear scale, compute, capacity, performance 
+summary: Scopri come NetApp AFX scala in modo indipendente la potenza di calcolo e la capacità, offrendo al contempo prestazioni lineari per nodo. 
+---
+= Scala lineare indipendente
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/afx/
+
+
+[role="lead"]
+L'architettura disaggregata NetApp AFX consente alle risorse di capacità e di calcolo di scalare in modo indipendente e alle prestazioni dei nodi di scalare linearmente.
+
+
+
+[[independent-scale-of-capacity-and-compute-nodes]]
+== Scalabilità indipendente della capacità e dei nodi di calcolo
+
+Grazie al disaccoppiamento delle risorse hardware nella NetApp AFX architecture, i nodi non necessitano più di dischi associati da aggiungere uno accanto all'altro. Quando un cluster ha una disponibilità limitata di risorse legate alle performance, come RAM, CPU o throughput di rete, è sufficiente aggiungere solo nodi di storage al cluster, che potranno sfruttare la Storage Availability Zone esistente. Viceversa, se il requisito è la capacità, sarà necessario aggiungere solo gli shelf. Questa flessibilità garantisce che vengano acquistate solo le risorse necessarie, evitando così il sovradimensionamento.
+
+*NetApp AFX – Scala indipendente*
+
+image:image12.png["Immagine"]
+
+
+
+[[linear-scaling-of-node-performance]]
+== Scalatura lineare delle prestazioni del nodo
+
+Con l'aggiunta di nodi a un cluster AFX, vengono introdotte nel carico di lavoro ulteriori risorse di CPU, RAM e risorse di rete. Man mano che queste risorse vengono incorporate nell'ambiente, gli aumenti delle prestazioni sono di natura lineare. Il grafico seguente mostra come tali prestazioni aumenterebbero con l'aggiunta di nodi.
+
+*Le prestazioni aumentano in modo lineare con l'aggiunta di nodi NetApp AFX*
+
+image:image13.png["Immagine"]
+
+[cols="1,1"]
+|===
+
+
+| link:afx-architecture-nvram-ha.html["Precedente: NVRAM replicata e comportamento di failover HA"] | link:afx-architecture-raid.html["Successivamente: modifiche al RAID"] 
+|===

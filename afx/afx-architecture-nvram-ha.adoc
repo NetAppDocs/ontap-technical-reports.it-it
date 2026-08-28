@@ -1,0 +1,73 @@
+---
+sidebar: sidebar 
+permalink: afx/afx-architecture-nvram-ha.html 
+keywords: netapp afx, nvram replication, high availability, ha failover, volume rebalance 
+summary: Scopri come NetApp AFX replica NVRAM sulla rete backend e ribilancia i volumi durante il failover in alta disponibilità. 
+---
+= NVRAM replicata e comportamento di failover HA
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/afx/
+
+
+[role="lead"]
+NetApp AFX sposta la replica della NVRAM sulla rete del cluster di backend e utilizza la mobilità dei volumi a copia zero per ribilanciare il carico di lavoro dopo un guasto di un nodo.
+
+
+
+[[nvram-moved-from-direct-connection-to-switched-replication]]
+== NVRAM è passata dalla connessione diretta alla replica commutata
+
+ONTAP utilizza NVRAM come staging per proteggere le scritture in entrata in un cluster. Ogni nodo in un cluster ONTAP dispone di una scheda NVRAM supportata dalla batteria. Quando una scrittura viene inviata a un volume da un client, viene prima memorizzata nella NVRAM. Il contenuto della NVRAM viene quindi trasferito su disco quando la NVRAM è piena o quando un timer di 10 secondi scade (a seconda di quale evento si verifichi per primo). Questo è noto come consistency point.
+
+Il contenuto della NVRAM viene inoltre costantemente replicato tra le coppie HA, il che contribuisce ulteriormente a proteggere la coerenza dei dati, perché in caso di guasto di un nodo, il contenuto della NVRAM verrà conservato sul nodo rimanente e scritto su disco.
+
+Nei cluster ONTAP unificati, le schede NVRAM tra le coppie HA sono collegate direttamente tra loro. NetApp AFX sposta la replica NVRAM nella rete di backend del cluster. Di conseguenza, i nodi partner HA non hanno un requisito di distanza così stringente per i nodi. Invece, le coppie HA possono essere separate fino alla distanza massima consentita da ethernet.
+
+*Replica NVRAM NetApp AFX*
+
+image:image10.png["Immagine"]
+
+
+
+[[ha-failover-behavior]]
+== comportamento di failover HA
+
+In ONTAP unificato, i nodi possiedono dischi e aggregati, dove i dati vengono serviti tramite volumi. Le scritture vengono eseguite utilizzando la NVRAM locale del nodo per trasferirle sui dischi di proprietà del nodo stesso. Quando un nodo viene riavviato o si guasta, ONTAP attiva un takeover delle risorse del nodo guasto, trasferendo la proprietà di dischi e aggregati al nodo partner. Anche le interfacce di rete vengono trasferite a porte nello spazio IP e, poiché il contenuto della NVRAM viene costantemente replicato sulla coppia HA, il nodo trasferisce il contenuto della NVRAM per confermare le scritture del nodo guasto sui dischi. Successivamente, il nodo sopravvissuto possiederà gli aggregati e i volumi del nodo guasto fino al ripristino della proprietà del nodo. Ciò significa che tutto il traffico verso tali volumi, così come verso i volumi già di proprietà del nodo sopravvissuto, verrà elaborato su un singolo nodo fino alla risoluzione del problema di failover.
+
+Nell'ambito della distribuzione iniziale di un cluster ONTAP unificato, si raccomanda di pianificare in anticipo i failover per evitare che un singolo nodo sovraccarichi il suo partner. Questo rappresenta di per sé una sfida, poiché è difficile prevedere quali volumi potrebbero essere dalle performance elevate, ma funzionalità come lo spostamento non interruttivo dei volumi e le policy di qualità del servizio dei volumi possono contribuire a mitigare il problema.
+
+Le immagini seguenti mostrano come i cluster ONTAP unificati possano presentare uno squilibrio delle performance tra i nodi e come un failover possa causare un peggioramento delle performance in alcuni casi.
+
+*Unified ONTAP – potenziali squilibri nell'utilizzo dei nodi*
+
+image:image25.png["Immagine"]
+
+Quando i nodi di una coppia HA presentano uno squilibrio tra volumi totali e utilizzo delle prestazioni, i failover dei nodi influiranno sulle prestazioni complessive, poiché il nodo sopravvissuto si troverà a gestire tutti i volumi del nodo guasto. Nel frattempo, altri nodi del cluster potrebbero avere spazio per assumere ulteriore carico di lavoro.
+
+*Unified ONTAP – Impatto del failover sull'utilizzo dei nodi*
+
+image:image26.png["Immagine"]
+
+Come spiegato sopra, quando un partner HA deve assumersi un carico di lavoro aggiuntivo, può potenzialmente sovraccaricarsi e compromettere le performance di tutti i volumi su quel nodo. Lo spostamento dei volumi può contribuire ad alleviare la situazione, ma richiede copie tra i nodi (il che richiede spazio libero), e il tempo necessario potrebbe superare il tempo necessario per il failback dei nodi. Inoltre, se si sposta un volume, questo non verrà eseguito il failback sul nodo originale. Rimarrà invece sul nodo su cui è stato spostato.
+
+Con NetApp AFX, i failover dei nodi assumono comportamenti leggermente diversi.
+
+* Poiché i nodi non possiedono dischi e non esistono aggregati fisici, un failover di un nodo non richiederà il trasferimento di tali risorse. Invece, solo le interfacce di rete e la proprietà dei volumi vengono trasferite agli altri nodi.
+* Le operazioni di commit sulla NVRAM avvengono ancora, ma tramite la rete HA anziché tramite una connessione diretta.
+* Una volta che i volumi hanno eseguito il failover iniziale sul nodo partner, AFX ridistribuirà i volumi sugli altri nodi rimanenti del cluster. Ciò è reso possibile dallo spostamento dei volumi senza copia.
+* Quando il nodo viene ripristinato, i volumi verranno spostati nuovamente sul nodo originale.
+
+
+NetApp AFX mantiene già un bilanciamento delle prestazioni tra i nodi del cluster per garantire un utilizzo relativamente uniforme, quindi quando si verifica un failover e i volumi vengono ribilanciati, l'utilizzo dei nodi dovrebbe essere pressoché identico in tutto il cluster.
+
+*NetApp AFX - Ribilanciamento del volume dopo il failover*
+
+image:image27.png["Immagine"]
+
+[cols="1,1"]
+|===
+
+
+| link:afx-architecture-capacity-pool.html["Precedente: Single capacity pool"] | link:afx-architecture-independent-scale.html["Successivo: scala lineare indipendente"] 
+|===

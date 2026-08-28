@@ -1,0 +1,39 @@
+---
+sidebar: sidebar 
+permalink: afx/afx-architecture-root-volume.html 
+keywords: netapp afx, root volume, boot media, nvme, m.2, cluster database 
+summary: Scopri come NetApp AFX virtualizza i volumi root e sposta le immagini di avvio e i database del cluster sui supporti di avvio integrati. 
+---
+= Modifiche al volume root
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/afx/
+
+
+[role="lead"]
+NetApp AFX elimina gli aggregati root fisici e utilizza i supporti di avvio NVMe integrati per le immagini di avvio e i database del cluster replicati.
+
+
+
+[[root-volume-changes]]
+== Modifiche al volume root
+
+In NetApp ONTAP, a ciascun nodo viene assegnato un volume root, utilizzato per file e funzioni specifici del sistema, come file di log, immagini di avvio, file core, database del cluster e altro ancora.
+
+In unified ONTAP, questi volumi root risiedevano su aggregati root fisici. Per ridurre la quantità di capacità utilizzata dagli aggregati root, questi venivano creati su partizioni di unità dati tramite Advanced Disk Partitioning (ADP).
+
+NetApp AFX elimina gli aggregati fisici dall'equazione e, di conseguenza, elimina la necessità di utilizzare aggregati root e ADP. I volumi root rimangono un concetto, ma ora risiedono in aree virtualizzate del pool di capacità e non richiedono configurazioni aggiuntive. Inoltre, la funzionalità del volume root cambia. Le immagini di avvio e i database del cluster replicati vengono spostati dallo stack di storage a un supporto di avvio integrato presente su ciascun nodo AFX. Ora, se si perde l'accesso allo stack di storage, i nodi possono comunque avviarsi e mantenere l'idoneità al cluster, semplificando la risoluzione dei problemi.
+
+
+
+[[onboard-boot-media]]
+== Supporto di avvio integrato
+
+NetApp I nodi AFX utilizzano supporti di avvio integrati, ovvero dispositivi M.2 NVMe da circa 3,8TB. Questi dispositivi di avvio contengono file immagine di avvio e database replicati, separati dagli enclosure di storage, il che garantisce una maggiore ridondanza in caso di problemi di accesso al disco. In caso di guasto del supporto di avvio, il nodo verrà gestito dalla sua coppia HA e il supporto di avvio potrà essere sostituito. Una volta sostituito, un amministratore dello storage caricherà una nuova immagine ONTAP sul dispositivo e ONTAP ricostruirà automaticamente il cluster database per ripristinare la piena funzionalità.
+
+[cols="1,1"]
+|===
+
+
+| link:afx-architecture-cluster-scale.html["Precedente: Scala del cluster"] | link:afx-performance.html["Avanti: Prestazioni"] 
+|===
