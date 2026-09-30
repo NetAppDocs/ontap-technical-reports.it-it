@@ -1,0 +1,172 @@
+---
+sidebar: sidebar 
+permalink: high-file-count-workloads/high-file-count-workloads-02-maxdirsize.html 
+keywords: ONTAP, NAS, maxdir-size, maxdirsize, directory file, filename 
+summary: Comprendi cosa misura ONTAP maxdir-size e come viene calcolata la dimensione dei file di directory. 
+---
+= Dimensione massima delle directory e directory ONTAP di grandi dimensioni
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/high-file-count-workloads/
+
+
+[role="lead"]
+`maxdir-size`limita le dimensioni di ciascun file di directory in un volume ONTAP, ponendo un limite alla capacità che può essere allocata per i nomi in quella directory. È indipendente dal limite di inode del volume `maxfiles`, e non esiste un limite statico definibile per il numero di nomi in una singola directory, perché tale valore è variabile e si basa su diversi fattori, come la lunghezza del nome, i tipi di caratteri e così via. Per ulteriori dettagli, vedi link:high-file-count-workloads-02-maxdirsize.html#estimating-the-number-of-names-per-directory-file["Stima del numero di nomi per file di directory"].
+
+
+
+[[what-is-a-directory-in-ontap]]
+== Che cos'è una directory in ONTAP?
+
+Una directory WAFL è un file di metadati che associa i nomi ai numeri di inode. Le sue dimensioni non corrispondono alla somma dei dati memorizzati nei file sotto quella directory, ma dipendono invece da quanti nomi contiene la directory e da quanto spazio di directory richiede ciascuno di quei nomi. Una directory appena creata parte da 4 KiB e cresce in blocchi di directory da 4 KiB man mano che aggiungi voci.
+
+La directory occupa un inode, il cui record è memorizzato nel file inode a livello di volume (che è distinto per concetto e funzione). I nomi della directory sono memorizzati nei blocchi di dati della directory stessa. L'aggiunta di altri nomi aumenta le dimensioni del singolo file di directory e può avvicinarsi al limite `maxdir-size`, mentre la creazione di altri oggetti del file system (come file, directory, ACL e flussi denominati) alloca più record inode e può far crescere il file inode a livello di volume verso i limiti `maxfiles`. Il numero di voci di nome in un singolo blocco di directory da 4KiB è determinato dal modo in cui deve essere memorizzato ciascun nome, che dipende dalla sua lunghezza e dalla codifica dei caratteri.
+
+
+
+[[directory-block-layout]]
+=== Layout a blocchi della directory
+
+Un file di directory ONTAP cresce in blocchi da 4 KiB, dove ogni blocco è limitato a un numero variabile di record di voci e chunk di nomi in base alla dimensione di ciascuno. Un chunk di nome in ONTAP è uno slot da 16 byte che memorizza parte di un nome di file; ogni nome occupa un record di voce più tanti chunk da 16 byte quanti ne richiede la sua lunghezza codificata.
+
+Esempio di come i segmenti del nome verrebbero allocati in un nome di 48 byte:
+
+[link=../media/high-file-count-workloads/directory-name-chunks-48-byte.png]
+image::directory-name-chunks-48-byte.png[Diagramma di un nome file di 48 byte memorizzato come tre blocchi di nome da 16 byte più un blocco di overhead Unicode in forma abbreviata da 16 byte]
+
+
+
+[[max-number-of-directory-blocks-and-maximum-number-of-names]]
+=== Numero massimo di blocchi di directory e numero massimo di nomi
+
+Il numero massimo di blocchi di directory consentiti è determinato dal valore  `maxdir-size`.
+
+Con una dimensione della directory di 320 MB, puoi allocare fino a 81.920 blocchi di directory (320 MB / 4 KiB, dove 320 MB corrispondono a 335.544.320 byte perché ONTAP riporta questi valori in unità binarie). Pertanto, il numero totale di nomi consentiti nel file di directory dipende dal numero di voci consentite per blocco di directory.
+
+
+
+==== Come sono costruiti i blocchi di directory
+
+Ogni blocco di directory da 4 KiB è suddiviso allo stesso modo:
+
+* Fino a 128 record di voci di 12 byte ciascuno (1536 byte)
+* Un pool condiviso di 160 blocchi di nomi da 16 byte ciascuno (2560 byte)
+
+
+Insieme, questi elementi occupano un blocco da 4 KiB. Ogni nome memorizzato necessita di un record di voce e di uno o più blocchi di nome, e il pool che si esaurisce per primo — i 128 record di voce o i 160 blocchi di nome — determina quanti nomi può contenere quel blocco. Con i nomi ASCII, sono i blocchi di nome a esaurirsi per primi. Di conseguenza, né `maxdir-size / filename-length` né un rapporto file per megabyte fisso sono esatti.
+
+Nel grafico sottostante, vediamo il nome di 48 byte dell'esempio precedente. Quel nome occupa un singolo record di 12 byte più i quattro blocchi di nome da 16 byte (64 byte) mostrati in precedenza.
+
+[link=../media/high-file-count-workloads/directory-block-4kib-layout.png]
+image::directory-block-4kib-layout.png[Diagramma di un blocco di directory da 4 KiB che mostra il nome breve Unicode di 48 byte utilizzando un record di entry da 12 byte e quattro blocchi di nome da 16 byte]
+
+{nbsp}
+
+Il pool di 160 chunk esaurirà lo spazio nel blocco prima che i record di voce vengano consumati. 160 chunk totali / 4 chunk danno 40 di questi nomi per blocco. In alternativa, 88 dei 128 record di voce rimangono inutilizzati. Un nome di uso quotidiano più breve richiederebbe solo tre chunk, quindi lo stesso blocco di directory da 4 KiB può contenere invece circa 53 di questi nomi. Questo illustra come la dimensione di un nome possa influire direttamente sul numero di nomi consentiti in una singola directory.
+
+
+
+[[estimating-the-number-of-names-per-directory-file]]
+=== Stima del numero di nomi per file di directory
+
+Per stimare approssimativamente quanti nomi possono essere contenuti in una directory, calcola innanzitutto quanti nomi possono essere contenuti in un singolo blocco da 4 KiB, quindi moltiplica per il numero di blocchi consentiti dal limite. (Ricorda, con un limite di 320 MB, si tratta di 81.920 blocchi.)
+
+Il numero di nomi che possono essere memorizzati in un blocco dipende dalla quantità di spazio occupata da ciascun nome. I nomi più corti e semplici occupano meno spazio, quindi ne possono essere memorizzati di più; i nomi più lunghi, o i nomi che ONTAP deve memorizzare in un formato più ampio, occupano più spazio e lasciano spazio per un numero inferiore di nomi:
+
+* I nomi di uso quotidiano fino a circa 32 caratteri (ad esempio, `report-2026.csv`) occupano tutti lo stesso spazio e circa 53 possono essere inseriti in un unico blocco.
+* I nomi più lunghi ne contengono meno — ad esempio, un nome di 48 caratteri ne contiene circa 40 per blocco.
+* I nomi che devono essere memorizzati in un formato più esteso occupano circa il doppio dello spazio, quindi ce ne stanno meno. Questo vale per i nomi con caratteri non ASCII (come testo accentato o dell'Asia orientale), i nomi che hanno anche un nome alternativo NFS e le voci remote FlexGroup. Un nome di 32 caratteri di questo tipo ne contiene circa 26 per blocco, a causa dello spazio richiesto dai caratteri speciali. Se SMB genera anche un alias breve "8.3" insieme al nome lungo, anche quell'alias occupa spazio aggiuntivo.
+
+
+I volumi meno recenti che memorizzano nomi legacy in stile DOS "8.3" possono contenere fino a 128 voci per blocco perché questi nomi sono molto piccoli (meno byte). Tuttavia, non vedrai questo comportamento sui volumi moderni con nomi normali. Questo perché gli attuali volumi ONTAP memorizzano i nomi in formato Unicode (C.UTF-8 per impostazione predefinita), così possono supportare nomi di file lunghi e caratteri internazionali tramite NFS e SMB, anziché i nomi in stile DOS di otto caratteri su cui si basavano sistemi molto più vecchi. Per maggiori dettagli sulle lingue dei volumi, vedi <insert link here>.
+
+Poiché i nomi possono variare notevolmente, non esiste un numero fisso di file consentiti in una directory. Un dato utile per la pianificazione è fino a circa 4,3 milioni di nomi ordinari con un'impostazione di 320 MB per un volume FlexVol. Per nomi ordinari qui si intendono fino a circa 32 caratteri ASCII. Questo è un esempio approssimativo, non una garanzia, e non richiede che i nomi abbiano una lunghezza specifica. La tabella seguente mostra alcuni casi comuni e il numero approssimativo di nomi consentiti in una singola directory con un'impostazione di 320 MB.
+
+[cols="3,3,1,2"]
+|===
+| Nome del profilo | Nome del file di esempio | Nomi per blocco da 4 KiB | Nomi in una directory da 320 MB 
+
+
+| Nome breve e comune (8 caratteri) | `f0001.db` | 53 | 4.341.758 
+
+
+| Nome comune (32 caratteri) | `project-alpha-run0142-input1.dat` | 53 | 4.341.758 
+
+
+| Nome più lungo (48 caratteri) | `run-2026-09-21-node07-sensor-array-01423.parquet` | 40 | 3.276.798 
+
+
+| Nome con caratteri non ASCII o una voce FlexGroup (32 caratteri) | `résumé-final-2026-09-21-v03.docx` | 26 | 2.129.918 
+
+
+| Nome che include anche un nome alternativo NFS (32 caratteri) | `Marketing-Overview-2026Q3v2.pptx`con alternativa `MARKET~1.PPT` | 22 | 1.802.238 
+|===
+*Nota:* I conteggi presuppongono che siano presenti le voci  `.` e  `..`, motivo per cui ogni valore è leggermente inferiore a quello che risulterebbe dal calcolo matematico.
+
+In sintesi, lo stesso limite di 320 MB può contenere fino a circa 4,3 milioni di nomi brevi di uso quotidiano, ma meno della metà se i nomi sono memorizzati in un formato più ampio. Se ogni nome raggiunge il massimo del protocollo di 255 caratteri, sarebbero consentiti solo circa 737.000 nomi.
+
+
+
+[[filename-length-compared-with-path-length]]
+=== Confronto tra la lunghezza del nome del file e la lunghezza del percorso
+
+ `maxdir-size`Tiene conto del nome base memorizzato in una specifica directory padre. Non memorizza l'intero percorso assoluto in ogni voce. Ogni componente del percorso è una voce nella propria directory padre. Pertanto, strutture di directory più profonde non aumenterebbero l'utilizzo `maxdir-size`.
+
+Una gerarchia più profonda aggiunge directory e inode pubblici al volume, ma riduce il numero di nomi memorizzati in ciascuna directory. Questo compromesso in genere migliora la scalabilità e le prestazioni complessive.
+
+*Nota:* I limiti di lunghezza del percorso del protocollo e del client si applicano comunque in modo indipendente.
+
+
+
+[[how-the-maxdir-size-cap-behaves]]
+== Come si comporta il limite maxdir-size
+
+Il limite si applica a ogni directory del volume in modo indipendente e rappresenta un limite, non una prenotazione. Un'impostazione di 320 MB non riserva istantaneamente 320 MB di capacità del volume; consente semplicemente a qualsiasi directory di espandersi fino a raggiungere tale dimensione.
+
+L'elenco seguente riporta alcune considerazioni:
+
+* Se un file di directory raggiunge una dimensione di 320 MB in blocchi, questi blocchi utilizzano 320 MB di capacità effettiva del volume.
+* Una volta che un file di directory raggiunge una dimensione elevata, questa rimane costante anche se in seguito elimini delle voci.
+* L'eliminazione di file o directory rende riutilizzabili gli slot di voce corrispondenti, ma non compatta il file di directory.
+* Le directory indicizzate possono perforare blocchi da 4 KiB completamente vuoti (disponibile in ONTAP 9.5 e versioni successive) e recuperare tali blocchi fisici sul disco, ma la dimensione del file di directory riportata normalmente non si riduce.
+
+
+*Nota:* L'indice della directory complementare che ONTAP crea per le directory di grandi dimensioni consuma una propria capacità di metadati e un inode, ma non fa parte del file di directory e non viene mai conteggiato `maxdir-size`. Se l'indice è configurato per occupare spazio inode pubblico a scopo di replica SnapMirror, viene invece conteggiato `maxfiles` (il limite di inode pubblici).
+
+Per dettagli, vedi link:high-file-count-workloads-04-maxdirsize-indexing.html["Indicizzazione delle directory in ONTAP"].
+
+
+
+[[raising-the-maxdir-size-value]]
+=== Aumentare il valore di maxdir-size
+
+* Si applica a tutte le directory del volume
+* Consente ai file di directory di crescere oltre il limite precedente
+* Non prealloca né riserva il nuovo valore massimo
+* Non aggiunge inode pubblici né modifica `maxfiles`
+* Non fa sì che una directory esistente occupi immediatamente spazio
+
+
+Per sapere come controllare il limite configurato e la dimensione attuale di una directory, vedi link:high-file-count-workloads-03-maxdirsize-view.html["Visualizza maxdir-size e la dimensione dell'attuale directory"].
+
+
+
+[[do-flexgroup-volumes-bypass-maxdir-size-limitations]]
+== I volumi FlexGroup ignorano le limitazioni relative alla dimensione massima della directory?
+
+No. A FlexGroup non moltiplica la dimensione di una directory `maxdir-size` per il numero di elementi costitutivi. Il file della directory risiede comunque su un singolo elemento costitutivo e le voci remote possono far crescere quel file più velocemente rispetto agli stessi nomi su un FlexVol. Per informazioni su posizionamento, inflazione delle voci remote e dati di pianificazione, vedere link:high-file-count-workloads-06-maxdirsize-volume-types.html#flexgroup-volumes["Volumi FlexGroup"].
+
+[cols="<,>"]
+|===
+
+
+| link:high-file-count-workloads-01-overview.html["← Precedente: NetApp ONTAP workload con numero elevato di file per volumi NAS"] | link:high-file-count-workloads-03-maxdirsize-view.html["Successivamente: Visualizza maxdir-size e la dimensione di attuale directory →"] 
+|===
+
+
+[[related-information]]
+== Informazioni correlate
+
+* link:high-file-count-workloads-06-maxdirsize-volume-types.html["Considerazioni sul volume"]
+* link:https://docs.netapp.com/us-en/ontap/volumes/cautions-increasing-maximum-directory-size-concept.html["Dimensione massima della directory per i volumi FlexVol"^]
+

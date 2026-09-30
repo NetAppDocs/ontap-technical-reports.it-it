@@ -18,6 +18,13 @@ NetApp NAS semplifica la gestione dei dati e ti aiuta a tenere il passo con la c
 
 
 
+[[high-file-count-workloads]]
+== Carichi di lavoro con un elevato numero di file
+
+link:high-file-count-workloads/high-file-count-workloads-01-overview.html["NetApp ONTAP supporta carichi di lavoro con un numero elevato di file per volumi NAS"] Scopri come i carichi di lavoro NAS con un numero elevato di file utilizzano i metadati ONTAP, come  `maxfiles` e  `maxdir-size` definiscono diversi limiti di scalabilità e come pianificare gli spazi dei nomi per capacità e prestazioni.
+
+
+
 [[smb]]
 == PMI
 

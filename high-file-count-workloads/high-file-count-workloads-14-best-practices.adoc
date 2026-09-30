@@ -1,0 +1,340 @@
+---
+sidebar: sidebar 
+permalink: high-file-count-workloads/high-file-count-workloads-14-best-practices.html 
+keywords: ONTAP, NAS, high file count, best practices, maxfiles, maxdir-size, maxdirsize, FlexGroup, NFS, SMB 
+summary: Pianifica, implementa, monitora e gestisci carichi di lavoro NAS con un numero elevato di file su ONTAP. 
+---
+= Procedure consigliate per carichi di lavoro NAS con un elevato numero di file
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/high-file-count-workloads/
+
+
+[role="lead"]
+La progettazione di carichi di lavoro con un elevato numero di file deve tenere conto del numero totale di inode pubblici, delle voci nella directory più grande, della frequenza delle operazioni sui metadati e delle attività del ciclo di vita. Raccogli questi input come descritto in link:high-file-count-workloads-13-planning.html["Approccio alla pianificazione"], quindi usa questi consigli. Non considerare il numero di file come un singolo limite né affidarti esclusivamente alla capacità dei dati.
+
+
+
+[[profile-the-namespace-before-sizing-storage]]
+== Analizza il profilo dello spazio dei nomi prima di dimensionare lo storage
+
+Raccogli o stima:
+
+* Numero totale attuale e massimo di file, directory, flussi e oggetti ACL
+* Crescita annuale o della fase del progetto
+* Picco di file creati ed eliminati al secondo
+* Numero massimo di voci in una directory
+* Distribuzione della lunghezza dei nomi file e dei set di caratteri
+* Utilizzo di SMB DOS 8.3 o nomi NFS alternativi
+* Velocità di lettura, scrittura, ricerca, attributi, enumerazione, ridenominazione ed eliminazione
+* calendario di Snapshot e conservazione
+* Frequenza di backup, replica, migrazione, analisi e scansione di sicurezza
+
+
+Utilizza i valori massimi di utilizzo anziché le medie giornaliere. Le pipeline di build, i processi di analisi, le migrazioni e i flussi di lavoro temporanei spesso creano il loro namespace più grande per un breve periodo e poi lo eliminano, ma gli inode e i file di directory possono conservare i valori massimi di utilizzo anche dopo l'eliminazione.
+
+
+
+[[size-maxfiles-and-maxdir-size-independently]]
+== Dimensiona maxfiles e maxdir-size in modo indipendente
+
+Mantieni due previsioni separate:
+
+. *Previsione degli inode del volume:* tutti gli oggetti pubblici del file system previsti in FlexVol o in ciascun costituente FlexGroup.
+. *Previsione della directory più grande:* byte del file di directory su disco per la directory con il maggior numero di nomi o con i nomi più lunghi.
+
+
+*Non derivare un valore dall'altro.* Uno spazio dei nomi frammentato (file suddivisi in molte directory) può esaurirsi `maxfiles`senza creare una directory di grandi dimensioni. Una singola directory piatta può raggiungere il `maxdir-size`limite mentre il volume ha milioni di inode liberi.
+
+*Non dimensionare  `maxfiles`in base al solo numero di file visibili su NTFS o su namespace con molte ACL.* Includi directory, inode ACL, stream denominati e altri oggetti pubblici nelle tue proiezioni. Dove le ACL sono molto diffuse, usa fino al doppio del numero previsto di file e directory come stima iniziale prudenziale per  `files`, quindi convalida con dati rappresentativi, perché la condivisione delle ACL può ridurre l'utilizzo effettivo.
+
+* Per i volumi con un elevato numero di file, imposta `files` sul valore corrente `files-maximum-possible` quando le dimensioni del volume e i vincoli del protocollo lo consentono. Tale limite non prealloca spazio; consente a `files-used` di crescere entro il limite consentito anziché richiedere aumenti ripetuti.
+* Aumenta  `maxdir-size`solo in caso di comprovata necessità relativa a una singola directory, in genere con incrementi di circa il 2%. Vedi link:high-file-count-workloads-11-maxfiles-controlling.html["Controllo di maxfiles"] e link:high-file-count-workloads-05-maxdirsize-impact.html#what-happens-when-maxdir-size-is-exceeded["Cosa succede quando viene superato maxdir-size?"].
+
+
+Vedi link:high-file-count-workloads-09-maxfiles.html["Tipi di inode ONTAP"] e link:high-file-count-workloads-02-maxdirsize.html["Dimensione massima delle directory e directory ONTAP di grandi dimensioni"].
+
+
+
+[[prefer-a-sharded-directory-structure]]
+== Preferisci una struttura di directory partizionata
+
+Esistono tre layout di namespace comuni.
+
+* *Piatta:* una o poche directory contengono molti file allo stesso livello.
+* *Ampio:* numerose directory di primo livello dividono i file.
+* *Profondo:* meno directory di primo livello portano a più livelli di sottodirectory.
+
+
+[link=../media/high-file-count-workloads/namespace-layouts-flat-wide-deep.png]
+image::namespace-layouts-flat-wide-deep.png[Diagramma che confronta uno spazio dei nomi piatto con molti file in una directory,700,and a deep namespace with fewer top-level directories and multiple subdirectory levels]
+
+Quando possibile, evita di posizionare milioni di nomi su un singolo livello di directory piatto se l'applicazione può utilizzare una gerarchia ampia o profonda. I layout piatti concentrano la memoria e il lavoro della CPU e possono aumentare la latenza durante le operazioni di inserimento di massa `GETATTR`, `READDIR` ricerca ed eliminazione. In un volume FlexGroup, una directory piatta di grandi dimensioni può anche produrre più voci remote, facendo sì che il relativo file di directory si avvicini prima a  `maxdir-size` rispetto allo stesso numero di nomi visibili in un FlexVol.
+
+I volumi FlexGroup in genere funzionano meglio con molte directory di piccole dimensioni piuttosto che con una grande directory piatta. Le directory di dimensioni inferiori a circa 2 MiB rimangono sul percorso di scansione semplice. A partire da ONTAP 9.2, le directory più grandi vengono indicizzate automaticamente, il che facilita le ricerche mirate. L'indicizzazione non rende una directory molto grande equivalente a una gerarchia partizionata: continuano ad applicarsi l'enumerazione, le scansioni con caratteri jolly e la serializzazione della creazione in una singola directory. ONTAP può posizionare in remoto le directory figlie di FlexGroup, favorendo la località dei file rispetto alla directory padre, il che riduce la latenza remota per tali file.
+
+Distribuire i file in una gerarchia significa usare più directory con meno file in ciascuna directory.
+
+Le chiavi di sharding più comuni includono:
+
+* Un prefisso hash
+* Cliente, progetto o tenant
+* Data o fascia oraria
+* Dataset, job o fase del flusso di lavoro
+* Tipo di oggetto o stato del ciclo di vita
+
+
+Scegli un numero sufficiente di shard per mantenere gestibili le operazioni sulle directory, ma evita di creare così tante directory quasi vuote da rendere eccessivo il numero stesso di directory. Uno schema deterministico rende il posizionamento prevedibile e consente ai client di individuare i file senza dover scansionare ogni shard.
+
+Sia i layout ampi che quelli profondi possono funzionare. Mantieni la lunghezza dei percorsi completi entro i limiti del protocollo NAS, del sistema operativo client e dell'applicazione. Se un layout piatto è inevitabile, monitora la dimensione corrente e  `maxdir-size`lo spazio disponibile del file di directory più grande, come descritto in link:high-file-count-workloads-03-maxdirsize-view.html["Visualizza maxdir-size e la dimensione dell'attuale directory"], e verifica se un aumento controllato è appropriato.
+
+
+
+[[select-the-appropriate-volume-architecture]]
+== Seleziona l'architettura del volume appropriata
+
+
+
+[[flexvol]]
+=== FlexVol
+
+Usa un volume FlexVol quando la capacità di un volume (inferiore a 1 TB), la scalabilità degli inode (inferiore a 2 miliardi) e il dominio delle prestazioni soddisfano il carico di lavoro (minore acquisizione, meno client). Anche i volumi FlexVol dovrebbero essere presi in considerazione per i carichi di lavoro che potrebbero richiedere la creazione di molti volumi/file system nel cluster, con il rischio di raggiungere il numero totale di volumi consentito (come nel caso dei PVC di Kubernetes) o per i datastore VMware.
+
+
+
+[[flexgroup]]
+=== FlexGroup
+
+Usa FlexGroup quando il carico di lavoro trae vantaggio da una maggiore capacità totale (>300TB), da una scalabilità del numero di file (>2 miliardi) e dal parallelismo tra i componenti e i nodi.
+
+Pianifica per:
+
+* Limiti degli inode per ciascun componente e distribuzione
+* Identificatori di file NFS a 64 bit quando FlexGroup può superare circa due miliardi di file (vedi link:high-file-count-workloads-10-maxfiles-limits.html#nfs-64-bit-file-identifiers-and-flexgroup-file-counts["Identificatori di file NFS a 64 bit e conteggi di file FlexGroup"])
+* Bilancio della capacità aggregata e dei singoli componenti (Nota: per NetApp AFX, questo non è richiesto)
+* Comportamento di posizionamento del carico di lavoro
+* rappresentazione di una voce di directory specifica di FlexGroup
+* Compatibilità della protezione dei dati
+* Comportamento dell'applicazione quando i file sono distribuiti
+
+
+Un FlexGroup non parallelizza automaticamente le operazioni su una singola directory logica. La suddivisione tra directory rimane importante per il bilanciamento delle prestazioni.
+
+
+
+[[leave-operating-margin]]
+== Lascia un margine operativo
+
+Non pianificare un funzionamento a regime con il 100% degli inode *utilizzati* o del file di directory più grande. Lascia un margine per la crescita imprevista, gli oggetti temporanei, i metadati conservati da Snapshot, gli ACL e i flussi, la sovrapposizione della migrazione, le operazioni di backup, gli squilibri di posizionamento di FlexGroup e le modifiche software che alterano i nomi dei file.
+
+Impostare `files` al massimo corrente rappresenta un limite massimo, non un'autorizzazione a continuare fino all'esaurimento dell'ultimo inode. Imposta un avviso su `files-used` molto prima di raggiungere tale limite massimo. Per `maxdir-size`, l'aumento di circa il 2% indicato in link:high-file-count-workloads-05-maxdirsize-impact.html#what-happens-when-maxdir-size-is-exceeded["Cosa succede quando viene superato maxdir-size?"]spiega come alzare il limite, non un margine operativo universale.
+
+
+
+[[account-for-metadata-capacity]]
+== Tieni conto della capacità dei metadati
+
+Calcola separatamente lo spazio per inode-file, directory-file, indice, Snapshot e metadati dell'aggregato. Utilizza 288 byte per ogni inode pubblico allocato come stima di base per inode-file; vedi link:high-file-count-workloads-08-maxfiles-high-file-counts.html#capacity-impact["Impatto sulla capacità"]. L'aumento `files` non alloca immediatamente tale spazio. Considera la capacità di picco allocata per inode-file come persistente.
+
+Usa `volume show-space` per ispezionare la capacità di inode e metadati anziché convertire ogni contatore CLI come se fosse un valore in byte.
+
+
+
+[[use-realistic-filename-scenarios]]
+== Usa scenari realistici per i nomi dei file
+
+Esegui almeno questi test:
+
+* Nomi brevi composti solo da caratteri ASCII
+* La lunghezza mediana e quella del percentile superiore dei nomi di file del carico di lavoro
+* Caratteri non ASCII o Unicode supplementari quando vengono utilizzati
+* Carichi di lavoro SMB che generano alias DOS 8.3
+* Accesso multiprotocollo che può richiedere nomi alternativi
+* Posizionamento di FlexGroup rappresentativo della produzione
+
+
+La lunghezza del percorso e la lunghezza del nome base non sono intercambiabili. Un percorso lungo distribuito su più directory influisce sui limiti del protocollo e sul conteggio degli inode, mentre ogni directory memorizza solo il proprio componente immediato.
+
+
+
+[[test-metadata-operations-not-only-throughput]]
+== Testa le operazioni sui metadati, non solo il throughput
+
+I test sequenziali della larghezza di banda non prevedono il comportamento in presenza di un elevato numero di file. Includi:
+
+* Creazione di file e directory
+* Ricerca di nomi esistenti e mancanti
+* `stat` o operazioni sugli attributi
+* Apri e chiudi
+* Rinominare all'interno delle directory e tra directory diverse
+* Scollegamento ed eliminazione ricorsiva
+* Elencazione completa e parziale della directory
+* Ricerche con caratteri jolly
+* Esecuzioni con cache fredda e cache calda
+* Accesso misto NFS e SMB, ove applicabile
+
+
+Misura le distribuzioni della latenza, l'utilizzo della CPU, il comportamento della cache, il carico di rete e il tempo di completamento. Ripeti i test durante Snapshot, replica, analisi, backup e scansione di sicurezza, se tali operazioni coesistono in produzione.
+
+
+
+[[validate-lifecycle-operations]]
+== Convalida le operazioni del ciclo di vita
+
+Testa più dell'acquisizione iniziale:
+
+* Espansione fino al conteggio di picco previsto
+* Eliminazione di grandi dimensioni ed eliminazione asincrona
+* Backup e ripristino
+* inizializzazione, aggiornamento, failover e risincronizzazione di SnapMirror
+* Flussi di lavoro che fanno ampio uso di cloni o Snapshot
+* Spostamento del volume o failover dello storage
+* Aggiornamento di ONTAP e, se necessario, controlli di ripristino
+* Migrazione da FlexVol a FlexGroup o tra ambienti di protocollo
+
+
+Potrebbe essere necessario creare o trasferire gli indici di directory nella destinazione. Abilita il trasferimento dell'indice pubblico solo quando evitare la ricostruzione migliora significativamente il ripristino; non migliora la ricerca locale. Vedi link:high-file-count-workloads-04-maxdirsize-indexing.html#when-to-enable-public-directory-index-transfers["Quando abilitare i trasferimenti dell'indice della directory pubblica"].
+
+
+
+[[monitor-inode-limits-and-allocation]]
+== Monitora i limiti e l'allocazione degli inode
+
+Monitora `files-used` rispetto a `files` e `inodefile-public-capacity` come descritto in link:high-file-count-workloads-12-maxfiles-monitoring.html#monitoring-example["Monitora i maxfiles, gli eventi EMS e i miglioramenti di ONTAP"]. Avvisa prima che `files-used` raggiunga `files`. Per i volumi FlexGroup, esamina gli eventi a livello di costituente anche quando il totale complessivo sembra avere ancora spazio.
+
+
+
+[[monitor-large-directories]]
+== Monitora directory di grandi dimensioni
+
+Misura le dimensioni dei file di directory e risolvi gli ID dei file EMS come descritto in link:high-file-count-workloads-03-maxdirsize-view.html["Visualizza maxdir-size e la dimensione dell'attuale directory"]. Esegui l'inventario delle directory note per essere piatte o soggette a frequenti modifiche prima che generino avvisi.
+
+
+
+[[respond-to-warnings-before-failures]]
+== Rispondi agli avvisi prima che si verifichino guasti
+
+Per gli avvisi inode:
+
+. Controlla `files-used`, `files`, `files-maximum-possible`, le dimensioni del volume e la capacità.
+. Determina se la crescita è prevista o anomala.
+. Aumenta `files`, aumenta il volume o rimuovi gli oggetti non necessari, a seconda dei casi.
+. Per FlexGroup, controlla il costituente interessato e il bilanciamento del posizionamento.
+
+
+Per gli avvisi relativi alle dimensioni della directory:
+
+. Risolvi l'inode della directory in un percorso.
+. Misura la dimensione corrente dei file nella directory e analizza il comportamento dei nomi dei file.
+. Arresta la crescita illimitata delle directory flat.
+. Suddividi o migra i nomi in nuove directory quando possibile.
+. Aumenta `maxdir-size` solo quando l'applicazione non può essere ristrutturata e il rischio per le prestazioni è chiaro.
+
+
+Non aspettare `callhome.no.inodes` o `wafl.dir.size.max`; a quel punto le creazioni del client stanno già fallendo.
+
+
+
+[[manage-delete-behavior]]
+== Gestisci il comportamento di eliminazione
+
+L'eliminazione dei file libera gli inode pubblici per il riutilizzo, ma non riduce il file degli inode pubblici. Allo stesso modo, l'eliminazione dei nomi da una directory rende riutilizzabili gli slot della directory, ma normalmente non riduce la dimensione massima del file della directory.
+
+Le eliminazioni di grandi dimensioni possono richiedere un uso intensivo dei metadati e possono aumentare temporaneamente gli inode zombie privati. Limita la frequenza delle eliminazioni ricorsive lato client (`rm -rf` quando competono con il traffico di produzione.
+
+A partire da ONTAP 9.8,  `volume file async-delete`rimuove una directory dal cluster anziché tramite NFS o SMB, evitando così conflitti tra client e rete. Si applica ai volumi FlexVol e FlexGroup. ONTAP analizza il percorso, elimina prima il contenuto delle sottodirectory ed esegue attività di eliminazione in parallelo (5.000 attività simultanee per impostazione predefinita; configurabili da 50 a 100.000). Nei test TR-4571, è risultato circa 10× più veloce di un'eliminazione a singolo thread `rm -rf` su una struttura ad albero con 24.000 voci.
+
+[listing]
+----
+volume file async-delete start -vserver <svm> -volume <volume> -path /relative/dir
+volume file async-delete show
+----
+Vincoli: il volume deve essere online e montato, il percorso deve essere una directory (non un singolo file) e può essere eseguito un solo processo di eliminazione asincrona alla volta.
+
+Se una directory di grandi dimensioni e con pochi elementi continua a essere un problema, copia le voci rimanenti in una nuova directory. Ridurne  `maxdir-size`non la compatta. Vedi link:high-file-count-workloads-04-maxdirsize-indexing.html#sparse-directories-and-hole-punching["Directory sparse e hole punching"].
+
+
+
+[[plan-node-and-ha-headroom]]
+== Pianifica il nodo e il margine HA
+
+Le operazioni con un elevato numero di file consumano CPU, memoria, cache e I/O di archiviazione anche quando il throughput è basso. Mantieni un margine di sicurezza per:
+
+* Picchi di metadati
+* Ricerca ed enumerazione della cold-cache
+* Scanner e protezione dei dati
+* Storage failover o takeover
+* FlexGroup operazioni remote
+* Altri volumi che condividono il nodo
+
+
+Bilancia i carichi di lavoro utilizzando la domanda di metadati osservata, non solo la capacità o il throughput. Un nodo può diventare limitato dai metadati mentre la larghezza di banda di rete e del disco sembra disponibile.
+
+
+
+[[spread-client-connections-across-data-lifs-and-nodes]]
+== Distribuisci le connessioni client tra LIF di dati e nodi
+
+I sistemi NAS con un elevato numero di file sono spesso limitati dai metadati. Un mount NFS o SMB utilizza in genere una connessione TCP a un singolo data LIF, e tale LIF risiede su un nodo. Se molti client, scanner o processi di backup montano lo stesso indirizzo, quel nodo impiega CPU per l'elaborazione del protocollo anche quando il resto del cluster è inattivo. Un FlexGroup può reindirizzare le operazioni sui file attraverso la rete del cluster, ma ciò non elimina il carico sul nodo che gestisce la connessione del client.
+
+* Crea più LIF dati (interfacce di rete dati) nell'SVM, con più di una LIF su ciascun nodo che gestisce il carico di lavoro, in modo che i client abbiano più percorsi per accedere a ogni nodo.
+* Verifica che ogni nodo che deve partecipare abbia almeno una LIF dati in quella SVM.
+* Bilancia i mount tra quei LIF e nodi. Quando esegui il mount tramite IP, scegli gli indirizzi in modo uniforme. Quando i client eseguono il mount per nome, presenta più indirizzi LIF dietro un unico FQDN e usa il bilanciamento del carico DNS.
+* Non assegnare l'intero carico di lavoro a una singola LIF o a un singolo nodo.
+
+
+Un singolo client che supporta NFS `nconnect` o SMB multicanale può aprire connessioni aggiuntive su un singolo punto di montaggio. Questo aiuta quel client; non sostituisce la distribuzione di più client tra LIF e nodi.
+
+
+
+[[use-current-ontap-releases]]
+== Usa le versioni ONTAP correnti
+
+Le versioni successive di ONTAP includono indicizzazione delle directory, miglioramenti alla gestione degli inode, ottimizzazioni per directory sparse, trasferimento degli indici delle directory e altri miglioramenti per un elevato numero di file. Quando decidi di eseguire l'upgrade, devi comunque tenere conto del supporto della piattaforma, della compatibilità con la protezione dei dati e della qualificazione delle applicazioni.
+
+Non abilitare una funzionalità solo perché è correlata a un numero elevato di file:
+
+* Solleva  `maxdir-size`solo in presenza di un requisito comprovato relativo a una singola directory.
+* Imposta  `files` sul valore massimo corrente quando opportuno; vedi link:high-file-count-workloads-11-maxfiles-controlling.html["Controllo di maxfiles"].
+* Abilita il trasferimento degli indici di directory solo quando la replica o il ripristino devono preservare gli indici.
+* Abilita l'analisi del file system solo quando le informazioni che ne derivano giustificano la scansione.
+* Tratta  `-has-dir-index-public` e  `-has-optimized-sparse-directories` come stati, non come interruttori di abilitazione.
+
+
+A partire da ONTAP 9.17.1, l'analisi del file system può essere abilitata per impostazione predefinita sui nuovi volumi in una NAS SVM appena creata. Controlla `-analytics-state` invece di dare per scontato che sia disabilitata e tieni conto della scansione del relativo namespace quando valuti un carico di lavoro con un numero elevato di file.
+
+
+
+[[document-assumptions-and-thresholds]]
+== Documenta presupposti e soglie
+
+Record:
+
+* Presupposti relativi al workload e al nome file
+* Numero massimo di file e directory
+* Margini selezionati
+* Layout del volume e dei costituenti
+* LIF dati e layout di mount del client
+* `files` e  `maxdir-size` valori
+* Soglie di avviso e responsabili della risposta
+* Tassi di acquisizione ed eliminazione previsti
+* Obiettivi di ripristino e migrazione
+* Dipendenze della release e della piattaforma di ONTAP
+
+
+Rivedi il modello quando cambiano le versioni delle applicazioni, i formati dei nomi dei file, i criteri di conservazione, i protocolli o i flussi di lavoro per la protezione dei dati.
+
+[cols="<"]
+|===
+
+
+| link:high-file-count-workloads-13-planning.html["← Precedente: approccio alla pianificazione"] 
+|===
+
+
+[[related-information]]
+== Informazioni correlate
+
+* link:https://docs.netapp.com/us-en/ontap/volumes/display-file-inode-usage-task.html["Determinare l'utilizzo di file e inode per un volume ONTAP"^]
+* link:https://docs.netapp.com/us-en/ontap/flexgroup/index.html["Volumi FlexGroup"^]
+

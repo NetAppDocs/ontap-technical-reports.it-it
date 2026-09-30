@@ -1,0 +1,170 @@
+---
+sidebar: sidebar 
+permalink: high-file-count-workloads/high-file-count-workloads-09-maxfiles.html 
+keywords: ONTAP, NAS, maxfiles, files, inode, files-used, public inode, private inode 
+summary: Scopri gli inode di ONTAP, i tipi di inode pubblici e privati, gli inode ACL e i flussi denominati. 
+---
+= Tipi di inode ONTAP
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/high-file-count-workloads/
+
+
+[role="lead"]
+ONTAP utilizza inode pubblici per rappresentare gli oggetti del file system presenti nei volumi FlexVol e FlexGroup. Ogni volume ha un limite massimo definito (vedere link:high-file-count-workloads-10-maxfiles-limits.html["Informazioni su Maxfiles e inode ONTAP"]) e gli inode pubblici vengono conteggiati rispetto a tale limite nel file system.
+
+
+
+[[what-is-an-inode]]
+== Che cos'è un inode?
+
+In generale, un inode è il record del file system per un oggetto. Memorizza l'identità e i metadati come tipo, proprietà, timestamp e permessi, e punta ai dati dell'oggetto. Il nome dell'oggetto è memorizzato in una directory, non nell'inode stesso.
+
+In ONTAP, WAFL memorizza questi record in un file inode nascosto a livello di volume su ciascun costituente FlexVol o FlexGroup. Gli inode pubblici contribuiscono all'impostazione del volume  `files`, comunemente chiamata maxfiles. La creazione di un oggetto pubblico aumenta l'utilizzo degli inode pubblici; gli inode privati no. La capacità e la crescita del file inode sono descritte in link:high-file-count-workloads-08-maxfiles-high-file-counts.html#capacity-impact["Impatto sulla capacità"].
+
+La figura seguente mostra come il file inode pubblico è correlato a `files-used`, `inodefile-public-capacity`, al `files` limite massimo e alla capacità utilizzata nel volume.
+
+[link=../media/high-file-count-workloads/ontap-inode-file.png]
+image::ontap-inode-file.png[Diagramma del file inode del volume ONTAP che mostra files-used annidato in inodefile-public-capacity,400,and files-maximum-possible]
+
+
+
+[[types-of-inodes-in-ontap]]
+== Tipi di inode in ONTAP
+
+Il *tipo* di un inode descrive che tipo di oggetto rappresenta. ONTAP colloca inoltre ogni inode nello spazio inode *pubblico* o *privato*. Gli inode pubblici contribuiscono al conteggio di maxfiles; gli inode privati no. Un inode di indice della directory può trovarsi in uno dei due spazi a seconda della configurazione del volume.
+
+
+
+[[public-inodes]]
+=== inode pubblici
+
+Gli inode pubblici vengono allocati dal file inode pubblico del volume e contribuiscono al conteggio di `files` e `files-used`. Includono oggetti visibili al client e oggetti di metadati pubblici che non compaiono come voci di directory.
+
+La tabella seguente mostra un elenco di inode pubblici trovati in ONTAP e informazioni aggiuntive su di essi. La colonna link:high-file-count-workloads-02-maxdirsize.html[`maxdir-size` indica se la creazione di tale oggetto aggiunge una voce di directory alla directory padre e quindi aumenta le dimensioni del file di directory della directory padre.
+
+|===
+| Tipo | Ciò che rappresenta | Conta anche rispetto a link:high-file-count-workloads-02-maxdirsize.html[`maxdir-size`] 
+
+
+| File regolare | Contenuto e attributi predefiniti dei file | *Sì.* La creazione del file aggiunge un nome nella directory padre. 
+
+
+| Directory | I nomi della directory e l'inode della directory stessa | *Sì.* La creazione della directory aggiunge un nome nel padre. La nuova directory ha anche un proprio file di directory, che `maxdir-size` limita in modo indipendente. 
+
+
+| Collegamento simbolico | Un puntatore al percorso anziché ai dati del file | *Sì.* ^{asterisk}^ Creando il collegamento simbolico, aggiungi un nome nella directory padre. 
+
+
+| File speciale | FIFO UNIX, socket o nodo del dispositivo | *Sì.* La creazione del file speciale aggiunge un nome nella directory padre. 
+
+
+| Stream denominato | Dati aggiuntivi oltre al contenuto predefinito del file (flusso di dati alternativo NTFS) | *No.* Lo stream non è un nome presente nella directory utente principale. 
+
+
+| Directory del flusso | Container nascosto che contiene i nomi dei flussi denominati di un file | *No.* Non è una voce di directory visibile all'utente. 
+
+
+| ACL (xinode) | Descrittore di sicurezza NTFS o ACL NFSv4 memorizzati come dati della voce di controllo di accesso (ACE) | *No.* L'ACL non è una voce di directory. 
+
+
+| Indice della directory (quando pubblico)^{asterisk}{asterisk}^ | Companion B+tree utilizzato per cercare i nomi in una directory di grandi dimensioni | *No.* L'indice non è una voce di directory. 
+|===
+
+NOTE: ^*^ Un collegamento simbolico è un proprio inode pubblico e una voce di directory. Un hard link è diverso: è un altro nome di directory per un inode di file normale esistente, non un tipo di inode separato. La creazione di un hard link aggiunge una voce di directory e aumenta il file della directory padre, ma non alloca un altro inode pubblico.
+
+
+NOTE: ^**^ Gli inode di indice di directory sono privati per impostazione predefinita. Possono essere spostati nello spazio degli inode pubblici come descritto in link:high-file-count-workloads-04-maxdirsize-indexing.html#about-private-and-public-index-inodes["Informazioni sugli inode di indice privati e pubblici"].
+
+
+
+==== inodi ACL
+
+Quando un file o una directory ha un descrittore di sicurezza NTFS o un ACL NFSv4, ONTAP memorizza tale ACL come un inode ACL separato (chiamato anche inode esteso, o xinode). L'inode ACL contiene gli ACE. ONTAP lo alloca dallo spazio inode pubblico, quindi viene conteggiato ai fini di  `files` e  `files-used`. L'inode del file o della directory fa riferimento al proprio inode ACL.
+
+
+NOTE: I bit della modalità UNIX vengono memorizzati nell'inode del file o della directory stessa. Non allocano un inode pubblico aggiuntivo.
+
+L'utilizzo degli inode ACL non sempre corrisponde a una relazione 1:1 con un file o una directory:
+
+* File o directory con lo stesso descrittore di sicurezza memorizzato possono condividere un inode ACL quando l'ottimizzazione della condivisione ACL di ONTAP li raggruppa. L'ereditarietà produce comunemente descrittori identici candidati alla condivisione.
+* La condivisione potrebbe non avvenire quando gli ACE, le informazioni sul proprietario o sul gruppo, i flag di controllo o i risultati dell'ereditarietà differiscono. Anche i descrittori identici non sono garantiti come aggregati, ad esempio quando vengono creati o aggiornati in operazioni separate prima che la condivisione venga riconosciuta.
+* Una creazione può ereditare l'ACL del genitore quando la richiesta non fornisce i propri ACE e l'ACL del genitore ha attributi di ereditarietà.
+* I volumi con stile di sicurezza NTFS applicano gli ACL NTFS per impostazione predefinita. I nuovi file e le directory possono condividere un inode ACL quando i descrittori memorizzati risultanti sono identici, ma gli amministratori non devono presumere che tutti gli ACL predefiniti o ereditati condividano un unico inode.
+* Gli oggetti con stile di sicurezza UNIX che rimangono sui bit di modalità non consumano un inode ACL finché non viene memorizzata un'ACL NFSv4. Lo stile di sicurezza misto può contenere sia oggetti protetti solo dai bit di modalità sia oggetti protetti da ACL.
+
+
+
+
+==== Stream con nome
+
+Un flusso denominato è un dato aggiuntivo allegato a un file oltre al contenuto che gli utenti normalmente aprono. In ONTAP è la rappresentazione WAFL di un flusso di dati alternativo NTFS (ADS). I dati predefiniti e senza nome del file risiedono nell'inode di base del file. Ogni flusso denominato aggiuntivo è un inode pubblico separato e viene conteggiato ai fini di  `files` e  `files-used`.
+
+I flussi denominati persistono con il file. Non sono aree di lavoro temporanee che ONTAP utilizza solo durante l'apertura, la copia o il salvataggio. Un flusso rimane allocato finché il flusso non viene eliminato o finché non viene eliminato il file di base. Un'applicazione può creare un flusso e successivamente rimuoverlo, ma ONTAP non fa scadere automaticamente i flussi denominati.
+
+Alcuni aspetti da tenere a mente:
+
+* I carichi di lavoro SMB creano e utilizzano flussi denominati. Windows li identifica come `filename:stream_name`, ad esempio `report.docx:Zone.Identifier`. `Zone.Identifier` sono i metadati Windows Mark of the Web. Quando un file viene scaricato da internet, Windows o il browser registrano un ID di zona (comunemente la zona Internet) in modo che Windows Explorer, SmartScreen e Office possano trattare il file come non attendibile finché non lo sblocchi. Quel flusso rimane sul file finché non viene rimosso. Altre fonti comuni includono le applicazioni di backup e sicurezza e le applicazioni che memorizzano dati sidecar come ADS. Microsoft Office `~$` lock files e temporary save files sono normali file e voci di directory, non flussi denominati. I file sincronizzati da OneDrive non ricevono necessariamente un flusso `Zone.Identifier`; il comportamento dipende dal client e dal percorso di trasferimento.
+* I client macOS che accedono a SMB possono utilizzare flussi denominati per i metadati del Finder e i fork delle risorse, comunemente rappresentati come `AFP_AfpInfo` e `AFP_Resource`.
+* Gli elenchi ordinari nascondono i flussi denominati. Windows Explorer, Finder di macOS, `dir` e NFS `ls` / `stat` mostrano il file predefinito, quindi `files-used` il conteggio può superare quello visibile. Enumera i flussi da un client SMB di Windows con `dir /r` o PowerShell `Get-Item <file> -Stream *`. ONTAP non supporta gli attributi denominati NFSv4, quindi i client NFS non vedono i flussi SMB come nomi aggiuntivi, ma gli inode esistono comunque.
+* Un file nascosto, un file di swap o un file di backup creato da `vi` (ad esempio `.file.swp` o `file~`) è un normale file e una normale voce di directory, non un flusso denominato.
+* Gli attributi estesi (xattrs) di NFSv4.2, supportati a partire da ONTAP 9.12.1, sono una funzionalità diversa. Non sono inode ACL e non devono essere conteggiati come xinode ACL.
+
+
+
+
+==== Impatto sul backup e sui ripristini NDMP
+
+Durante l'elaborazione del dump e del ripristino NDMP, ONTAP identifica separatamente classi di oggetti come file regolari, directory, flussi NT, directory di flusso e inode ACL, in modo che i dati e i metadati di ciascun oggetto possano essere serializzati, riportati nelle statistiche del dump e ricostruiti correttamente. Questa classificazione non crea limiti maxfiles separati né contatori separati `volume show`. `files-used` rimane il totale combinato degli inode pubblici.
+
+Il dump NDMP attraversa lo spazio dei nomi e serializza questi oggetti uno per uno. Il ripristino li ricostruisce allo stesso modo. Un numero elevato di inode pubblici allunga quindi i tempi di dump e ripristino anche quando la capacità dati del volume è modesta o il numero di file visibili sembra ridotto. I flussi denominati e gli inode ACL vengono sottoposti a dump e ripristino anche quando Explorer, Finder `dir`, o `ls` non li mostrano, quindi le statistiche del dump possono riportare più oggetti flusso e ACL di quanto suggerisca un semplice elenco di directory.
+
+Il lavoro è spesso limitato dai metadati piuttosto che dalla velocità effettiva. La creazione, la ricerca e la ricostruzione di milioni di inode, ACL e stream consumano CPU, memoria e I/O dello storage con una quantità di dati relativamente ridotta per oggetto. File di piccole dimensioni, uso intensivo di ACL e molti stream denominati aumentano questo overhead. Directory grandi e piatte aggiungono costi di enumerazione durante il dump, e il ripristino di un volume con un numero elevato di file può anche richiedere tempo per ricostruire gli indici delle directory dopo che gli oggetti esistono. Misura la durata del dump e del ripristino con un numero rappresentativo di oggetti, inclusi stream e ACL, invece di stimarla solo in base alla dimensione dei dati.
+
+
+
+[[private-inodes]]
+=== inode privati
+
+Gli inode privati sono record di metadati interni di ONTAP. Risiedono in uno spazio inode privato separato, non vengono conteggiati ai fini di  `files` o  `files-used` e non possono essere usati come file client aggiuntivi.
+
+La tabella seguente mostra i tipi di inode privati più comuni.
+
+|===
+| Tipo | Ciò che rappresenta | Conta anche rispetto a link:high-file-count-workloads-02-maxdirsize.html[`maxdir-size`] 
+
+
+| Indice della directory (predefinito)^{asterisk}^ | Companion B+tree utilizzato per cercare i nomi in una directory di grandi dimensioni | *No.* 
+
+
+| Metafile privato | Metadati WAFL nascosti utilizzati da ONTAP | *No.* 
+
+
+| Zombie | Un oggetto non collegato viene mantenuto finché i riferimenti o l'eliminazione asincrona non sono terminati | *No.* 
+|===
+
+NOTE: ^*^ Gli indici delle directory sono privati per impostazione predefinita. Il trasferimento degli indici pubblici è descritto in link:high-file-count-workloads-04-maxdirsize-indexing.html#about-private-and-public-index-inodes["Informazioni sugli inode di indice privati e pubblici"].
+
+
+NOTE: Nella maggior parte dei casi, non è necessario monitorare l'utilizzo degli inode privati perché questi non vengono conteggiati in maxfiles, a meno che NetApp Support non ti indichi di farlo.
+
+
+
+==== Inode zombie
+
+Un file non collegato non può sempre essere rilasciato immediatamente. ONTAP può conservarlo temporaneamente come zombie mentre i riferimenti o il lavoro asincrono vengono completati. Le operazioni di eliminazione asincrona di grandi dimensioni possono quindi aumentare l'utilizzo degli inode privati mentre la pulizia è in corso. Anche in questo caso, gli inode privati non vengono conteggiati nel totale `files` consentito nel volume.
+
+[cols="<,>"]
+|===
+
+
+| link:high-file-count-workloads-08-maxfiles-high-file-counts.html["← Precedente: Numero elevato di file e capacità degli inode"] | link:high-file-count-workloads-10-maxfiles-limits.html["Avanti: Maxfiles e informazioni sugli inode ONTAP →"] 
+|===
+
+
+[[related-information]]
+== Informazioni correlate
+
+* link:https://docs.netapp.com/us-en/ontap/nfs-admin/security-styles-their-effects-concept.html["Stili di sicurezza NAS di ONTAP"^]
+* link:https://docs.netapp.com/us-en/ontap/nas-audit/audit-alternate-ntfs-data-streams-concept.html["Controllo dei flussi di dati NTFS alternativi"^]
+

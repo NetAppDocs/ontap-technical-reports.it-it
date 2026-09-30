@@ -1,0 +1,92 @@
+---
+sidebar: sidebar 
+permalink: high-file-count-workloads/high-file-count-workloads-05-maxdirsize-impact.html 
+keywords: ONTAP, NAS, maxdir-size, maxdirsize, capacity, performance, ENOSPC 
+summary: Comprendi gli effetti sulla capacità e sulle prestazioni delle directory ONTAP di grandi dimensioni e cosa accade quando viene superato il valore di maxdir-size. 
+---
+= Impatto di maxdir-size
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/high-file-count-workloads/
+
+
+[role="lead"]
+Aumentare il `maxdir-size` limite autorizza la crescita del file di directory. I costi in termini di capacità e prestazioni si manifestano solo quando un file di directory diventa effettivamente grande, mentre le operazioni di creazione e ridenominazione falliscono al raggiungimento del limite massimo.
+
+
+
+[[capacity-impact]]
+== Impatto sulla capacità
+
+La modifica dell `maxdir-size`impostazione di per sé non consuma capacità. La crescita delle voci della directory sì. I file di directory allocano blocchi da 4 KiB quando vengono aggiunti nomi; gli indici associati e i blocchi di directory conservati dagli Snapshot ne aggiungono altri. L'impostazione del limite non riserva quello spazio. La dimensione massima raggiunta dopo l'eliminazione è descritta in link:high-file-count-workloads-02-maxdirsize.html#how-the-maxdir-size-cap-behaves["Come si comporta il limite maxdir-size"].
+
+Quando stimi  `maxdir-size`i valori, non devi includere i dati memorizzati nei file sotto la directory. Invece, considera solo le voci in una singola directory. Anche se l'opzione è impostata a livello di volume, viene applicata per directory.
+
+Quando pianifichi l'utilizzo della capacità con directory con un numero elevato di file, devi includere l'overhead di directory e indici. Ad esempio, un volume con 100 directory, ciascuna delle quali cresce fino al limite di 320 MB, contiene circa 32 GB di metadati di file di directory che incidono sulla capacità utilizzata del volume. Se queste directory sono indicizzate e pubbliche, aggiungi circa 100 inode al budget di maxfiles. Tieni conto della capacità Snapshot aggiuntiva quando i metadati delle directory cambiano rapidamente, perché le copie Snapshot conservano i blocchi di directory e indici sostituiti.
+
+
+
+[[performance-impact]]
+== Impatto sulle prestazioni
+
+Le directory di grandi dimensioni in un sistema ONTAP possono influire su:
+
+* Lunghezza del percorso per la ricerca del nome, la creazione, l'unlink e la ridenominazione
+* Enumerazione completa della directory e ricerche con caratteri jolly
+* CPU e memoria utilizzate per l'elaborazione dello spazio dei nomi
+* Sono necessarie operazioni di I/O della cold-cache per caricare i blocchi di indice e directory
+* Latenza del protocollo e timeout del client durante operazioni di lunga durata
+* Scansioni dello spazio dei nomi eseguite da funzionalità di analisi, backup, replica o sicurezza
+
+
+L'indicizzazione della directory riduce il costo della ricerca mirata, ma non rende una directory piatta molto grande equivalente a una gerarchia partizionata. Le operazioni su una singola directory possono comunque incontrare limiti di serializzazione e affinità anche quando il volume o il cluster dispone di risorse inutilizzate. L'indicizzazione aiuta le operazioni mirate sui nomi, come ricerca, apertura, creazione, ridenominazione e rimozione. Le scansioni complete della directory e le ricerche con caratteri jolly attraversano comunque lo spazio dei nomi della directory; non usano l'indice come scorciatoia da nome a blocco. Nelle directory con hole punching, l'indice può saltare i blocchi vuoti durante  `READDIR`, ma ciò non sostituisce una struttura partizionata.
+
+Non esiste una dimensione separata di file-directory alla quale ONTAP dichiari un errore di prestazioni. La soglia dell'indice di circa 2 MiB, descritta in link:high-file-count-workloads-04-maxdirsize-indexing.html#why-directory-indexing-exists["Perché esiste l'indicizzazione delle directory"], cambia il modo in cui vengono gestite le ricerche mirate. Al di sotto di tale dimensione, per trovare un nome è possibile eseguire la scansione dei blocchi di directory e creare un hash temporaneo in memoria, quindi il costo aumenta con la directory, ma ONTAP non crea un indice persistente. Al di sopra di tale dimensione, le operazioni mirate sui nomi utilizzano l'indice. Ciò che continua a diventare più costoso man mano che una directory cresce è l'enumerazione completa e la ricerca con caratteri jolly, i caricamenti cold-cache dei blocchi di directory e indice e la serializzazione delle operazioni su quella directory.
+
+I client possono visualizzare elenchi di directory più lunghi, ricerche con caratteri jolly e scansioni delle applicazioni, una latenza del protocollo più elevata e timeout durante tali operazioni. Il nodo proprietario della directory può impiegare CPU e memoria per i metadati mentre il throughput dei dati rimane basso. L'effetto dipende dalla frequenza delle operazioni, dalla concorrenza, dallo stato della cache e da quanti nomi sono concentrati in quella directory `wafl.dir.size.warning`, in genere intorno al 90% di `maxdir-size`, avverte che la directory si sta avvicinando al suo limite di dimensione. Non indica una soglia di latenza misurata.
+
+Ad esempio, aprire un file noto in quella directory può comunque essere rapido, perché l'indice gestisce la ricerca del nome. Elencare la stessa directory con `ls`, attraversarla con `find` o eseguire un'applicazione, un backup o una scansione di sicurezza che legge ogni nome può richiedere molto tempo, sembrare bloccato o causare un timeout del client o dell'applicazione. Durante questo periodo il client trasferisce pochi dati del file. La lettura o la scrittura di un file già aperto generalmente non subisce variazioni.
+
+Aumentalo `maxdir-size` solo quando il carico di lavoro richiede una singola directory più grande e la ristrutturazione non è praticabile. Preferisci una gerarchia ampia o profonda quando l'applicazione lo consente.
+
+
+
+[[what-happens-when-maxdir-size-is-exceeded]]
+== Cosa succede quando viene superato maxdir-size?
+
+Quando un file di directory raggiunge il limite massimo:
+
+* ONTAP rifiuta le operazioni che richiedono di aggiungere un altro nome a quella directory (come la creazione o la ridenominazione).
+* Il client può segnalare ENOSPC, "file troppo grande", errore NFS 27, `STATUS_CANNOT_MAKE` o un altro errore di creazione o ridenominazione specifico dell'applicazione.
+* Altre directory possono continuare ad accettare voci se dispongono di capacità e inode sufficienti.
+* Il volume può ancora disporre di capacità dati libera e di inode pubblici.
+* Leggere file esistenti non equivale ad aggiungere un'altra voce di directory e in genere non ne risente.
+
+
+Il superamento `maxfiles` o `maxdir-size` può sembrare un problema di capacità. Controlla i messaggi EMS; gli errori del client coincidono con l'esaurimento degli inode. Vedi link:high-file-count-workloads-01-overview.html#maxfiles-compared-with-maxdir-size["Maxfiles rispetto a maxdir-size"].
+
+Se uno spazio dei nomi piatto non può cambiare, valuta un aumento `maxdir-size` controllato:
+
+[listing]
+----
+set -privilege advanced
+volume modify -vserver <svm> -volume <volume> -maxdir-size 327MB
+----
+Per una crescita media, aumenta il limite attuale con incrementi di circa il 2%. Per una migrazione con un requisito misurato noto, imposta il limite a circa il 2% al di sopra di tale requisito. La modifica è immediata e non comporta interruzioni.
+
+In seguito puoi ridurre il limite, ma non al di sotto del contrassegno massimo esistente del file di directory più grande; ridurlo non comprime le directory esistenti. Convalida il valore supportato per la release e la piattaforma ONTAP e monitora le prestazioni dopo la modifica.
+
+[cols="<,>"]
+|===
+
+
+| link:high-file-count-workloads-04-maxdirsize-indexing.html["← Precedente: indicizzazione della directory in ONTAP"] | link:high-file-count-workloads-06-maxdirsize-volume-types.html["Avanti: considerazioni sul volume →"] 
+|===
+
+
+[[related-information]]
+== Informazioni correlate
+
+* link:high-file-count-workloads-07-maxdirsize-features-ems.html["Funzionalità, EMS e monitoraggio per maxdir-size"]
+* link:high-file-count-workloads-14-best-practices.html["Procedure consigliate per carichi di lavoro NAS con un elevato numero di file"]
+

@@ -1,0 +1,176 @@
+---
+sidebar: sidebar 
+permalink: high-file-count-workloads/high-file-count-workloads-01-overview.html 
+keywords: ONTAP, NAS, NFS, SMB, high file count, maxfiles, maxdir-size, maxdirsize, inodes, directory 
+summary: Scopri come i carichi di lavoro NAS con un elevato numero di file utilizzano i metadati ONTAP e come maxfiles e maxdir-size definiscono diversi limiti di scalabilità. 
+---
+= NetApp ONTAP supporta carichi di lavoro con un numero elevato di file per volumi NAS
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/high-file-count-workloads/
+
+
+[role="lead"]
+I carichi di lavoro NAS con un elevato numero di file pongono maggiore enfasi sulle operazioni relative agli spazi dei nomi e ai metadati rispetto ai carichi di lavoro dominati da un numero inferiore di file di grandi dimensioni. Questa serie di documenti spiega come NetApp ONTAP memorizza e gestisce grandi quantità di file, come distinguere i limiti  `maxfiles` e  `maxdir-size`, e come pianificare gli spazi dei nomi NAS per ottenere capacità e prestazioni prevedibili.
+
+
+
+[[what-is-meant-by-a-high-file-count-workload]]
+== Cosa si intende per carico di lavoro con un elevato numero di file?
+
+L'espressione "elevato numero di file" non descrive in modo preciso il carico di lavoro in sé. Non esiste una soglia specifica di numero di file oltre la quale ogni carico di lavoro diventa un carico di lavoro con un elevato numero di file. Questa valutazione dipende da più fattori, non solo dal numero totale di file.
+
+Ad esempio:
+
+* Quanti file e directory esistono in un volume
+* Quanti nomi sono concentrati in una singola directory
+* La frequenza con cui i file vengono creati, aperti, enumerati, rinominati ed eliminati
+* Lunghezza del nome del file, lunghezza del percorso, set di caratteri e nomi alternativi generati dal protocollo
+* Se l'accesso ai dati è distribuito tra directory, costituenti di FlexGroup e nodi del cluster
+* Con quale frequenza le applicazioni analizzano o elencano l'intero namespace
+* Il numero e la conservazione delle copie Snapshot
+
+
+Un carico di lavoro dovrebbe essere considerato con un numero elevato di file quando il namespace previsto può influire in modo significativo sulla pianificazione degli inode, sulla crescita di directory e file, sulla capacità dei metadati, sulla latenza delle operazioni del client, sul comportamento di backup o replica oppure sui tempi di ripristino.
+
+Tuttavia, un carico di lavoro con diversi milioni di file distribuiti in molte directory può comportarsi in modo molto diverso da uno che colloca lo stesso numero di file in un'unica directory.
+
+
+
+[[workloads-commonly-associated-with-high-file-counts]]
+== Carichi di lavoro comunemente associati a un elevato numero di file
+
+Non tutti i carichi di lavoro generano un profilo con un elevato numero di file, ma l'elenco seguente mostra alcuni dei carichi di lavoro più comuni che possono essere considerati carichi di lavoro con un elevato numero di file.
+
+* Automazione della progettazione elettronica (EDA) e flussi di progettazione dei semiconduttori
+* Alberi dei sorgenti software, repository di pacchetti e aree di build per l'integrazione continua
+* Set di dati di intelligenza artificiale e apprendimento automatico contenenti immagini, token, checkpoint o altri piccoli oggetti
+* Pipeline di genomica e scienze della vita
+* Repository per rendering multimediale, effetti visivi e frame di animazione
+* Directory home, condivisioni dipartimentali e repository di gestione dei contenuti
+* Ambienti di analisi, telemetria e logging che creano molti file di breve durata
+* Spazi di lavoro temporanei per il calcolo scientifico e dalle performance elevate
+
+
+Le dimensioni del file non determinano se un carico di lavoro ha un numero elevato di file, ma i carichi di lavoro con un numero elevato di file spesso consistono in molti file più piccoli, in cui un set di dati può avere un utilizzo della capacità modesto pur consumando molti inode in un singolo volume.
+
+
+
+[[high-file-count-challenges]]
+== Sfide legate all'elevato numero di file
+
+I carichi di lavoro con un elevato numero di file presentano una serie di sfide uniche e difficili da risolvere che non sempre si presentano nei carichi di lavoro guidati da un numero inferiore di file o dal throughput.
+
+
+
+[[metadata-operations]]
+=== Operazioni sui metadati
+
+Ogni file o directory richiede un inode e il nome dell'oggetto risiede in una directory anziché nell'inode stesso. Le comuni operazioni sui metadati, come la creazione, la ricerca, il recupero degli attributi, la ridenominazione, l'enumerazione e l'eliminazione dei file, possono dominare un carico di lavoro con un numero elevato di file anche quando il throughput dei dati è basso. In questi scenari, l'utilizzo della CPU, l'elaborazione seriale delle operazioni e l'RTT di rete possono diventare colli di bottiglia per le prestazioni. Anche il comportamento del protocollo è importante: i client NFS e SMB possono eseguire diverse combinazioni di operazioni di ricerca, apertura, chiusura, recupero degli attributi e lettura delle directory, che spesso dipendono dalla versione del protocollo. Di conseguenza, puoi osservare risultati diversi per flussi di lavoro simili con un numero elevato di file, a seconda del protocollo e della versione del protocollo utilizzati.
+
+
+
+[[capacity]]
+=== Capacità
+
+ONTAP memorizza gli inode pubblici in un file inode nascosto, gestito dal sistema e a livello di volume. Ogni inode di ONTAP 9 utilizza 288 byte, quindi il file inode stesso consuma capacità utilizzabile nel volume. Un milione di inode pubblici allocati occupa circa 288 MB. L'eliminazione degli oggetti libera gli inode per il riutilizzo, ma il file inode non si riduce.
+
+Inoltre, i file di directory consumano capacità quando un gran numero di nomi viene memorizzato nella stessa directory. Questi file di directory non fanno parte dell'inode file. Memorizzano nomi e mappature ai numeri di inode e `maxdir-size` limitano ciascuno di essi in modo indipendente. L'impostazione predefinita di 320 MB è un limite massimo, non una riserva; se un file di directory raggiunge i 320 MB di blocchi di file di directory, questi blocchi utilizzano 320 MB di capacità effettiva del volume.
+
+Queste due strutture possono sommarsi. Con un numero elevato di inode allocati, il solo file inode può raggiungere diversi GB e uno o più file di directory di grandi dimensioni possono aggiungere centinaia di megabyte oltre a questo. Un volume può anche avere un file inode di grandi dimensioni con ogni directory ancora di dimensioni ridotte, oppure una directory di grandi dimensioni con un file inode ancora di dimensioni ridotte. Questi metadati consumano capacità utilizzata del volume, un aspetto facile da non notare se guardi solo gli elenchi lato client dei file di dati utente. Il file inode non è un file visibile all'utente; la dimensione del file di directory è visibile sull'oggetto directory stesso.
+
+
+
+[[directory-enumeration]]
+=== Enumerazione delle directory
+
+Le directory di grandi dimensioni richiedono più tempo per essere enumerate rispetto a quelle più piccole e una directory da cui hai eliminato molti file può comunque risultare onerosa da analizzare. La dimensione del file-directory riportata rimane al valore massimo anche dopo l'eliminazione dei nomi. L'hole punching nelle directory indicizzate può recuperare i blocchi fisici vuoti e saltarli durante `READDIR`, ma normalmente non riduce la dimensione riportata; vedi link:high-file-count-workloads-02-maxdirsize.html#how-the-maxdir-size-cap-behaves["Come si comporta il limite maxdir-size"] e link:high-file-count-workloads-04-maxdirsize-indexing.html#sparse-directories-and-hole-punching["Directory sparse e hole punching"].
+
+
+
+[[failure-domain-concentration]]
+=== Concentrazione del dominio di errore
+
+Concentrare milioni di voci in un'unica directory crea un punto di scalabilità e serializzazione a directory singola che può influire sulle prestazioni non solo della directory stessa, ma anche del nodo (o volume) che la possiede. Distribuire i file su una gerarchia multi-directory migliora il parallelismo, riduce l'ambito delle scansioni delle directory e semplifica le attività operative.
+
+
+
+[[data-protection-and-recovery]]
+=== Protezione e recupero dei dati
+
+Un elevato numero di oggetti può prolungare le scansioni dello spazio dei nomi, la catalogazione dei backup, la replica, l'elaborazione del ripristino e la costruzione dell'indice delle directory dopo il ripristino. Ad esempio, NetApp SnapMirror replica i metadati modificati oltre ai dati dei file, quindi una baseline o un aggiornamento con numerose operazioni di creazione, eliminazione o ridenominazione può risultare oneroso anche quando i file e l'occupazione di capacità sono ridotti. Queste problematiche possono estendersi anche ai backup basati su NDMP.
+
+Per informazioni sul trasferimento dell'indice della directory con SnapMirror, vedi link:high-file-count-workloads-04-maxdirsize-indexing.html["Indicizzazione delle directory in ONTAP"].
+
+
+
+[[maxfiles-compared-with-maxdir-size]]
+== Maxfiles rispetto a maxdir-size
+
+I concetti di `maxfiles` e `maxdir-size` proteggono risorse diverse in ONTAP. Nessuno dei due sostituisce l'altro, ma spesso generano confusione. Questa sezione cerca di fare chiarezza.
+
+Un volume può avere un numero sufficiente di inode liberi e comunque raggiungere `maxdir-size` in una directory. Inoltre, un set di dati potrebbe evitare directory di grandi dimensioni e comunque esaurire la disponibilità pubblica di inode nel volume. All'inizio i sintomi sul client sembrano simili: NFS in genere restituisce `ENOSPC` e SMB in genere restituisce `STATUS_DISK_FULL`. Una directory piena può anche restituire `STATUS_CANNOT_MAKE` anche quando il volume ha ancora inode liberi e capacità dati.
+
+La tabella seguente mostra i consueti valori predefiniti e i valori minimo e massimo consentiti da ONTAP. Il valore massimo di FlexVol `files` dipende comunque dalla dimensione del volume, quindi esegui una query `files-maximum-possible` prima di considerare configurabile il limite assoluto. I dettagli sono disponibili in link:high-file-count-workloads-10-maxfiles-limits.html["Informazioni su Maxfiles e inode ONTAP"] e link:high-file-count-workloads-02-maxdirsize.html["Dimensione massima delle directory e directory ONTAP di grandi dimensioni"].
+
+[cols="2,2,3,3,3"]
+|===
+| Limite | Si applica a | Predefinito | Minimo | Massimo 
+
+
+| `maxfiles` (`-files`) | FlexVol | Circa un inode pubblico ogni 32 KiB di dimensione del volume | Nessun minimo di prodotto fisso. `files` non può essere ridotto al di sotto di `inodefile-public-capacity`. | 2,040,109,451 inode pubblici. Un volume più piccolo ha un numero inferiore `files-maximum-possible`, circa un inode ogni 4 KiB di dimensione del volume. Il volume deve essere di circa 7.8 TB o superiore prima che sia possibile configurare 2,040,109,451. 
+
+
+| `maxfiles` (`-files`) | FlexGroup | La stessa densità per costituente, riportata come totale esteso a FlexGroup | Lo stesso limite minimo per ogni costituente. Imposta il totale su FlexGroup, non su un solo costituente. | Fino a 400 miliardi di inode pubblici in ONTAP unificato e fino a 1 trilione in AFX con ONTAP 9.19.1 e versioni successive. Ogni componente rimane limitato a 2.040.109.451. 
+
+
+| `maxdir-size` | FlexVol e FlexGroup | 320 MB | 4 KiB | 4 GB 
+|===
+ `maxdir-size` è lo stesso limite su un FlexVol e un FlexGroup. Un FlexGroup non moltiplica tale limite per il numero di costituenti. Conferma il massimo supportato `maxdir-size` per la release e la piattaforma ONTAP prima di aumentarlo. Vedi link:high-file-count-workloads-07-maxdirsize-features-ems.html["Funzionalità, EMS e monitoraggio per maxdir-size"].
+
+
+
+[[what-is-maxdir-size]]
+=== Che cos'è maxdir-size?
+
+ `maxdir-size` è il limite per volume alla dimensione massima che un singolo file di directory in quel volume può raggiungere. Viene presentato come un valore di capacità, anziché come un numero fisso di voci, anche se il numero di nomi in una singola directory è uno dei fattori che possono aumentarne le dimensioni. La lunghezza del nome file, la rappresentazione dei caratteri Unicode, gli alias SMB 8.3, i nomi alternativi NFS e la rappresentazione delle voci remote di FlexGroup influiscono tutti sulle dimensioni della directory. Quando aumenti il valore `maxdir-size` per un volume, l'impostazione autorizza la crescita per singola directory anziché preallocare spazio.
+
+* Per i dettagli sul calcolo di maxdir-size, consulta link:high-file-count-workloads-02-maxdirsize.html["Dimensione massima delle directory e directory ONTAP di grandi dimensioni"].
+* Per informazioni sull'indicizzazione delle directory, vedi link:high-file-count-workloads-04-maxdirsize-indexing.html["Indicizzazione delle directory in ONTAP"].
+* Per informazioni su capacità, prestazioni e comportamento al superamento dei limiti, consulta link:high-file-count-workloads-05-maxdirsize-impact.html["Impatto di maxdir-size"].
+* Per considerazioni su FlexVol e FlexGroup, vedi link:high-file-count-workloads-06-maxdirsize-volume-types.html["Considerazioni sul volume"].
+* Per i miglioramenti delle release e gli eventi EMS, consulta link:high-file-count-workloads-07-maxdirsize-features-ems.html["Funzionalità, EMS e monitoraggio per maxdir-size"].
+
+
+
+
+[[what-is-maxfiles]]
+=== Cos'è maxfiles?
+
+`maxfiles` (configurato come opzione a livello di volume `-files`) è un limite configurabile per il numero di inode pubblici disponibili in un singolo volume. Questo conteggio include non solo file e directory, ma anche stream denominati, ACL e altri oggetti pubblici, a volte oggetti che non sono visibili in un normale elenco di directory. Il volume contiene un file inode nascosto che memorizza questi record. ONTAP espande il file inode quando è necessario un nuovo inode pubblico e non rimangono record liberi, fino all'impostazione  `-files` e alla dimensione totale del volume. Il valore massimo configurabile per  `-files` dipende dalla dimensione del volume e dai limiti di ONTAP.
+
+* Per i contatori degli inode e la capacità, vedi link:high-file-count-workloads-08-maxfiles-high-file-counts.html["Numero elevato di file e capacità degli inode"].
+* Per i tipi di inode pubblici e privati, vedi link:high-file-count-workloads-09-maxfiles.html["Tipi di inode ONTAP"].
+* Per i limiti di dimensione del volume, gli ID file NFS e il comportamento in caso di esaurimento, vedi link:high-file-count-workloads-10-maxfiles-limits.html["Informazioni su Maxfiles e inode ONTAP"].
+* Per informazioni su come impostare `-files`, vedere link:high-file-count-workloads-11-maxfiles-controlling.html["Controllo di maxfiles"].
+* Per gli eventi EMS e il monitoraggio, vedi link:high-file-count-workloads-12-maxfiles-monitoring.html["Monitora i maxfiles, gli eventi EMS e i miglioramenti di ONTAP"].
+* Per informazioni su come raccogliere stime relative a inode, directory, tasso di operazioni e capacità, vedere link:high-file-count-workloads-13-planning.html["Approccio alla pianificazione"].
+* Per consigli di progettazione e operativi, vedi link:high-file-count-workloads-14-best-practices.html["Procedure consigliate per carichi di lavoro NAS con un elevato numero di file"].
+
+
+[cols=">"]
+|===
+
+
+| link:high-file-count-workloads-02-maxdirsize.html["Successivo: Maxdir-size e directory ONTAP di grandi dimensioni →"] 
+|===
+
+
+[[related-information]]
+== Informazioni correlate
+
+* link:high-file-count-workloads-08-maxfiles-high-file-counts.html["Numero elevato di file e capacità degli inode"]
+* link:https://docs.netapp.com/us-en/ontap/volumes/display-file-inode-usage-task.html["Determinare l'utilizzo di file e inode per un volume ONTAP"^]
+* link:https://docs.netapp.com/us-en/ontap/volumes/cautions-increasing-maximum-directory-size-concept.html["Dimensione massima della directory per i volumi FlexVol"^]
+* link:https://docs.netapp.com/us-en/ontap/flexgroup/index.html["gestione dei volumi FlexGroup"^]
+

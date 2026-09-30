@@ -1,0 +1,104 @@
+---
+sidebar: sidebar 
+permalink: high-file-count-workloads/high-file-count-workloads-04-maxdirsize-indexing.html 
+keywords: ONTAP, NAS, directory indexing, sparse directory, hole punching, SnapMirror 
+summary: 'Scopri l"indicizzazione delle directory di ONTAP, il confronto tra inode di indice pubblici e privati e la creazione di fori nelle directory sparse.' 
+---
+= Indicizzazione delle directory in ONTAP
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/high-file-count-workloads/
+
+
+[role="lead"]
+ONTAP indicizza automaticamente le directory di grandi dimensioni, in modo che le ricerche mirate non debbano leggere l'intero file di directory in una sola volta. L'indicizzazione è separata da  `maxdir-size`e non modifica il limite massimo del file di directory.
+
+
+
+[[why-directory-indexing-exists]]
+== Perché esiste l'indicizzazione delle directory
+
+In informatica, un indice è una struttura secondaria il cui compito è rispondere alla domanda "dov'è questo?" senza dover esaminare ogni record. L'indice di un libro è la versione più familiare: cerchi un termine e vai direttamente a una pagina invece di leggere l'intero libro. Database, motori di ricerca e file system usano la stessa idea, così una ricerca rimane economica man mano che la raccolta cresce. L'indice non è una seconda copia dei dati. È una mappa da una chiave, come un nome, alla posizione di quell'elemento.
+
+Una directory è un elenco di nomi. Senza un indice, trovare un nome può significare dover scorrere gran parte di quell'elenco. L'indice delle directory di ONTAP è la versione a livello di file system di questa scorciatoia.
+
+Senza un indice persistente, trovare un nome può richiedere la lettura di molti blocchi di directory e la creazione di un hash in memoria. A partire da ONTAP 9.2, ONTAP crea automaticamente un inode di indice di directory associato quando un file di directory raggiunge una dimensione di circa 2 MiB.
+
+L'indice persistente mappa la posizione delle voci nel file di directory. Una ricerca mirata può quindi leggere l'indice richiesto e blocchi specifici della directory anziché caricare l'intero file di directory in memoria. L'indicizzazione generalmente riduce l'utilizzo di CPU, memoria e I/O per le operazioni di ricerca su directory di grandi dimensioni, liberando così più risorse del nodo per altri carichi di lavoro, oltre al contenuto della directory stessa.
+
+[link=../media/high-file-count-workloads/directory-file-index.png]
+image::directory-file-index.png[Diagramma di flusso che mostra un'operazione sul nome del client su un file di directory inferiore a 2 MiB a cui risponde una scansione completa]
+
+Non è necessaria alcuna opzione di amministratore per abilitare l'indicizzazione della directory; è abilitata per impostazione predefinita. Una directory diventa idonea per un indice persistente solo dopo che il relativo file di directory supera la soglia di circa 2 MiB. Una volta soddisfatta tale condizione, la creazione dell'indice può essere avviata dall'operazione che fa crescere la directory oltre la soglia, da uno scanner di indicizzazione o da un'operazione sui nomi front-end idonea come LOOKUP, ACCESS, un'apertura o una creazione basata sul percorso, una ridenominazione o una rimozione. Questi trigger dello scanner e del front-end non ignorano la soglia di dimensione né creano indici persistenti per directory più piccole. Il punto di circa 2 MiB cambia il modo in cui vengono gestite le ricerche mirate. Non è una soglia di latenza delle dimensioni della directory. Il modo in cui le directory in crescita si riflettono nel comportamento del client e del nodo è descritto in link:high-file-count-workloads-05-maxdirsize-impact.html#performance-impact["Impatto sulle prestazioni"].
+
+
+
+[[what-indexing-does-not-change]]
+== Cosa non cambia con l'indicizzazione
+
+L'indice della directory è separato dal file della directory. Quanto segue rimane valido anche in presenza di un indice della directory:
+
+* `maxdir-size` limita ancora la dimensione del file della directory.
+* L'indice companion consuma metadati aggiuntivi e un inode, ma non influisce sulle dimensioni della directory.
+* L'indicizzazione migliora la ricerca mirata rispetto all'enumerazione completa della directory.
+* Le scansioni con caratteri jolly e `READDIR` continuano a elaborare l'intero spazio dei nomi della directory.
+* La perdita o la ricostruzione dell'indice non comporta la rimozione dei nomi della directory; ONTAP può ricostruirlo dal file della directory.
+
+
+
+
+[[about-private-and-public-index-inodes]]
+== Informazioni sugli inode di indice privati e pubblici
+
+Ogni directory indicizzata ha un proprio indice; gli indici delle directory non sono condivisi. Un volume può quindi contenere un indice per ogni directory che supera la soglia di circa 2 MiB. Le directory al di sotto di tale soglia rimangono nel percorso di ricerca non persistente e non ricevono un inode companion di indice di directory, anche quando vi accedono operazioni di scanner o front-end. Il fatto che gli indici per le directory idonee vengano conteggiati rispetto a  `maxfiles` dipende dal fatto che siano privati o pubblici, come descritto qui.
+
+Per impostazione predefinita, gli indici di directory risiedono storicamente nello spazio inode privato. Gli inode degli indici di directory privati vengono esclusi dai trasferimenti di SnapMirror, pertanto ONTAP ricostruisce gli indici nella destinazione su richiesta dopo l'attivazione o il ripristino.
+
+A partire da ONTAP 9.17.1, l'opzione a livello di volume `-is-dir-index-transfer-enabled true` sposta gli indici delle directory nello spazio inode pubblico in modo che i workflow supportati di SnapMirror e SnapMirror Cloud possano trasferirli. Quando l'opzione è `true`, i nuovi indici vengono creati nello spazio inode pubblico e uno scanner migra gli indici privati esistenti. Ciò può ridurre la creazione degli indici dopo il ripristino, ma gli indici pubblici consumano inode pubblici e devono essere inclusi nella pianificazione `maxfiles`.
+
+Puoi verificare se è presente un indice di directory pubblico con l'opzione `volume show` `-has-dir-index-public true`. Questa opzione non può essere impostata manualmente; mostra `true` solo se è presente un indice di directory pubblico.
+
+Gli indici delle directory pubbliche contribuiscono al calcolo dell'inode `files` e possono aumentare `files-used` di circa un inode per ogni directory indicizzata.
+
+Gli indici privati non consumano la quota pubblica `files`.
+
+
+
+[[when-to-enable-public-directory-index-transfers]]
+=== Quando abilitare i trasferimenti dell'indice della directory pubblica
+
+L'abilitazione del trasferimento degli indici preserva gli indici per la replica o il ripristino, evitando costose ricostruzioni per le directory con un elevato numero di file. Quando il trasferimento degli indici è disabilitato, SnapMirror omette gli indici privati. Dopo l'attivazione o il ripristino, ONTAP può ricostruire gli indici mancanti per le directory idonee tramite uno scanner di indicizzazione o un'operazione front-end idonea, il che può causare un impatto sulle prestazioni dopo il failover verso una destinazione di SnapMirror. L'abilitazione del trasferimento degli indici non migliora le prestazioni di ricerca locale; l'indicizzazione locale avviene già quando l'opzione è  `false`. È destinata esclusivamente all'uso con volumi che fanno parte di una relazione di SnapMirror.
+
+
+
+[[sparse-directories-and-hole-punching]]
+== Directory sparse e hole punching
+
+Un file di directory può diventare molto grande e poi diventare sparse dopo l'eliminazione di molti nomi (ovvero quando i file vengono rimossi dalla directory). La dimensione del file di directory rimarrà al suo valore massimo, quindi  `READDIR`potresti impiegare una quantità considerevole di CPU e I/O per attraversare blocchi vuoti.
+
+Per le directory indicizzate, ONTAP può creare un hole quando un blocco di directory da 4 KiB diventa completamente vuoto.
+
+L'indice tiene traccia del foro in modo che:
+
+* `READDIR`puoi saltare il blocco vuoto.
+* Il blocco fisico può essere recuperato.
+* Una creazione può successivamente riutilizzare quella posizione logica.
+
+
+Il campo avanzato  `-has-optimized-sparse-directories`è un'opzione di visualizzazione del volume di sola lettura. Un valore di  `true`indica che il volume contiene blocchi di directory in questo formato ottimizzato e perforato.
+
+Se le dimensioni della directory di un'applicazione rimangono problematiche anche dopo l'eliminazione, copiare le voci rimanenti in una directory appena creata produce una struttura di file della directory più compatta. La riduzione `maxdir-size` non compatta una directory sparsa.
+
+[cols="<,>"]
+|===
+
+
+| link:high-file-count-workloads-03-maxdirsize-view.html["← Precedente: Visualizza maxdir-size e la dimensione dell'attuale directory e della directory corrente"] | link:high-file-count-workloads-05-maxdirsize-impact.html["Successivo: impatto di maxdir-size →"] 
+|===
+
+
+[[related-information]]
+== Informazioni correlate
+
+* link:high-file-count-workloads-09-maxfiles.html["Tipi di inode ONTAP"]
+

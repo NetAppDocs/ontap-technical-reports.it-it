@@ -1,0 +1,36 @@
+---
+section: high-file-count-workloads
+title: Carichi di lavoro NAS con un numero elevato di file
+entries:
+- title: Panoramica
+  url: "/high-file-count-workloads/high-file-count-workloads-01-overview.html"
+- title: Maxdir-size e directory di grandi dimensioni
+  entries:
+  - title: Panoramica
+    url: "/high-file-count-workloads/high-file-count-workloads-02-maxdirsize.html"
+  - title: Visualizza maxdir-size e la dimensione dell'attuale directory
+    url: "/high-file-count-workloads/high-file-count-workloads-03-maxdirsize-view.html"
+  - title: Indicizzazione delle directory in ONTAP
+    url: "/high-file-count-workloads/high-file-count-workloads-04-maxdirsize-indexing.html"
+  - title: Impatto di maxdir-size
+    url: "/high-file-count-workloads/high-file-count-workloads-05-maxdirsize-impact.html"
+  - title: Considerazioni sul volume
+    url: "/high-file-count-workloads/high-file-count-workloads-06-maxdirsize-volume-types.html"
+  - title: Funzionalità, EMS e monitoraggio
+    url: "/high-file-count-workloads/high-file-count-workloads-07-maxdirsize-features-ems.html"
+- title: Numero elevato di file e capacità degli inode
+  entries:
+  - title: Panoramica
+    url: "/high-file-count-workloads/high-file-count-workloads-08-maxfiles-high-file-counts.html"
+  - title: Tipi di inode
+    url: "/high-file-count-workloads/high-file-count-workloads-09-maxfiles.html"
+  - title: Informazioni su Maxfiles e inode ONTAP
+    url: "/high-file-count-workloads/high-file-count-workloads-10-maxfiles-limits.html"
+  - title: Controllo di maxfiles
+    url: "/high-file-count-workloads/high-file-count-workloads-11-maxfiles-controlling.html"
+  - title: Monitoraggio, EMS e miglioramenti
+    url: "/high-file-count-workloads/high-file-count-workloads-12-maxfiles-monitoring.html"
+- title: Approccio alla pianificazione
+  url: "/high-file-count-workloads/high-file-count-workloads-13-planning.html"
+- title: Best practice
+  url: "/high-file-count-workloads/high-file-count-workloads-14-best-practices.html"
